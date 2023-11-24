@@ -2,7 +2,15 @@ package pl.edu.agh.to2.WeatherApp.WeatherData.JsonClasses;
 
 public class Rain {
     private float _1h;
+    private float _3h;
 
+    public float get_3h() {
+        return _3h;
+    }
+
+    public void set_3h(float _3h) {
+        this._3h = _3h;
+    }
     public float get1h() {
         return _1h;
     }

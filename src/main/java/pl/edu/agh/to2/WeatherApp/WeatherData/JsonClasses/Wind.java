@@ -3,6 +3,7 @@ package pl.edu.agh.to2.WeatherApp.WeatherData.JsonClasses;
 public class Wind {
     private float speed;
     private int deg;
+    private float gust;
 
     public float getGust() {
         return gust;
@@ -11,8 +12,6 @@ public class Wind {
     public void setGust(float gust) {
         this.gust = gust;
     }
-
-    private float gust;
 
     public float getSpeed() {
         return speed;

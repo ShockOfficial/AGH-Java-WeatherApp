@@ -5,21 +5,45 @@ import pl.edu.agh.to2.WeatherApp.WeatherData.JsonClasses.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
+//Detailed description at https://openweathermap.org/current
 public class WeatherData {
-    private Coord coord;
-    private final List<Weather> weather = new ArrayList<>();
-    private String base;
-    private MainInfo main;
-    private int visibility;
-    private Wind wind;
-    private Rain rain;
-    private Clouds clouds;
-    private long dt;
-    private Sys sys;
-    private int timezone;
-    private int id;
+    //name of the city
     private String name;
+    //Coordinates of the place
+    private Coord coord;
+    //Group of weather parameters (Rain, Snow, Clouds etc.) and detailed i.e "heavy rain"
+    private final List<Weather> weather = new ArrayList<>();
+
+    //most important information temperature, feel_like, pressure, humidity
+    private MainInfo main;
+
+    //general visibilty
+    private int visibility;
+    //Speed(m/s), angle(deg), and gust(m/s) of the wind
+    private Wind wind;
+
+    //Rain and snow volume over the past 1h and 3h in mm(only if aplicable)
+    private Rain rain;
+    private Snow snow;
+
+    //Cloudiness %
+    private Clouds clouds;
+
+    //Useful ones are sunrise and sunset times(in seconds)
+    private Sys sys;
+
+
+    //Internal parameters
+    private int id;
+    private int timezone;
+    private long dt;
+    private String base;
+
+
     private int cod;
+
+//***************GETTERS AND SETTERS************************
 
     public Coord getCoord() {
         return coord;
@@ -133,8 +157,18 @@ public class WeatherData {
         this.cod = cod;
     }
 
+    public Snow getSnow() {
+        return snow;
+    }
+
+    public void setSnow(Snow snow) {
+        this.snow = snow;
+    }
+
     @Override
     public String toString(){
         return ""+this.main.getFeels_like();
     }
+
+
 }
