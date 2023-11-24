@@ -24,8 +24,8 @@ public class WeatherData {
     private Wind wind;
 
     //Rain and snow volume over the past 1h and 3h in mm(only if aplicable)
-    private Rain rain;
-    private Snow snow;
+    private TotalFall rain;
+    private TotalFall snow;
 
     //Cloudiness %
     private Clouds clouds;
@@ -93,11 +93,11 @@ public class WeatherData {
         this.wind = wind;
     }
 
-    public Rain getRain() {
+    public TotalFall getRain() {
         return rain;
     }
 
-    public void setRain(Rain rain) {
+    public void setRain(TotalFall rain) {
         this.rain = rain;
     }
 
@@ -157,11 +157,11 @@ public class WeatherData {
         this.cod = cod;
     }
 
-    public Snow getSnow() {
+    public TotalFall getSnow() {
         return snow;
     }
 
-    public void setSnow(Snow snow) {
+    public void setSnow(TotalFall snow) {
         this.snow = snow;
     }
 

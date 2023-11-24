@@ -1,6 +1,6 @@
 package pl.edu.agh.to2.WeatherApp.WeatherData.JsonClasses;
 
-public class Rain {
+public class TotalFall {
     private float _1h;
     private float _3h;
 
