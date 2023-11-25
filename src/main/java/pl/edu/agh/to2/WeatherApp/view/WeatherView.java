@@ -27,8 +27,14 @@ public class WeatherView {
     }
 
     @FXML
-    private void handleGetWeatherAction() {
-        // TODO
+    public void handleGetWeatherAction() {
+        if (!cityInput.getText().isEmpty()) {
+            presenter.getWeatherByCity(cityInput.getText());
+        } else if (!latitudeInput.getText().isEmpty() && !longitudeInput.getText().isEmpty()) {
+            presenter.getWeatherByCoordinates(latitudeInput.getText(), longitudeInput.getText());
+        } else {
+            weatherOutput.setText("Please provide city name or coordinates");
+        }
     }
 
     public void updateWeatherDisplay(String weatherInfo) {
