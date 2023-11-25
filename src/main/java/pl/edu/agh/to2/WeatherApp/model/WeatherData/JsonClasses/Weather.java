@@ -1,4 +1,4 @@
-package pl.edu.agh.to2.WeatherApp.WeatherData.JsonClasses;
+package pl.edu.agh.to2.WeatherApp.model.WeatherData.JsonClasses;
 
 public class Weather {
     private int id;
