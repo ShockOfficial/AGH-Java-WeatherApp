@@ -19,11 +19,13 @@ public class FXMLLoaderUtility {
         }
 
         FXMLLoader loader = new FXMLLoader(fxmlResource);
+        Parent root = loader.load();
+
+        WeatherView viewController = loader.getController();
         WeatherModel weatherModel = new WeatherModelImpl();
-        WeatherView viewController = new WeatherView();
         WeatherPresenterImpl presenter = new WeatherPresenterImpl(weatherModel, viewController);
         viewController.setPresenter(presenter);
 
-        return loader.load();
+        return root;
     }
 }
