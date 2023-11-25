@@ -1,4 +1,4 @@
-package pl.edu.agh.to2.WeatherApp;
+package pl.edu.agh.to2.WeatherApp.api;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

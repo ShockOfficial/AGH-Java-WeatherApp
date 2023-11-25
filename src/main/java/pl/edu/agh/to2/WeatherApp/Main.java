@@ -1,11 +1,8 @@
 package pl.edu.agh.to2.WeatherApp;
 
-import com.google.gson.Gson;
 import javafx.application.Application;
 
-import java.io.IOException;
 import java.util.logging.Logger;
-import pl.edu.agh.to2.WeatherApp.WeatherData.WeatherData;
 
 public class Main {
 
