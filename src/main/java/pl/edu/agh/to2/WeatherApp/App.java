@@ -14,14 +14,14 @@ import java.io.IOException;
 
 public class App extends Application {
     private WeatherModel weatherModel;
-    private WeatherView viewController;
+    private WeatherView weatherView;
 
     @Override
     public void init() {
         weatherModel = new WeatherModelImpl();
-        viewController = new WeatherView();
-        WeatherPresenterImpl presenter = new WeatherPresenterImpl(weatherModel, viewController);
-        viewController.setPresenter(presenter);
+        weatherView = new WeatherView();
+        WeatherPresenterImpl presenter = new WeatherPresenterImpl(weatherModel, weatherView);
+        weatherView.setPresenter(presenter);
     }
 
     @Override
