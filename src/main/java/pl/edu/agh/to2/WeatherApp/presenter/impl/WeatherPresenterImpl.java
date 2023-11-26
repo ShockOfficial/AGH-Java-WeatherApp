@@ -38,41 +38,18 @@ public class WeatherPresenterImpl implements WeatherPresenter {
 
     private void updateWeatherDisplay(WeatherData weatherData) {
         if (weatherData.getSys() != null) {
-            view.setWeatherOutputInformer("Weather in " + weatherData.getName() + " (" + weatherData.getSys().getCountry() + "): " + weatherData.getWeather().get(0).getMain() + "\n");
-
-            view.setCloudinessValue(Integer.toString(weatherData.getClouds().getAll()));
-            view.setPressureValue(Integer.toString(weatherData.getMain().getPressure()));
-            view.setHumidityValue(Integer.toString(weatherData.getMain().getHumidity()));
-            view.setWindValue(Double.toString(round(weatherData.getWind().getSpeed(), 2)));
-
-            if (weatherData.getRain() != null) {
-                view.setRainValue(Double.toString(weatherData.getRain().get1h()));
-            } else {
-                view.setRainValue("Unknown");
-            }
-
-            if (weatherData.getSnow() != null) {
-                view.setSnowValue(Double.toString(weatherData.getSnow().get1h()));
-            } else {
-                view.setSnowValue("Unknown");
-            }
-
-            view.setTemperatureValue(Double.toString(round(weatherData.getMain().getTemp(), 2)));
-            view.setSensedTemperatureValue(Double.toString(round(weatherData.getMain().getFeels_like(), 2)));
-            view.setMinimumTemperatureValue(Double.toString(round(weatherData.getMain().getTemp_min(), 2)));
-            view.setMaximumTemperatureValue(Double.toString(round(weatherData.getMain().getTemp_max(), 2)));
-
-            if (!view.isWeatherDisplaying()) {
-                view.setWeatherDisplaying(true);
-            }
-        } else {
-            view.setWeatherError("City not found");
-            view.setWeatherDisplaying(false);
+            weatherData.getWind().setSpeed(round(weatherData.getWind().getSpeed(), 2));
+            weatherData.getMain().setFeels_like(round(weatherData.getMain().getFeels_like(), 2));
+            weatherData.getMain().setTemp(round(weatherData.getMain().getTemp(), 2));
+            weatherData.getMain().setFeels_like(round(weatherData.getMain().getFeels_like(), 2));
+            weatherData.getMain().setTemp_min(round(weatherData.getMain().getTemp_min(), 2));
+            weatherData.getMain().setTemp_max(round(weatherData.getMain().getTemp_max(), 2));
         }
+        view.updateWeatherDisplay(weatherData);
     }
 
-    private double round(double value, int places) {
+    private float round(double value, int places) {
         double scale = Math.pow(10, places);
-        return Math.round(value * scale) / scale;
+        return (float) (Math.round(value * scale) / scale);
     }
 }

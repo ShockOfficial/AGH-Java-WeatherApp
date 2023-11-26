@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import pl.edu.agh.to2.WeatherApp.model.WeatherData.WeatherData;
 import pl.edu.agh.to2.WeatherApp.presenter.WeatherPresenter;
 
 public class WeatherView {
@@ -57,6 +58,42 @@ public class WeatherView {
             weatherError.setText("Please provide city name or coordinates");
         }
     }
+
+    public void updateWeatherDisplay(WeatherData weatherData) {
+        if (weatherData.getSys() != null) {
+            setWeatherOutputInformer("Weather in " + weatherData.getName() + " (" + weatherData.getSys().getCountry() + "): " + weatherData.getWeather().get(0).getMain() + "\n");
+
+            setCloudinessValue(Integer.toString(weatherData.getClouds().getAll()));
+            setPressureValue(Integer.toString(weatherData.getMain().getPressure()));
+            setHumidityValue(Integer.toString(weatherData.getMain().getHumidity()));
+            setWindValue(Float.toString(weatherData.getWind().getSpeed()));
+
+            if (weatherData.getRain() != null) {
+                setRainValue(Float.toString(weatherData.getRain().get1h()));
+            } else {
+                setRainValue("Unknown");
+            }
+
+            if (weatherData.getSnow() != null) {
+                setSnowValue(Float.toString(weatherData.getSnow().get1h()));
+            } else {
+                setSnowValue("Unknown");
+            }
+
+            setTemperatureValue(Float.toString(weatherData.getMain().getTemp()));
+            setSensedTemperatureValue(Float.toString(weatherData.getMain().getFeels_like()));
+            setMinimumTemperatureValue(Float.toString(weatherData.getMain().getTemp_min()));
+            setMaximumTemperatureValue(Float.toString(weatherData.getMain().getTemp_max()));
+
+            if (!isWeatherDisplaying()) {
+                setWeatherDisplaying(true);
+            }
+        } else {
+            setWeatherError("City not found");
+            setWeatherDisplaying(false);
+        }
+    }
+
     public void setWeatherError(String weatherError) {
         this.weatherError.setText(weatherError);
     }
