@@ -2,7 +2,6 @@ package pl.edu.agh.to2.WeatherApp.presenter.impl;
 
 import com.google.inject.Inject;
 import pl.edu.agh.to2.WeatherApp.model.WeatherData.WeatherData;
-import com.google.inject.Inject;
 import pl.edu.agh.to2.WeatherApp.model.WeatherModel;
 import pl.edu.agh.to2.WeatherApp.presenter.WeatherPresenter;
 import pl.edu.agh.to2.WeatherApp.view.WeatherView;
