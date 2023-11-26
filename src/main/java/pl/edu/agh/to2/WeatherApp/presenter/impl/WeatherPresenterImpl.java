@@ -6,6 +6,7 @@ import pl.edu.agh.to2.WeatherApp.presenter.WeatherPresenter;
 import pl.edu.agh.to2.WeatherApp.view.WeatherView;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class WeatherPresenterImpl implements WeatherPresenter {
     private final WeatherModel model;
@@ -38,6 +39,10 @@ public class WeatherPresenterImpl implements WeatherPresenter {
 
     private void updateWeatherDisplay(WeatherData weatherData) {
         if (weatherData.getSys() != null) {
+            String city = weatherData.getName() == null || Objects.equals(weatherData.getName(), "") ? "Unknown" : weatherData.getName();
+            String country = weatherData.getSys().getCountry() == null ? "Unknown" : weatherData.getSys().getCountry();
+            weatherData.setName(city);
+            weatherData.getSys().setCountry(country);
             weatherData.getWind().setSpeed(round(weatherData.getWind().getSpeed(), 2));
             weatherData.getMain().setFeels_like(round(weatherData.getMain().getFeels_like(), 2));
             weatherData.getMain().setTemp(round(weatherData.getMain().getTemp(), 2));
