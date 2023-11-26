@@ -12,7 +12,7 @@ import java.net.URL;
 
 public class FXMLLoaderUtility {
 
-    public static Parent loadMainView() throws IOException {
+    public static Parent loadMainView(WeatherModel weatherModel) throws IOException {
         URL fxmlResource = FXMLLoaderUtility.class.getResource("/pl.edu.agh.to2.WeatherApp/weatherApp.fxml");
         if (fxmlResource == null) {
             throw new IOException("FXML file not found");
@@ -22,7 +22,6 @@ public class FXMLLoaderUtility {
         Parent root = loader.load();
 
         WeatherView viewController = loader.getController();
-        WeatherModel weatherModel = new WeatherModelImpl();
         WeatherPresenterImpl presenter = new WeatherPresenterImpl(weatherModel, viewController);
         viewController.setPresenter(presenter);
 

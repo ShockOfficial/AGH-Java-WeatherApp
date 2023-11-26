@@ -33,7 +33,7 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            Parent root = FXMLLoaderUtility.loadMainView();
+            Parent root = FXMLLoaderUtility.loadMainView(weatherModel);
             Scene scene = new Scene(root);
             primaryStage.setTitle("Weather App");
             primaryStage.setScene(scene);
