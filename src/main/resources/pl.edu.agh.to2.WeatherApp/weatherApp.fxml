@@ -99,8 +99,8 @@
                 </GridPane.margin>
             </Label>
             <Label fx:id="cloudinessValue" GridPane.columnIndex="1"/>
-            <Label fx:id="humidityValue" contentDisplay="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-            <Label fx:id="pressureValue" contentDisplay="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+            <Label fx:id="pressureValue" contentDisplay="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+            <Label fx:id="humidityValue" contentDisplay="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
             <Label fx:id="windValue" contentDisplay="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
             <Label fx:id="rainValue" contentDisplay="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
             <Label text="Snow volume for the last 1h:" GridPane.rowIndex="5"/>
