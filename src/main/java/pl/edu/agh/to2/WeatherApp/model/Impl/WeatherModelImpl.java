@@ -8,6 +8,7 @@ import pl.edu.agh.to2.WeatherApp.model.WeatherData.WeatherData;
 import pl.edu.agh.to2.WeatherApp.model.WeatherModel;
 
 import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
 
 public class WeatherModelImpl implements WeatherModel {
 
@@ -21,22 +22,26 @@ public class WeatherModelImpl implements WeatherModel {
     }
 
     @Override
-    public WeatherData getWeatherDataByCity(String city) throws IOException {
-        String jsonResponse = ApiCaller.getWeather(city);
-        if(jsonResponse.isEmpty()){
-            logger.log("Request to API failed");
-        }
-        logger.log("Successfully got API response for "+city);
-        return converter.convert(jsonResponse);
+    public CompletableFuture<WeatherData> getWeatherDataByCity(String city)  {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                String jsonResponse = ApiCaller.getWeather(city);
+                return converter.convert(jsonResponse);
+            } catch (IOException e) {
+                throw new RuntimeException("Error fetching weather data");
+            }
+        });
     }
 
     @Override
-    public WeatherData getWeatherDataByCoordinates(String lon, String lat) throws IOException {
-        String jsonResponse = ApiCaller.getWeather(lon, lat);
-        if(jsonResponse.isEmpty()){
-            logger.log("Request to API failed");
-        }
-        logger.log("Successfully got API response for ("+lon+","+lat+")");
-        return converter.convert(jsonResponse);
+    public  CompletableFuture<WeatherData> getWeatherDataByCoordinates(String lon, String lat) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                String jsonResponse = ApiCaller.getWeather(lon, lat);
+                return converter.convert(jsonResponse);
+            } catch (IOException e) {
+                throw new RuntimeException("Error fetching weather data");
+            }
+        });
     }
 }

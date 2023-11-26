@@ -1,6 +1,7 @@
 package pl.edu.agh.to2.WeatherApp.presenter.impl;
 
 import com.google.inject.Inject;
+import javafx.application.Platform;
 import pl.edu.agh.to2.WeatherApp.model.WeatherData.WeatherData;
 import pl.edu.agh.to2.WeatherApp.model.WeatherModel;
 import pl.edu.agh.to2.WeatherApp.presenter.WeatherPresenter;
@@ -20,23 +21,23 @@ public class WeatherPresenterImpl implements WeatherPresenter {
     }
 
     @Override
-    public void getWeatherByCity(String city) {
-        try {
-            WeatherData weatherData = model.getWeatherDataByCity(city);
-            updateWeatherDisplay(weatherData);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void getWeatherByCity(String city)  {
+        model.getWeatherDataByCity(city).thenAccept(weatherData -> {
+            Platform.runLater(() -> updateWeatherDisplay(weatherData));
+        }).exceptionally(e -> {
+            Platform.runLater(() -> view.setWeatherError("Error fetching weather data"));
+            return null;
+        });
     }
 
     @Override
     public void getWeatherByCoordinates(String lat, String lon) {
-        try {
-            WeatherData weatherData = model.getWeatherDataByCoordinates(lon, lat);
-            updateWeatherDisplay(weatherData);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        model.getWeatherDataByCoordinates(lat, lon).thenAccept(weatherData -> {
+            Platform.runLater(() -> updateWeatherDisplay(weatherData));
+        }).exceptionally(e -> {
+            Platform.runLater(() -> view.setWeatherError("Error fetching weather data"));
+            return null;
+        });
     }
 
     private void updateWeatherDisplay(WeatherData weatherData) {
