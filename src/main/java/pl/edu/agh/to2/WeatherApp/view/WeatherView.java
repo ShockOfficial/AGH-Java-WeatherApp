@@ -1,5 +1,6 @@
 package pl.edu.agh.to2.WeatherApp.view;
 
+import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -20,6 +21,7 @@ public class WeatherView {
 
     private WeatherPresenter presenter;
 
+    @Inject
     public void setPresenter(WeatherPresenter presenter) {
         this.presenter = presenter;
     }
