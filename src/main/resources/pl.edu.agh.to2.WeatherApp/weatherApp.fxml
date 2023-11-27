@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" minHeight="459.0" minWidth="400.0" prefHeight="580.0" prefWidth="480.0" spacing="10" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.to2.WeatherApp.view.WeatherView">
+<VBox alignment="CENTER" minHeight="459.0" minWidth="400.0" prefHeight="580.0" prefWidth="480.0" spacing="10" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.to2.WeatherApp.view.WeatherView">
     <GridPane alignment="CENTER" hgap="10" vgap="10">
         <Label text="City:">
             <GridPane.margin>
