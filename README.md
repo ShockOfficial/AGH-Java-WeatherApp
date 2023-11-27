@@ -10,9 +10,14 @@
 
 Nasza aplikacja jest przeznaczona dla osób chcących sprawdzić pogodę przed wyjściem z domu. Powinna ona pomóc w doborze odpowiednich ubrań w zależności od aur panującej za oknem o danej porze.
 
+### Wersja Javy oraz Gradle'a
+
+W naszym projekcie korzystamy z Java17. Zalecaną wersją Gradle'a jest natomiast Gradle 8.4. JVM musi być w wersji 17 lub wyższej.
+
 ## Uruchomienie projektu
 
-Program uruchamiamy poleceniem `gradle run` w głównym katalogu projektu.
+Program uruchamiamy poleceniem `gradlew run` w głównym katalogu projektu. W pewnych sytuacjach jednak mogą się pojawić problemy. Wtedy zalecamy, aby skorzystać z komendy `gradle run`.
+Jeśli i to nie pomoże, najlepiej usunąć z plików gradle-wrapper.jar znajdujących się w gradle/wrapper. Wtedy trzeba uruchomić program z pomocą komendy `gradle wrapper run`.
 
 ## Milestone 1
 
