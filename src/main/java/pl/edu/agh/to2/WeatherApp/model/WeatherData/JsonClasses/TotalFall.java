@@ -7,7 +7,6 @@ public class TotalFall {
     private float _1h;
     @SerializedName("3h")
     private float _3h;
-
     public float get_3h() {
         return _3h;
     }
