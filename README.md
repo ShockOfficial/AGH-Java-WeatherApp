@@ -12,7 +12,7 @@ Nasza aplikacja jest przeznaczona dla osób chcących sprawdzić pogodę przed w
 
 ## Uruchomienie projektu
 
-Program uruchamiamy poleceniem ./gradlew run (lub gradlew.bat run w systemie Windows).
+Program uruchamiamy poleceniem `gradle run` w głównym katalogu projektu.
 
 ## Milestone 1
 
