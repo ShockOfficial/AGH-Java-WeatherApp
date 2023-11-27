@@ -10,7 +10,7 @@
 
 Nasza aplikacja jest przeznaczona dla osób chcących sprawdzić pogodę przed wyjściem z domu. Powinna ona pomóc w doborze odpowiednich ubrań w zależności od aur panującej za oknem o danej porze.
 
-### Wersja Javy oraz Gradle'a
+## Wersja Javy oraz Gradle'a
 
 W naszym projekcie korzystamy z Java17. Zalecaną wersją Gradle'a jest natomiast Gradle 8.4. JVM musi być w wersji 17 lub wyższej.
 
