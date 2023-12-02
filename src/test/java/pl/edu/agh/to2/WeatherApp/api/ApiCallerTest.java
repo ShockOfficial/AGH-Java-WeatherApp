@@ -6,14 +6,21 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ApiCallerTest {
+class ApiCallerTest {
 
     // Testing the API call and the response
     @Test
-    public void testGetWeatherByCoordinates() throws IOException {
-        String response = ApiCaller.getWeather("12", "12");
+    void testGetWeatherByCoordinates() throws IOException {
+        // given
+        String lat = "12";
+        String lon = "12";
+
+        // when
+        String response = ApiCaller.getWeather(lat, lon);
+
+        // then
         assertNotNull(response);
-        assertTrue(response.contains("\"lat\":12")); // Checking if the response contains the coordinates
+        assertTrue(response.contains("\"lat\":12"));
         assertTrue(response.contains("\"lon\":12"));
         assertTrue(response.contains("Damaturu"));
         assertTrue(response.contains("weather"));
@@ -22,8 +29,14 @@ public class ApiCallerTest {
     }
 
     @Test
-    public void testGetWeatherByCity() throws IOException {
-        String response = ApiCaller.getWeather("London"); // Checking if the response contains the city name
+    void testGetWeatherByCity() throws IOException {
+        // given
+        String city = "London";
+
+        // when
+        String response = ApiCaller.getWeather(city);
+
+        // then
         assertNotNull(response);
         assertTrue(response.contains("London"));
         assertTrue(response.contains("weather"));
@@ -32,16 +45,38 @@ public class ApiCallerTest {
     }
 
     @Test
-    public void testGetWeatherInvalidArguments() throws IOException {
-        String response = ApiCaller.getWeather("invalidLon", "12");
-        assertTrue(response.contains("wrong longitude")); // Checking if the response contains the error message
+    void testGetWeatherInvalidLongitude() throws IOException {
+        // given
+        String invalidLon = "invalidLon";
 
-        response = ApiCaller.getWeather("12", "invalidLat");
+        // when
+        String response = ApiCaller.getWeather(invalidLon, "12");
+
+        // then
+        assertTrue(response.contains("wrong longitude"));
+    }
+
+    @Test
+    void testGetWeatherInvalidLatitude() throws IOException {
+        // given
+        String invalidLat = "invalidLat";
+
+        // when
+        String response = ApiCaller.getWeather("12", invalidLat);
+
+        // then
         assertTrue(response.contains("wrong latitude"));
+    }
 
-        response = ApiCaller.getWeather("invalidCity");
+    @Test
+    void testGetWeatherInvalidCity() throws IOException {
+        // given
+        String invalidCity = "invalidCity";
+
+        // when
+        String response = ApiCaller.getWeather(invalidCity);
+
+        // then
         assertTrue(response.contains("city not found"));
     }
 }
-
-

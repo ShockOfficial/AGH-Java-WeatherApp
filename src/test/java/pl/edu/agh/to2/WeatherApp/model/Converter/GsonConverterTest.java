@@ -5,16 +5,18 @@ import pl.edu.agh.to2.WeatherApp.model.WeatherData.WeatherData;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class GsonConverterTest {
+class GsonConverterTest {
 
     @Test
-    public void testConvertValidResponse() {
+    void testConvertValidResponse() {
+        // given
         GsonConverter gsonConverter = new GsonConverter();
+        String jsonResponse = "{ \"visibility\": 100, \"name\": \"Krakow\", \"weather\": [ { \"id\": 1, \"main\": \"Rain\", \"description\": \"light rain\", \"icon\": \"10d\" } ]}";
 
-        String jsonResponse = "{ \"visibility\": 100, \"name\": \"Krakow\", weather: [ { \"id\": 1, \"main\": \"Rain\", \"description\": \"light rain\", \"icon\": \"10d\" } ]}";
-
+        // when
         WeatherData weatherData = gsonConverter.convert(jsonResponse);
 
+        // then
         assertNotNull(weatherData);
         assertEquals(100, weatherData.getVisibility());
         assertEquals("Krakow", weatherData.getName());
@@ -25,13 +27,12 @@ public class GsonConverterTest {
     }
 
     @Test
-    public void testConvertInvalidResponse(){
+    void testConvertInvalidResponse() {
+        // given
         GsonConverter gsonConverter = new GsonConverter();
-
         String invalidJsonResponse = "Invalid JSON Response";
 
-        assertThrows(Exception.class, () -> {
-            gsonConverter.convert(invalidJsonResponse);
-        });
+        // when & then
+        assertThrows(Exception.class, () -> gsonConverter.convert(invalidJsonResponse));
     }
 }

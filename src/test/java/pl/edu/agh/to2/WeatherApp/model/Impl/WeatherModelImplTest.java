@@ -9,8 +9,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class WeatherModelImplTest {
 
-    private IResponseToModelConverter converter;
-
     private static class MockConverter implements IResponseToModelConverter {
         @Override
         public WeatherData convert(String jsonResponse) {
@@ -20,9 +18,14 @@ class WeatherModelImplTest {
 
     @Test
     void testGetWeatherDataByCity() {
+        // given
         WeatherModelImpl weatherModel = new WeatherModelImpl(new MockConverter());
         String city = "TestCity";
+
+        // when
         CompletableFuture<WeatherData> result = weatherModel.getWeatherDataByCity(city);
+
+        // then
         assertDoesNotThrow(() -> {
             WeatherData weatherData = result.join();
             assertNotNull(weatherData);
@@ -31,10 +34,15 @@ class WeatherModelImplTest {
 
     @Test
     void testGetWeatherDataByCoordinates() {
+        // given
         WeatherModelImpl weatherModel = new WeatherModelImpl(new MockConverter());
         String lon = "10.0";
         String lat = "20.0";
+
+        // when
         CompletableFuture<WeatherData> result = weatherModel.getWeatherDataByCoordinates(lon, lat);
+
+        // then
         assertDoesNotThrow(() -> {
             WeatherData weatherData = result.join();
             assertNotNull(weatherData);

@@ -8,11 +8,12 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+class LoggerTest {
 
-public class LoggerTest {
     static class TestMessageSerializer implements IMessageSerializer {
         private final List<String> messages = new ArrayList<>();
 
+        @Override
         public void serializeMessage(String message) {
             messages.add(message);
         }
@@ -23,28 +24,34 @@ public class LoggerTest {
     }
 
     @Test
-    public void testLogWithoutError() {
+    void testLogWithoutError() {
+        // given
         TestMessageSerializer testSerializer = new TestMessageSerializer();
         Logger logger = new Logger(testSerializer);
+        String testMessage = "Test message";
 
-        logger.log("Test message");
+        // when
+        logger.log(testMessage);
 
+        // then
         assertEquals(1, testSerializer.getMessages().size());
-        assertTrue(testSerializer.getMessages().get(0).contains("Test message"));
-
+        assertTrue(testSerializer.getMessages().get(0).contains(testMessage));
     }
 
     @Test
-    public void testLogWithError() {
+    void testLogWithError() {
+        // given
         TestMessageSerializer testSerializer = new TestMessageSerializer();
         Logger logger = new Logger(testSerializer);
         Throwable error = new RuntimeException("Test error");
+        String testMessage = "Test message";
 
-        logger.log("Test message", error);
+        // when
+        logger.log(testMessage, error);
 
+        // then
         assertEquals(1, testSerializer.getMessages().size());
-        System.out.println(testSerializer.getMessages().get(0));
-        assertTrue(testSerializer.getMessages().get(0).contains("messagejava.lang.RuntimeException"));
+        String loggedMessage = testSerializer.getMessages().get(0);
+        assertTrue(loggedMessage.contains(testMessage) && loggedMessage.contains("RuntimeException"));
     }
-
 }
