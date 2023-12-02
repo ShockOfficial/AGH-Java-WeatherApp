@@ -16,6 +16,7 @@ public class WeatherDataProvider {
     private static final String latitudeParamName = "lat";
     private static final String longitudeParamName = "lon";
     private static final String cityParamName = "q";
+    private static final OkHttpClient client = new OkHttpClient();
 
     //Getting weather using longitude and latitude
     public static String getWeather(String lon, String lat) throws IOException {
@@ -30,8 +31,6 @@ public class WeatherDataProvider {
     }
 
     public static Response makeApiCall(Map<String, String> params) throws IOException {
-        OkHttpClient client = new OkHttpClient();
-
         HttpUrl.Builder urlBuilder = HttpUrl.parse(apiUrl).newBuilder();
         for (Map.Entry<String, String> entry : params.entrySet()) {
             urlBuilder.addQueryParameter(entry.getKey(), entry.getValue());
