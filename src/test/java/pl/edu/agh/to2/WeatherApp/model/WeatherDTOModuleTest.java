@@ -11,7 +11,7 @@ import pl.edu.agh.to2.WeatherApp.model.converter.IResponseToModelConverter;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class WeatherModuleTest {
+class WeatherDTOModuleTest {
 
     @Test
     void testInjectorCreation() {

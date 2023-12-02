@@ -3,18 +3,18 @@ package pl.edu.agh.to2.WeatherApp.model.weatherData.json;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-class CloudsTest {
+class CloudsDTOTest {
 
     @Test
     void testSetAndGetAll() {
         // given
-        Clouds clouds = new Clouds();
+        CloudsDTO cloudsDTO = new CloudsDTO();
         int all = 10;
 
         // when
-        clouds.setAll(all);
+        cloudsDTO.setAll(all);
 
         // then
-        assertEquals(all, clouds.getAll());
+        assertEquals(all, cloudsDTO.getAll());
     }
 }

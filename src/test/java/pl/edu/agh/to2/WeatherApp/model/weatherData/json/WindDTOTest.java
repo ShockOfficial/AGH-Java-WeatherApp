@@ -4,43 +4,43 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class WindTest {
+class WindDTOTest {
 
     @Test
      void testSetAndGetSpeed() {
         // given
-        Wind wind = new Wind();
+        WindDTO windDTO = new WindDTO();
         float speed = 10;
 
         // when
-        wind.setSpeed(speed);
+        windDTO.setSpeed(speed);
 
         // then
-        assertEquals(speed, wind.getSpeed());
+        assertEquals(speed, windDTO.getSpeed());
     }
     @Test
      void testSetAndGetDeg() {
         // given
-        Wind wind = new Wind();
+        WindDTO windDTO = new WindDTO();
         int deg = 10;
 
         // when
-        wind.setDeg(deg);
+        windDTO.setDeg(deg);
 
         // then
-        assertEquals(deg, wind.getDeg());
+        assertEquals(deg, windDTO.getDeg());
     }
     @Test
      void testSetAndGetGust() {
         // given
-        Wind wind = new Wind();
+        WindDTO windDTO = new WindDTO();
         float gust = 10;
 
         // when
-        wind.setGust(gust);
+        windDTO.setGust(gust);
 
         // then
-        assertEquals(gust, wind.getGust());
+        assertEquals(gust, windDTO.getGust());
     }
 
 }

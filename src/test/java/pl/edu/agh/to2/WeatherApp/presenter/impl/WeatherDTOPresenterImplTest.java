@@ -6,9 +6,9 @@ import javafx.embed.swing.JFXPanel;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import pl.edu.agh.to2.WeatherApp.model.weatherData.json.MainInfo;
-import pl.edu.agh.to2.WeatherApp.model.weatherData.json.Sys;
-import pl.edu.agh.to2.WeatherApp.model.weatherData.json.Wind;
+import pl.edu.agh.to2.WeatherApp.model.weatherData.json.MainInfoDTO;
+import pl.edu.agh.to2.WeatherApp.model.weatherData.json.SysDTO;
+import pl.edu.agh.to2.WeatherApp.model.weatherData.json.WindDTO;
 import pl.edu.agh.to2.WeatherApp.model.weatherData.WeatherData;
 import pl.edu.agh.to2.WeatherApp.model.WeatherModel;
 import pl.edu.agh.to2.WeatherApp.view.WeatherView;
@@ -18,7 +18,7 @@ import java.lang.reflect.Method;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
-class WeatherPresenterImplTest {
+class WeatherDTOPresenterImplTest {
 
     @BeforeAll
     static void init() {
@@ -93,18 +93,18 @@ class WeatherPresenterImplTest {
     @NotNull
     private static WeatherData getExampleWeatherData() {
         WeatherData weatherData = new WeatherData();
-        Wind wind = new Wind();
-        wind.setSpeed(12);
-        Sys sys = new Sys();
-        sys.setCountry("Poland");
-        weatherData.setSys(sys);
-        MainInfo main = new MainInfo();
+        WindDTO windDTO = new WindDTO();
+        windDTO.setSpeed(12);
+        SysDTO sysDTO = new SysDTO();
+        sysDTO.setCountry("Poland");
+        weatherData.setSys(sysDTO);
+        MainInfoDTO main = new MainInfoDTO();
         main.setTemp(25);
         main.setFeelsLike(26);
         main.setTempMin(22);
         main.setTempMax(28);
         weatherData.setMain(main);
-        weatherData.setWind(wind);
+        weatherData.setWind(windDTO);
         return weatherData;
     }
 }

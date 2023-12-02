@@ -1,6 +1,6 @@
 package pl.edu.agh.to2.WeatherApp.model.weatherData.json;
 
-public class Wind {
+public class WindDTO {
     private float speed;
     private int deg;
     private float gust;

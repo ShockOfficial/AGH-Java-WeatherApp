@@ -3,31 +3,31 @@ package pl.edu.agh.to2.WeatherApp.model.weatherData.json;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-class CoordTest {
+class CoordDTOTest {
 
     @Test
     void testSetAndGetLon() {
         // given
-        Coord coord = new Coord();
+        CoordDTO coordDTO = new CoordDTO();
         float lon = 10.0F;
 
         // when
-        coord.setLon(lon);
+        coordDTO.setLon(lon);
 
         // then
-        assertEquals(lon, coord.getLon());
+        assertEquals(lon, coordDTO.getLon());
     }
 
     @Test
     void testSetAndGetLat() {
         // given
-        Coord coord = new Coord();
+        CoordDTO coordDTO = new CoordDTO();
         float lat = 10.0F;
 
         // when
-        coord.setLat(lat);
+        coordDTO.setLat(lat);
 
         // then
-        assertEquals(lat, coord.getLat());
+        assertEquals(lat, coordDTO.getLat());
     }
 }

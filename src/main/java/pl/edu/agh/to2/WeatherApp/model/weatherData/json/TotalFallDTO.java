@@ -2,7 +2,7 @@ package pl.edu.agh.to2.WeatherApp.model.weatherData.json;
 
 import com.google.gson.annotations.SerializedName;
 
-public class TotalFall {
+public class TotalFallDTO {
     @SerializedName("1h")
     private float oneH;
     @SerializedName("3h")

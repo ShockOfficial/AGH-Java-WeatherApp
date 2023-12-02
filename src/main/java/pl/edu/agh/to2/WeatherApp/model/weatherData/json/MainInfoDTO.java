@@ -1,6 +1,6 @@
 package pl.edu.agh.to2.WeatherApp.model.weatherData.json;
 
-public class MainInfo {
+public class MainInfoDTO {
     private float temp;
     private float feelsLike;
     private float tempMin;

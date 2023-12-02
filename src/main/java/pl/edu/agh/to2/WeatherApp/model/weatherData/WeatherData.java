@@ -11,27 +11,27 @@ public class WeatherData {
     //name of the city
     private String name;
     //Coordinates of the place
-    private Coord coord;
+    private CoordDTO coord;
     //Group of weather parameters (Rain, Snow, Clouds etc.) and detailed i.e "heavy rain"
-    private final List<Weather> weather = new ArrayList<>();
+    private final List<WeatherDTO> weather = new ArrayList<>();
 
     //most important information temperature, feelsLike, pressure, humidity
-    private MainInfo main;
+    private MainInfoDTO main;
 
     //general visibilty
     private int visibility;
     //Speed(m/s), angle(deg), and gust(m/s) of the wind
-    private Wind wind;
+    private WindDTO wind;
 
     //Rain and snow volume over the past 1h and 3h in mm(only if aplicable)
-    private TotalFall rain;
-    private TotalFall snow;
+    private TotalFallDTO rain;
+    private TotalFallDTO snow;
 
     //Cloudiness %
-    private Clouds clouds;
+    private CloudsDTO clouds;
 
     //Useful ones are sunrise and sunset times(in seconds)
-    private Sys sys;
+    private SysDTO sys;
 
 
     //Internal parameters
@@ -45,19 +45,19 @@ public class WeatherData {
 
 //***************GETTERS AND SETTERS************************
 
-    public Coord getCoord() {
+    public CoordDTO getCoord() {
         return coord;
     }
 
-    public void setCoord(Coord coord) {
+    public void setCoord(CoordDTO coord) {
         this.coord = coord;
     }
 
-    public List<Weather> getWeather() {
+    public List<WeatherDTO> getWeather() {
         return weather;
     }
 
-    public void setWeather(Weather weather) {
+    public void setWeather(WeatherDTO weather) {
         this.weather.add(weather);
     }
 
@@ -69,11 +69,11 @@ public class WeatherData {
         this.base = base;
     }
 
-    public MainInfo getMain() {
+    public MainInfoDTO getMain() {
         return main;
     }
 
-    public void setMain(MainInfo main) {
+    public void setMain(MainInfoDTO main) {
         this.main = main;
     }
 
@@ -85,27 +85,27 @@ public class WeatherData {
         this.visibility = visibility;
     }
 
-    public Wind getWind() {
+    public WindDTO getWind() {
         return wind;
     }
 
-    public void setWind(Wind wind) {
+    public void setWind(WindDTO wind) {
         this.wind = wind;
     }
 
-    public TotalFall getRain() {
+    public TotalFallDTO getRain() {
         return rain;
     }
 
-    public void setRain(TotalFall rain) {
+    public void setRain(TotalFallDTO rain) {
         this.rain = rain;
     }
 
-    public Clouds getClouds() {
+    public CloudsDTO getClouds() {
         return clouds;
     }
 
-    public void setClouds(Clouds clouds) {
+    public void setClouds(CloudsDTO clouds) {
         this.clouds = clouds;
     }
 
@@ -117,11 +117,11 @@ public class WeatherData {
         this.dt = dt;
     }
 
-    public Sys getSys() {
+    public SysDTO getSys() {
         return sys;
     }
 
-    public void setSys(Sys sys) {
+    public void setSys(SysDTO sys) {
         this.sys = sys;
     }
 
@@ -157,11 +157,11 @@ public class WeatherData {
         this.cod = cod;
     }
 
-    public TotalFall getSnow() {
+    public TotalFallDTO getSnow() {
         return snow;
     }
 
-    public void setSnow(TotalFall snow) {
+    public void setSnow(TotalFallDTO snow) {
         this.snow = snow;
     }
 

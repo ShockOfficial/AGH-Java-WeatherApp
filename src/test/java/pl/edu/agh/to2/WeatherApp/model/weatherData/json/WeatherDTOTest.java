@@ -4,56 +4,56 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class WeatherTest {
+class WeatherDTOTest {
 
     @Test
      void testSetAndGetId() {
         // given
-        Weather weather = new Weather();
+        WeatherDTO weatherDTO = new WeatherDTO();
         int id = 10;
 
         // when
-        weather.setId(id);
+        weatherDTO.setId(id);
 
         // then
-        assertEquals(id, weather.getId());
+        assertEquals(id, weatherDTO.getId());
     }
     @Test
      void testSetAndGetDescription() {
         // given
-        Weather weather = new Weather();
+        WeatherDTO weatherDTO = new WeatherDTO();
         String description = "description";
 
         // when
-        weather.setDescription(description);
+        weatherDTO.setDescription(description);
 
         // then
-        assertEquals(description, weather.getDescription());
+        assertEquals(description, weatherDTO.getDescription());
     }
     @Test
      void testSetAndGetMain() {
         // given
-        Weather weather = new Weather();
+        WeatherDTO weatherDTO = new WeatherDTO();
         String main = "main";
 
         // when
-        weather.setMain(main);
+        weatherDTO.setMain(main);
 
         // then
-        assertEquals(main, weather.getMain());
+        assertEquals(main, weatherDTO.getMain());
     }
 
     @Test
      void testSetAndGetIcon() {
         // given
-        Weather weather = new Weather();
+        WeatherDTO weatherDTO = new WeatherDTO();
         String icon = "1d2";
 
         // when
-        weather.setIcon(icon);
+        weatherDTO.setIcon(icon);
 
         // then
-        assertEquals(icon, weather.getIcon());
+        assertEquals(icon, weatherDTO.getIcon());
     }
 
 
