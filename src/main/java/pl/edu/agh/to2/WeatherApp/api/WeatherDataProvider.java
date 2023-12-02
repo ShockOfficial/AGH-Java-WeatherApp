@@ -6,6 +6,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 import java.io.IOException;
+import java.util.Map;
 
 public class WeatherDataProvider {
     //API key has a limit of 100 calls a day if the limit is reached replace this one
@@ -16,31 +17,29 @@ public class WeatherDataProvider {
     private static final String longitudeParamName = "lon";
     private static final String cityParamName = "q";
 
-    //Api call using longitude and latitude according to the creators the "correct" way of requesting
+    //Getting weather using longitude and latitude
     public static String getWeather(String lon, String lat) throws IOException {
-        OkHttpClient client = new OkHttpClient();
-
-        HttpUrl.Builder urlBuilder = HttpUrl.parse(apiUrl).newBuilder();
-        urlBuilder.addQueryParameter(latitudeParamName, lat);
-        urlBuilder.addQueryParameter(longitudeParamName, lon);
-        urlBuilder.addQueryParameter(apiKeyParamName, apiKey);
-        String url = urlBuilder.build().toString();
-
-        Request request = new Request.Builder().url(url).build();
-        Response response = client.newCall(request).execute();      //executing the request and getting HTTPOk response
+        Response response = makeApiCall(Map.of(latitudeParamName, lat, longitudeParamName, lon));
         return response.body().string();                            //returning the text in the body response
     }
+
     //This way is technically "deprecated" but works fine
     public static String getWeather(String city) throws IOException {
+        Response response = makeApiCall(Map.of(cityParamName, city));
+        return response.body().string();                            //returning the text in the body response
+    }
+
+    public static Response makeApiCall(Map<String, String> params) throws IOException {
         OkHttpClient client = new OkHttpClient();
 
         HttpUrl.Builder urlBuilder = HttpUrl.parse(apiUrl).newBuilder();
-        urlBuilder.addQueryParameter(cityParamName, city);
-        urlBuilder.addQueryParameter(apiKeyParamName, apiKey);
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            urlBuilder.addQueryParameter(entry.getKey(), entry.getValue());
+        }
+        urlBuilder.addQueryParameter(apiKeyParamName, apiKey);      //api key is always required
         String url = urlBuilder.build().toString();
 
         Request request = new Request.Builder().url(url).build();
-        Response response = client.newCall(request).execute();  //executing the request and getting HTTPOk response
-        return response.body().string();                        //returning the text in the body response
+        return client.newCall(request).execute();                   //executing the request and getting HTTPOk response
     }
 }
