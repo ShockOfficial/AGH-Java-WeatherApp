@@ -12,10 +12,10 @@ class MainInfoTest {
         int seaLevel = 10;
 
         // when
-        mainInfo.setSea_level(seaLevel);
+        mainInfo.setSeaLevel(seaLevel);
 
         // then
-        assertEquals(seaLevel, mainInfo.getSea_level());
+        assertEquals(seaLevel, mainInfo.getSeaLevel());
     }
 
     @Test
@@ -25,10 +25,10 @@ class MainInfoTest {
         int grndLevel = 10;
 
         // when
-        mainInfo.setGrnd_level(grndLevel);
+        mainInfo.setGrndLevel(grndLevel);
 
         // then
-        assertEquals(grndLevel, mainInfo.getGrnd_level());
+        assertEquals(grndLevel, mainInfo.getGrndLevel());
     }
 
     @Test
@@ -51,10 +51,10 @@ class MainInfoTest {
         float feelsLike = 10.0F;
 
         // when
-        mainInfo.setFeels_like(feelsLike);
+        mainInfo.setFeelsLike(feelsLike);
 
         // then
-        assertEquals(feelsLike, mainInfo.getFeels_like());
+        assertEquals(feelsLike, mainInfo.getFeelsLike());
     }
 
     @Test
@@ -64,10 +64,10 @@ class MainInfoTest {
         float tempMin = 10.0F;
 
         // when
-        mainInfo.setTemp_min(tempMin);
+        mainInfo.setTempMin(tempMin);
 
         // then
-        assertEquals(tempMin, mainInfo.getTemp_min());
+        assertEquals(tempMin, mainInfo.getTempMin());
     }
 
     @Test
@@ -77,10 +77,10 @@ class MainInfoTest {
         float tempMax = 10.0F;
 
         // when
-        mainInfo.setTemp_max(tempMax);
+        mainInfo.setTempMax(tempMax);
 
         // then
-        assertEquals(tempMax, mainInfo.getTemp_max());
+        assertEquals(tempMax, mainInfo.getTempMax());
     }
 
     @Test

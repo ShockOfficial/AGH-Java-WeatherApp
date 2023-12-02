@@ -13,10 +13,10 @@ class TotalFallTest {
         float _3h = 10;
 
         // when
-        totalFall.set_3h(_3h);
+        totalFall.setThreeH(_3h);
 
         // then
-        assertEquals(_3h, totalFall.get_3h());
+        assertEquals(_3h, totalFall.getThreeH());
     }
 
     @Test
@@ -26,10 +26,10 @@ class TotalFallTest {
         float _1h = 10;
 
         // when
-        totalFall.set1h(_1h);
+        totalFall.setOneH(_1h);
 
         // then
-        assertEquals(_1h, totalFall.get1h());
+        assertEquals(_1h, totalFall.getOneH());
     }
 
 }

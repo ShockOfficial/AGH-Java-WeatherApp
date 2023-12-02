@@ -2,29 +2,28 @@ package pl.edu.agh.to2.WeatherApp.model.weatherData.json;
 
 public class MainInfo {
     private float temp;
-    private float feels_like;
-    private float temp_min;
-    private float temp_max;
+    private float feelsLike;
+    private float tempMin;
+    private float tempMax;
     private int pressure;
     private int humidity;
+    private int seaLevel;
+    private int grndLevel;
 
-    private int sea_level;
-    private int grnd_level;
-
-    public int getSea_level() {
-        return sea_level;
+    public int getSeaLevel() {
+        return seaLevel;
     }
 
-    public void setSea_level(int sea_level) {
-        this.sea_level = sea_level;
+    public void setSeaLevel(int seaLevel) {
+        this.seaLevel = seaLevel;
     }
 
-    public int getGrnd_level() {
-        return grnd_level;
+    public int getGrndLevel() {
+        return grndLevel;
     }
 
-    public void setGrnd_level(int grnd_level) {
-        this.grnd_level = grnd_level;
+    public void setGrndLevel(int grndLevel) {
+        this.grndLevel = grndLevel;
     }
 
     public float getTemp() {
@@ -35,28 +34,28 @@ public class MainInfo {
         this.temp = temp;
     }
 
-    public float getFeels_like() {
-        return feels_like;
+    public float getFeelsLike() {
+        return feelsLike;
     }
 
-    public void setFeels_like(float feels_like) {
-        this.feels_like = feels_like;
+    public void setFeelsLike(float feelsLike) {
+        this.feelsLike = feelsLike;
     }
 
-    public float getTemp_min() {
-        return temp_min;
+    public float getTempMin() {
+        return tempMin;
     }
 
-    public void setTemp_min(float temp_min) {
-        this.temp_min = temp_min;
+    public void setTempMin(float tempMin) {
+        this.tempMin = tempMin;
     }
 
-    public float getTemp_max() {
-        return temp_max;
+    public float getTempMax() {
+        return tempMax;
     }
 
-    public void setTemp_max(float temp_max) {
-        this.temp_max = temp_max;
+    public void setTempMax(float tempMax) {
+        this.tempMax = tempMax;
     }
 
     public int getPressure() {

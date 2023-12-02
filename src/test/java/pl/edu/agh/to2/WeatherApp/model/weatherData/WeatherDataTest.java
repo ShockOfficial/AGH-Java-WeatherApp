@@ -53,7 +53,7 @@ class WeatherDataTest {
         // given
         WeatherData weatherData = new WeatherData();
         MainInfo mainInfo = new MainInfo();
-        mainInfo.setFeels_like(25);
+        mainInfo.setFeelsLike(25);
 
         // when
         weatherData.setMain(mainInfo);
@@ -96,8 +96,8 @@ class WeatherDataTest {
         // given
         WeatherData weatherData = new WeatherData();
         TotalFall rain = new TotalFall();
-        rain.set1h(10);
-        rain.set_3h(20);
+        rain.setOneH(10);
+        rain.setThreeH(20);
 
         // when
         weatherData.setRain(rain);
@@ -208,13 +208,13 @@ class WeatherDataTest {
         // given
         WeatherData weatherData = new WeatherData();
         TotalFall snow = new TotalFall();
-        snow.set1h(10.1F);
+        snow.setOneH(10.1F);
 
         // when
         weatherData.setSnow(snow);
 
         // then
         assertEquals(snow, weatherData.getSnow());
-        assertEquals(10.1F, weatherData.getSnow().get1h());
+        assertEquals(10.1F, weatherData.getSnow().getOneH());
     }
 }

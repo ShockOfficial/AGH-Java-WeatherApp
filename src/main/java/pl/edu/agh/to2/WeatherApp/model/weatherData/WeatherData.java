@@ -15,7 +15,7 @@ public class WeatherData {
     //Group of weather parameters (Rain, Snow, Clouds etc.) and detailed i.e "heavy rain"
     private final List<Weather> weather = new ArrayList<>();
 
-    //most important information temperature, feel_like, pressure, humidity
+    //most important information temperature, feelsLike, pressure, humidity
     private MainInfo main;
 
     //general visibilty
@@ -167,7 +167,7 @@ public class WeatherData {
 
     @Override
     public String toString(){
-        return ""+this.main.getFeels_like();
+        return ""+this.main.getFeelsLike();
     }
 
 

@@ -4,21 +4,23 @@ import com.google.gson.annotations.SerializedName;
 
 public class TotalFall {
     @SerializedName("1h")
-    private float _1h;
+    private float oneH;
     @SerializedName("3h")
-    private float _3h;
-    public float get_3h() {
-        return _3h;
+    private float threeH;
+
+    public float getThreeH() {
+        return threeH;
     }
 
-    public void set_3h(float _3h) {
-        this._3h = _3h;
-    }
-    public float get1h() {
-        return _1h;
+    public void setThreeH(float threeH) {
+        this.threeH = threeH;
     }
 
-    public void set1h(float _1h) {
-        this._1h = _1h;
+    public float getOneH() {
+        return oneH;
+    }
+
+    public void setOneH(float oneH) {
+        this.oneH = oneH;
     }
 }

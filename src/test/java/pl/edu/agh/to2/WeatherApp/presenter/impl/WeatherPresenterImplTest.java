@@ -81,9 +81,9 @@ class WeatherPresenterImplTest {
             assertEquals("Unknown", updatedWeatherData.getName());
             assertEquals("Poland", updatedWeatherData.getSys().getCountry());
             assertEquals(25, updatedWeatherData.getMain().getTemp(), 0.01);
-            assertEquals(26, updatedWeatherData.getMain().getFeels_like(), 0.01);
-            assertEquals(22, updatedWeatherData.getMain().getTemp_min(), 0.01);
-            assertEquals(28, updatedWeatherData.getMain().getTemp_max(), 0.01);
+            assertEquals(26, updatedWeatherData.getMain().getFeelsLike(), 0.01);
+            assertEquals(22, updatedWeatherData.getMain().getTempMin(), 0.01);
+            assertEquals(28, updatedWeatherData.getMain().getTempMax(), 0.01);
             return true;
         }));
 
@@ -100,9 +100,9 @@ class WeatherPresenterImplTest {
         weatherData.setSys(sys);
         MainInfo main = new MainInfo();
         main.setTemp(25);
-        main.setFeels_like(26);
-        main.setTemp_min(22);
-        main.setTemp_max(28);
+        main.setFeelsLike(26);
+        main.setTempMin(22);
+        main.setTempMax(28);
         weatherData.setMain(main);
         weatherData.setWind(wind);
         return weatherData;
