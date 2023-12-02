@@ -6,7 +6,7 @@ import okhttp3.Response;
 
 import java.io.IOException;
 
-public class ApiCaller {
+public class WeatherDataProvider {
     //API key has a limit of 100 calls a day if the limit is reached replace this one
     private static final String API_KEY = "09fe2451db15d2b60a0a52041ee82126";
 

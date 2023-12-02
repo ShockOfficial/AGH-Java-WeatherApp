@@ -6,7 +6,7 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ApiCallerTest {
+class WeatherDataProviderTest {
 
     // Testing the API call and the response
     @Test
@@ -16,7 +16,7 @@ class ApiCallerTest {
         String lon = "12";
 
         // when
-        String response = ApiCaller.getWeather(lat, lon);
+        String response = WeatherDataProvider.getWeather(lat, lon);
 
         // then
         assertNotNull(response);
@@ -34,7 +34,7 @@ class ApiCallerTest {
         String city = "London";
 
         // when
-        String response = ApiCaller.getWeather(city);
+        String response = WeatherDataProvider.getWeather(city);
 
         // then
         assertNotNull(response);
@@ -50,7 +50,7 @@ class ApiCallerTest {
         String invalidLon = "invalidLon";
 
         // when
-        String response = ApiCaller.getWeather(invalidLon, "12");
+        String response = WeatherDataProvider.getWeather(invalidLon, "12");
 
         // then
         assertTrue(response.contains("wrong longitude"));
@@ -62,7 +62,7 @@ class ApiCallerTest {
         String invalidLat = "invalidLat";
 
         // when
-        String response = ApiCaller.getWeather("12", invalidLat);
+        String response = WeatherDataProvider.getWeather("12", invalidLat);
 
         // then
         assertTrue(response.contains("wrong latitude"));
@@ -74,7 +74,7 @@ class ApiCallerTest {
         String invalidCity = "invalidCity";
 
         // when
-        String response = ApiCaller.getWeather(invalidCity);
+        String response = WeatherDataProvider.getWeather(invalidCity);
 
         // then
         assertTrue(response.contains("city not found"));
