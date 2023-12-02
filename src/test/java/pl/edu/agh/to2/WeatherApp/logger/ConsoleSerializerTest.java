@@ -1,13 +1,18 @@
 package pl.edu.agh.to2.WeatherApp.logger;
 
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
-public class ConsoleSerializerTest {
+class ConsoleSerializerTest {
 
     @Test
-    public void testSerializeMessage() {
+    void testSerializeMessage() {
+        // given
         ConsoleSerializer consoleSerializer = new ConsoleSerializer();
-        assertDoesNotThrow(() -> consoleSerializer.serializeMessage("Test message"));
+        String testMessage = "Test message";
+
+        // when & then
+        assertDoesNotThrow(() -> consoleSerializer.serializeMessage(testMessage));
     }
 }

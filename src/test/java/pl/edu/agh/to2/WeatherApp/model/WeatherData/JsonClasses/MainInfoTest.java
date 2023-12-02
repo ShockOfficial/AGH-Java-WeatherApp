@@ -1,66 +1,111 @@
 package pl.edu.agh.to2.WeatherApp.model.WeatherData.JsonClasses;
 
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class MainInfoTest {
 
     @Test
-    public void testSetAndGetSeaLevel() {
+    void testSetAndGetSeaLevel() {
+        // given
         MainInfo mainInfo = new MainInfo();
         int seaLevel = 10;
+
+        // when
         mainInfo.setSea_level(seaLevel);
+
+        // then
         assertEquals(seaLevel, mainInfo.getSea_level());
     }
+
     @Test
-    public void testSetAndGetGrndLevel() {
+    void testSetAndGetGrndLevel() {
+        // given
         MainInfo mainInfo = new MainInfo();
         int grndLevel = 10;
+
+        // when
         mainInfo.setGrnd_level(grndLevel);
+
+        // then
         assertEquals(grndLevel, mainInfo.getGrnd_level());
     }
+
     @Test
-    public void testSetAndGetTemp() {
+    void testSetAndGetTemp() {
+        // given
         MainInfo mainInfo = new MainInfo();
-        float temp = 10;
+        float temp = 10.0F;
+
+        // when
         mainInfo.setTemp(temp);
+
+        // then
         assertEquals(temp, mainInfo.getTemp());
     }
+
     @Test
-    public void testSetAndGetFeelsLike() {
+    void testSetAndGetFeelsLike() {
+        // given
         MainInfo mainInfo = new MainInfo();
-        float feelsLike = 10;
+        float feelsLike = 10.0F;
+
+        // when
         mainInfo.setFeels_like(feelsLike);
+
+        // then
         assertEquals(feelsLike, mainInfo.getFeels_like());
     }
+
     @Test
-    public void testSetAndGetTempMin() {
+    void testSetAndGetTempMin() {
+        // given
         MainInfo mainInfo = new MainInfo();
-        float tempMin = 10;
+        float tempMin = 10.0F;
+
+        // when
         mainInfo.setTemp_min(tempMin);
+
+        // then
         assertEquals(tempMin, mainInfo.getTemp_min());
     }
+
     @Test
-    public void testSetAndGetTempMax() {
+    void testSetAndGetTempMax() {
+        // given
         MainInfo mainInfo = new MainInfo();
-        float tempMax = 10;
+        float tempMax = 10.0F;
+
+        // when
         mainInfo.setTemp_max(tempMax);
+
+        // then
         assertEquals(tempMax, mainInfo.getTemp_max());
     }
+
     @Test
-    public void testSetAndGetPressure() {
+    void testSetAndGetPressure() {
+        // given
         MainInfo mainInfo = new MainInfo();
         int pressure = 10;
+
+        // when
         mainInfo.setPressure(pressure);
+
+        // then
         assertEquals(pressure, mainInfo.getPressure());
     }
+
     @Test
-    public void testSetAndGetHumidity() {
+    void testSetAndGetHumidity() {
+        // given
         MainInfo mainInfo = new MainInfo();
         int humidity = 10;
+
+        // when
         mainInfo.setHumidity(humidity);
+
+        // then
         assertEquals(humidity, mainInfo.getHumidity());
     }
-
 }

@@ -7,32 +7,52 @@ import static org.junit.jupiter.api.Assertions.*;
 class WeatherTest {
 
     @Test
-    public void testSetAndGetId() {
+     void testSetAndGetId() {
+        // given
         Weather weather = new Weather();
         int id = 10;
+
+        // when
         weather.setId(id);
+
+        // then
         assertEquals(id, weather.getId());
     }
     @Test
-    public void testSetAndGetDescription() {
+     void testSetAndGetDescription() {
+        // given
         Weather weather = new Weather();
         String description = "description";
+
+        // when
         weather.setDescription(description);
+
+        // then
         assertEquals(description, weather.getDescription());
     }
     @Test
-    public void testSetAndGetMain() {
+     void testSetAndGetMain() {
+        // given
         Weather weather = new Weather();
         String main = "main";
+
+        // when
         weather.setMain(main);
+
+        // then
         assertEquals(main, weather.getMain());
     }
 
     @Test
-    public void testSetAndGetIcon() {
+     void testSetAndGetIcon() {
+        // given
         Weather weather = new Weather();
         String icon = "1d2";
+
+        // when
         weather.setIcon(icon);
+
+        // then
         assertEquals(icon, weather.getIcon());
     }
 

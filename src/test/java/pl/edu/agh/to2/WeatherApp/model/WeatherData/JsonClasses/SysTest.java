@@ -7,38 +7,63 @@ import static org.junit.jupiter.api.Assertions.*;
 class SysTest {
 
     @Test
-    public void testSetAndGetType() {
+     void testSetAndGetType() {
+        // given
         Sys sys = new Sys();
         int type = 10;
+
+        //when
         sys.setType(type);
+
+        //then
         assertEquals(type, sys.getType());
     }
     @Test
-    public void testSetAndGetId() {
+     void testSetAndGetId() {
+        // given
         Sys sys = new Sys();
         int id = 10;
+
+        //when
         sys.setId(id);
+
+        //then
         assertEquals(id, sys.getId());
     }
     @Test
-    public void testSetAndGetCountry() {
+     void testSetAndGetCountry() {
+        // given
         Sys sys = new Sys();
         String country = "country";
+
+        //when
         sys.setCountry(country);
+
+        //then
         assertEquals(country, sys.getCountry());
     }
     @Test
-    public void testSetAndGetSunrise() {
+     void testSetAndGetSunrise() {
+        // given
         Sys sys = new Sys();
         long sunrise = 10;
+
+        //when
         sys.setSunrise(sunrise);
+
+        //then
         assertEquals(sunrise, sys.getSunrise());
     }
     @Test
-    public void testSetAndGetSunset() {
+     void testSetAndGetSunset() {
+        // given
         Sys sys = new Sys();
         long sunset = 10;
+
+        //when
         sys.setSunset(sunset);
+
+        //then
         assertEquals(sunset, sys.getSunset());
     }
 

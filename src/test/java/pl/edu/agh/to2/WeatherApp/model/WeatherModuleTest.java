@@ -11,12 +11,14 @@ import pl.edu.agh.to2.WeatherApp.model.Converter.IResponseToModelConverter;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class WeatherModuleTest {
+class WeatherModuleTest {
 
     @Test
-    public void testInjectorCreation() {
+    void testInjectorCreation() {
+        // given
         Injector injector = Guice.createInjector(new WeatherModule());
 
+        // when & then
         assertNotNull(injector);
 
         IResponseToModelConverter converter = injector.getInstance(IResponseToModelConverter.class);
@@ -25,22 +27,30 @@ public class WeatherModuleTest {
         IMessageSerializer serializer = injector.getInstance(IMessageSerializer.class);
         assertNotNull(serializer);
     }
+
     @Test
-    public void testResponseToModelConverterInstance() {
+    void testResponseToModelConverterInstance() {
+        // given
         Injector injector = Guice.createInjector(new WeatherModule());
 
+        // when
         IResponseToModelConverter converter = injector.getInstance(IResponseToModelConverter.class);
-        assertNotNull(converter);
 
+        // then
+        assertNotNull(converter);
         assertTrue(converter instanceof GsonConverter);
     }
+
     @Test
-    public void testMessageSerializerInstance() {
+    void testMessageSerializerInstance() {
+        // given
         Injector injector = Guice.createInjector(new WeatherModule());
 
+        // when
         IMessageSerializer serializer = injector.getInstance(IMessageSerializer.class);
-        assertNotNull(serializer);
 
+        // then
+        assertNotNull(serializer);
         assertTrue(serializer instanceof ConsoleSerializer);
     }
 }
