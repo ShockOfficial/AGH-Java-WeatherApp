@@ -1,9 +1,9 @@
-package pl.edu.agh.to2.WeatherApp.model.Converter;
+package pl.edu.agh.to2.WeatherApp.model.converter;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import pl.edu.agh.to2.WeatherApp.model.WeatherData.WeatherData;
+import pl.edu.agh.to2.WeatherApp.model.weatherData.WeatherData;
 
 public class GsonConverter implements IResponseToModelConverter{
 

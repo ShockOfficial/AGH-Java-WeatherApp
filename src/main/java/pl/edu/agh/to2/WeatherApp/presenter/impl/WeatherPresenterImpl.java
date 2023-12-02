@@ -2,12 +2,11 @@ package pl.edu.agh.to2.WeatherApp.presenter.impl;
 
 import com.google.inject.Inject;
 import javafx.application.Platform;
-import pl.edu.agh.to2.WeatherApp.model.WeatherData.WeatherData;
+import pl.edu.agh.to2.WeatherApp.model.weatherData.WeatherData;
 import pl.edu.agh.to2.WeatherApp.model.WeatherModel;
 import pl.edu.agh.to2.WeatherApp.presenter.WeatherPresenter;
 import pl.edu.agh.to2.WeatherApp.view.WeatherView;
 
-import java.io.IOException;
 import java.util.Objects;
 
 public class WeatherPresenterImpl implements WeatherPresenter {

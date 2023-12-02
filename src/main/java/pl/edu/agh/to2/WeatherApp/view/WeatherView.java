@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import pl.edu.agh.to2.WeatherApp.model.WeatherData.WeatherData;
+import pl.edu.agh.to2.WeatherApp.model.weatherData.WeatherData;
 import pl.edu.agh.to2.WeatherApp.presenter.WeatherPresenter;
 
 public class WeatherView {

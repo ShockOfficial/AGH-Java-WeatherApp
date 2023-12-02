@@ -1,8 +1,8 @@
 package pl.edu.agh.to2.WeatherApp.model.Impl;
 
 import org.junit.jupiter.api.Test;
-import pl.edu.agh.to2.WeatherApp.model.Converter.IResponseToModelConverter;
-import pl.edu.agh.to2.WeatherApp.model.WeatherData.WeatherData;
+import pl.edu.agh.to2.WeatherApp.model.converter.IResponseToModelConverter;
+import pl.edu.agh.to2.WeatherApp.model.weatherData.WeatherData;
 import java.util.concurrent.CompletableFuture;
 
 import static org.junit.jupiter.api.Assertions.*;

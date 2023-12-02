@@ -3,8 +3,8 @@ package pl.edu.agh.to2.WeatherApp.model.Impl;
 import com.google.inject.Inject;
 import pl.edu.agh.to2.WeatherApp.api.ApiCaller;
 import pl.edu.agh.to2.WeatherApp.logger.Logger;
-import pl.edu.agh.to2.WeatherApp.model.Converter.IResponseToModelConverter;
-import pl.edu.agh.to2.WeatherApp.model.WeatherData.WeatherData;
+import pl.edu.agh.to2.WeatherApp.model.converter.IResponseToModelConverter;
+import pl.edu.agh.to2.WeatherApp.model.weatherData.WeatherData;
 import pl.edu.agh.to2.WeatherApp.model.WeatherModel;
 
 import java.io.IOException;

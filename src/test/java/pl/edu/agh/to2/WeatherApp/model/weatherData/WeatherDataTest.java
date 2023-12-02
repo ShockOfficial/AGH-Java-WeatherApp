@@ -1,7 +1,7 @@
-package pl.edu.agh.to2.WeatherApp.model.WeatherData;
+package pl.edu.agh.to2.WeatherApp.model.weatherData;
 
 import org.junit.jupiter.api.Test;
-import pl.edu.agh.to2.WeatherApp.model.WeatherData.JsonClasses.*;
+import pl.edu.agh.to2.WeatherApp.model.weatherData.json.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 

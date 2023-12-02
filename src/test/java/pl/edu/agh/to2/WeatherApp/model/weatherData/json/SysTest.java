@@ -1,4 +1,4 @@
-package pl.edu.agh.to2.WeatherApp.model.WeatherData.JsonClasses;
+package pl.edu.agh.to2.WeatherApp.model.weatherData.json;
 
 import org.junit.jupiter.api.Test;
 

@@ -1,6 +1,6 @@
-package pl.edu.agh.to2.WeatherApp.model.WeatherData;
+package pl.edu.agh.to2.WeatherApp.model.weatherData;
 
-import pl.edu.agh.to2.WeatherApp.model.WeatherData.JsonClasses.*;
+import pl.edu.agh.to2.WeatherApp.model.weatherData.json.*;
 
 import java.util.ArrayList;
 import java.util.List;
