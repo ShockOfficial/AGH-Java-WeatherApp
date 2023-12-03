@@ -22,7 +22,7 @@ public class WeatherModelImpl implements WeatherModel {
     }
 
     @Override
-    public CompletableFuture<WeatherData> getWeatherDataByCity(String city)  {
+    public CompletableFuture<WeatherData> getWeatherDataByCity(String city) {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 String jsonResponse = WeatherDataProvider.getWeather(city);
