@@ -9,9 +9,7 @@ import javafx.stage.Stage;
 import pl.edu.agh.to2.WeatherApp.model.Impl.WeatherModelImpl;
 import pl.edu.agh.to2.WeatherApp.model.WeatherModel;
 import pl.edu.agh.to2.WeatherApp.model.WeatherModule;
-import pl.edu.agh.to2.WeatherApp.presenter.impl.WeatherPresenterImpl;
 import pl.edu.agh.to2.WeatherApp.utils.FXMLLoaderUtility;
-import pl.edu.agh.to2.WeatherApp.view.WeatherView;
 
 import java.io.IOException;
 
