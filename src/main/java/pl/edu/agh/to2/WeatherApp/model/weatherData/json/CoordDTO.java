@@ -1,6 +1,6 @@
-package pl.edu.agh.to2.WeatherApp.model.WeatherData.JsonClasses;
+package pl.edu.agh.to2.WeatherApp.model.weatherData.json;
 
-public class Coord{
+public class CoordDTO {
     private float lon;
     private float lat;
 

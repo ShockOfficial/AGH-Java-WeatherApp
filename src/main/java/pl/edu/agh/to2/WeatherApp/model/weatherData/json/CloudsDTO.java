@@ -1,6 +1,6 @@
-package pl.edu.agh.to2.WeatherApp.model.WeatherData.JsonClasses;
+package pl.edu.agh.to2.WeatherApp.model.weatherData.json;
 
-public class Clouds {
+public class CloudsDTO {
     private int all;
 
     public int getAll() {

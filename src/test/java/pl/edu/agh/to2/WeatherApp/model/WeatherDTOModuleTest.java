@@ -5,13 +5,13 @@ import com.google.inject.Injector;
 import org.junit.jupiter.api.Test;
 import pl.edu.agh.to2.WeatherApp.logger.ConsoleSerializer;
 import pl.edu.agh.to2.WeatherApp.logger.IMessageSerializer;
-import pl.edu.agh.to2.WeatherApp.model.Converter.GsonConverter;
-import pl.edu.agh.to2.WeatherApp.model.Converter.IResponseToModelConverter;
+import pl.edu.agh.to2.WeatherApp.model.converter.GsonConverter;
+import pl.edu.agh.to2.WeatherApp.model.converter.IResponseToModelConverter;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class WeatherModuleTest {
+class WeatherDTOModuleTest {
 
     @Test
     void testInjectorCreation() {

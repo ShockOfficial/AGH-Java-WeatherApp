@@ -1,70 +1,70 @@
-package pl.edu.agh.to2.WeatherApp.model.WeatherData.JsonClasses;
+package pl.edu.agh.to2.WeatherApp.model.weatherData.json;
 
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SysTest {
+class SysDTOTest {
 
     @Test
      void testSetAndGetType() {
         // given
-        Sys sys = new Sys();
+        SysDTO sysDTO = new SysDTO();
         int type = 10;
 
         //when
-        sys.setType(type);
+        sysDTO.setType(type);
 
         //then
-        assertEquals(type, sys.getType());
+        assertEquals(type, sysDTO.getType());
     }
     @Test
      void testSetAndGetId() {
         // given
-        Sys sys = new Sys();
+        SysDTO sysDTO = new SysDTO();
         int id = 10;
 
         //when
-        sys.setId(id);
+        sysDTO.setId(id);
 
         //then
-        assertEquals(id, sys.getId());
+        assertEquals(id, sysDTO.getId());
     }
     @Test
      void testSetAndGetCountry() {
         // given
-        Sys sys = new Sys();
+        SysDTO sysDTO = new SysDTO();
         String country = "country";
 
         //when
-        sys.setCountry(country);
+        sysDTO.setCountry(country);
 
         //then
-        assertEquals(country, sys.getCountry());
+        assertEquals(country, sysDTO.getCountry());
     }
     @Test
      void testSetAndGetSunrise() {
         // given
-        Sys sys = new Sys();
+        SysDTO sysDTO = new SysDTO();
         long sunrise = 10;
 
         //when
-        sys.setSunrise(sunrise);
+        sysDTO.setSunrise(sunrise);
 
         //then
-        assertEquals(sunrise, sys.getSunrise());
+        assertEquals(sunrise, sysDTO.getSunrise());
     }
     @Test
      void testSetAndGetSunset() {
         // given
-        Sys sys = new Sys();
+        SysDTO sysDTO = new SysDTO();
         long sunset = 10;
 
         //when
-        sys.setSunset(sunset);
+        sysDTO.setSunset(sunset);
 
         //then
-        assertEquals(sunset, sys.getSunset());
+        assertEquals(sunset, sysDTO.getSunset());
     }
 
 }

@@ -1,7 +1,6 @@
 package pl.edu.agh.to2.WeatherApp.model;
-import pl.edu.agh.to2.WeatherApp.model.WeatherData.WeatherData;
+import pl.edu.agh.to2.WeatherApp.model.weatherData.WeatherData;
 
-import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 
 public interface WeatherModel {

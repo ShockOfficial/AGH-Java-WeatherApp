@@ -1,6 +1,6 @@
-package pl.edu.agh.to2.WeatherApp.model.WeatherData.JsonClasses;
+package pl.edu.agh.to2.WeatherApp.model.weatherData.json;
 
-public class Sys {
+public class SysDTO {
     private int type;
     private int id;
     private String country;

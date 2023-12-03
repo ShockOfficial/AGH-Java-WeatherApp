@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import pl.edu.agh.to2.WeatherApp.model.WeatherData.WeatherData;
+import pl.edu.agh.to2.WeatherApp.model.weatherData.WeatherData;
 import pl.edu.agh.to2.WeatherApp.presenter.WeatherPresenter;
 
 public class WeatherView {
@@ -71,21 +71,21 @@ public class WeatherView {
             setWindValue(Float.toString(weatherData.getWind().getSpeed()));
 
             if (weatherData.getRain() != null) {
-                setRainValue(Float.toString(weatherData.getRain().get1h()));
+                setRainValue(Float.toString(weatherData.getRain().getOneH()));
             } else {
                 setRainValue("Unknown");
             }
 
             if (weatherData.getSnow() != null) {
-                setSnowValue(Float.toString(weatherData.getSnow().get1h()));
+                setSnowValue(Float.toString(weatherData.getSnow().getOneH()));
             } else {
                 setSnowValue("Unknown");
             }
 
             setTemperatureValue(Float.toString(weatherData.getMain().getTemp()));
-            setSensedTemperatureValue(Float.toString(weatherData.getMain().getFeels_like()));
-            setMinimumTemperatureValue(Float.toString(weatherData.getMain().getTemp_min()));
-            setMaximumTemperatureValue(Float.toString(weatherData.getMain().getTemp_max()));
+            setSensedTemperatureValue(Float.toString(weatherData.getMain().getFeelsLike()));
+            setMinimumTemperatureValue(Float.toString(weatherData.getMain().getTempMin()));
+            setMaximumTemperatureValue(Float.toString(weatherData.getMain().getTempMax()));
 
             if (!isWeatherDisplaying()) {
                 setWeatherDisplaying(true);

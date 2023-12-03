@@ -1,38 +1,38 @@
-package pl.edu.agh.to2.WeatherApp.model.WeatherData;
+package pl.edu.agh.to2.WeatherApp.model.weatherData;
 
 import org.junit.jupiter.api.Test;
-import pl.edu.agh.to2.WeatherApp.model.WeatherData.JsonClasses.*;
+import pl.edu.agh.to2.WeatherApp.model.weatherData.json.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class WeatherDataTest {
+class WeatherDTODataTest {
 
     @Test
     void testSetAndGetCoord() {
         // given
         WeatherData weatherData = new WeatherData();
-        Coord coord = new Coord();
-        coord.setLat(10);
-        coord.setLon(20);
+        CoordDTO coordDTO = new CoordDTO();
+        coordDTO.setLat(10);
+        coordDTO.setLon(20);
 
         // when
-        weatherData.setCoord(coord);
+        weatherData.setCoord(coordDTO);
 
         // then
-        assertEquals(coord, weatherData.getCoord());
+        assertEquals(coordDTO, weatherData.getCoord());
     }
 
     @Test
     void testSetAndGetWeather() {
         // given
         WeatherData weatherData = new WeatherData();
-        Weather weather = new Weather();
+        WeatherDTO weatherDTO = new WeatherDTO();
 
         // when
-        weatherData.setWeather(weather);
+        weatherData.setWeather(weatherDTO);
 
         // then
-        assertTrue(weatherData.getWeather().contains(weather));
+        assertTrue(weatherData.getWeather().contains(weatherDTO));
     }
 
     @Test
@@ -52,14 +52,14 @@ class WeatherDataTest {
     void testSetAndGetMain() {
         // given
         WeatherData weatherData = new WeatherData();
-        MainInfo mainInfo = new MainInfo();
-        mainInfo.setFeels_like(25);
+        MainInfoDTO mainInfoDTO = new MainInfoDTO();
+        mainInfoDTO.setFeelsLike(25);
 
         // when
-        weatherData.setMain(mainInfo);
+        weatherData.setMain(mainInfoDTO);
 
         // then
-        assertEquals(mainInfo, weatherData.getMain());
+        assertEquals(mainInfoDTO, weatherData.getMain());
     }
 
     @Test
@@ -79,25 +79,25 @@ class WeatherDataTest {
     void testSetAndGetWind() {
         // given
         WeatherData weatherData = new WeatherData();
-        Wind wind = new Wind();
-        wind.setDeg(5);
-        wind.setGust(10);
-        wind.setSpeed(20);
+        WindDTO windDTO = new WindDTO();
+        windDTO.setDeg(5);
+        windDTO.setGust(10);
+        windDTO.setSpeed(20);
 
         // when
-        weatherData.setWind(wind);
+        weatherData.setWind(windDTO);
 
         // then
-        assertEquals(wind, weatherData.getWind());
+        assertEquals(windDTO, weatherData.getWind());
     }
 
     @Test
     void testSetAndGetRain() {
         // given
         WeatherData weatherData = new WeatherData();
-        TotalFall rain = new TotalFall();
-        rain.set1h(10);
-        rain.set_3h(20);
+        TotalFallDTO rain = new TotalFallDTO();
+        rain.setOneH(10);
+        rain.setThreeH(20);
 
         // when
         weatherData.setRain(rain);
@@ -110,14 +110,14 @@ class WeatherDataTest {
     void testSetAndGetClouds() {
         // given
         WeatherData weatherData = new WeatherData();
-        Clouds clouds = new Clouds();
-        clouds.setAll(10);
+        CloudsDTO cloudsDTO = new CloudsDTO();
+        cloudsDTO.setAll(10);
 
         // when
-        weatherData.setClouds(clouds);
+        weatherData.setClouds(cloudsDTO);
 
         // then
-        assertEquals(clouds, weatherData.getClouds());
+        assertEquals(cloudsDTO, weatherData.getClouds());
     }
 
     @Test
@@ -137,18 +137,18 @@ class WeatherDataTest {
     void testSetAndGetSys() {
         // given
         WeatherData weatherData = new WeatherData();
-        Sys sys = new Sys();
-        sys.setCountry("PL");
-        sys.setId(1);
-        sys.setSunrise(1637966400L);
-        sys.setSunset(1637966400L);
-        sys.setType(1);
+        SysDTO sysDTO = new SysDTO();
+        sysDTO.setCountry("PL");
+        sysDTO.setId(1);
+        sysDTO.setSunrise(1637966400L);
+        sysDTO.setSunset(1637966400L);
+        sysDTO.setType(1);
 
         // when
-        weatherData.setSys(sys);
+        weatherData.setSys(sysDTO);
 
         // then
-        assertEquals(sys, weatherData.getSys());
+        assertEquals(sysDTO, weatherData.getSys());
     }
 
     @Test
@@ -207,14 +207,14 @@ class WeatherDataTest {
     void testSetAndGetSnow() {
         // given
         WeatherData weatherData = new WeatherData();
-        TotalFall snow = new TotalFall();
-        snow.set1h(10.1F);
+        TotalFallDTO snow = new TotalFallDTO();
+        snow.setOneH(10.1F);
 
         // when
         weatherData.setSnow(snow);
 
         // then
         assertEquals(snow, weatherData.getSnow());
-        assertEquals(10.1F, weatherData.getSnow().get1h());
+        assertEquals(10.1F, weatherData.getSnow().getOneH());
     }
 }

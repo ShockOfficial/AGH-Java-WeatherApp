@@ -2,12 +2,11 @@ package pl.edu.agh.to2.WeatherApp.presenter.impl;
 
 import com.google.inject.Inject;
 import javafx.application.Platform;
-import pl.edu.agh.to2.WeatherApp.model.WeatherData.WeatherData;
+import pl.edu.agh.to2.WeatherApp.model.weatherData.WeatherData;
 import pl.edu.agh.to2.WeatherApp.model.WeatherModel;
 import pl.edu.agh.to2.WeatherApp.presenter.WeatherPresenter;
 import pl.edu.agh.to2.WeatherApp.view.WeatherView;
 
-import java.io.IOException;
 import java.util.Objects;
 
 public class WeatherPresenterImpl implements WeatherPresenter {
@@ -47,11 +46,11 @@ public class WeatherPresenterImpl implements WeatherPresenter {
             weatherData.setName(city);
             weatherData.getSys().setCountry(country);
             weatherData.getWind().setSpeed(round(weatherData.getWind().getSpeed(), 2));
-            weatherData.getMain().setFeels_like(round(weatherData.getMain().getFeels_like(), 2));
+            weatherData.getMain().setFeelsLike(round(weatherData.getMain().getFeelsLike(), 2));
             weatherData.getMain().setTemp(round(weatherData.getMain().getTemp(), 2));
-            weatherData.getMain().setFeels_like(round(weatherData.getMain().getFeels_like(), 2));
-            weatherData.getMain().setTemp_min(round(weatherData.getMain().getTemp_min(), 2));
-            weatherData.getMain().setTemp_max(round(weatherData.getMain().getTemp_max(), 2));
+            weatherData.getMain().setFeelsLike(round(weatherData.getMain().getFeelsLike(), 2));
+            weatherData.getMain().setTempMin(round(weatherData.getMain().getTempMin(), 2));
+            weatherData.getMain().setTempMax(round(weatherData.getMain().getTempMax(), 2));
         }
         view.updateWeatherDisplay(weatherData);
     }
