@@ -56,17 +56,21 @@ Po uruchomieniu aplikacji, użytkownikowi wyświetla się okno, w którym może 
 W projekcie użyliśmy następujących zależności:
 ```
 dependencies {
-   testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.1'
-   testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.1'
-   implementation("com.squareup.okhttp3:okhttp:4.11.0")
-   implementation 'com.google.code.gson:gson:2.10.1'
-   implementation group: 'com.google.inject', name: 'guice', version: '5.0.1'
-   testImplementation 'org.mockito:mockito-core:3.12.4'
+	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.1'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.1'
+    implementation("com.squareup.okhttp3:okhttp:4.11.0")
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation group: 'com.google.inject', name: 'guice', version: '5.0.1'
+    testImplementation 'org.mockito:mockito-core:3.12.4'
+    testImplementation "org.testfx:testfx-core:4.0.17"
+    testImplementation group: 'org.hamcrest', name: 'hamcrest', version: '2.1'
+    testImplementation "org.testfx:testfx-junit5:4.0.17"
 }
+
 ```
 Pierwsze dwie zależności są potrzebne do testowania aplikacji. Do testowania aplikacji również przydatne jest mockito, gdyż pozwala nam na tworzenie atrap.
 OkHttp3 pozwala nam na komunikację z zewnętrznym API. Dzięki Gson'owi możemy łatwiej konwertować przydatne nam w implementacjach informacje. Guice natomiast pozwala nam na wstrzykiwanie zależności.
-
+TestFX pozwala nam na testowanie aplikacji z GUI w stosunkowo łatwy sposób.
 
 ### Struktura projektu
 
@@ -78,6 +82,7 @@ Nasz projekt podzielony jest na wiele pakietów oraz klas. Poniżej przedstawiam
       - java/
          - pl.edu.agh.to2.WeatherApp/
             - api/
+            - exceptions/
             - logger/
             - model/
             - presenter/
@@ -94,14 +99,22 @@ Nasz projekt podzielony jest na wiele pakietów oraz klas. Poniżej przedstawiam
             - logger/
             - model/
             - presenter/
+            - view/
             -MainTest.java
 ```
 ### Opisy pakietów i klas
-#### Pakiet Api
-Pakiet Api zawiera klasy odpowiedzialne za komunikację z zewnętrznym API. W naszym przypadku jest to API pogodowe. W tym pakiecie znajdują się klasy odpowiedzialne za pobieranie danych z API oraz klasy odpowiedzialne za przetwarzanie danych.
+#### Pakiet api
+Pakiet Api zawiera klasy odpowiedzialne za komunikację z zewnętrznym API pogodowym. W tym celu wykorzystujemy bibliotekę OkHttp3.
 
 Klasy:
-1. **ApiCaller**: wykonuje zapytania do api pogodowego i zwraca dane dotyczące pogody.
+1. **WeatherDataProvider**: wykonuje zapytania do api pogodowego i zwraca dane dotyczące pogody.
+
+#### Pakiet exceptions
+
+Pakiet exceptions zawiera klasy odpowiedzialne za obsługę wyjątków.
+
+Klasy:
+1. **DataFetchException**: klasa odpowiedzialna za obsługę wyjątków związanych z pobieraniem danych
 
 #### Pakiet logger
 Zawiera metody pozwalające na logowanie informacji oraz ewentualnych błędów w aplikacji.
@@ -118,18 +131,18 @@ Zawiera elementy modelu, konwertuje na obiektu klasy WeatherData za pomocą bibl
 Klasy:
 1. **WeatherModule**: definuje dostawców dla interfejsów, zapewniając im konkretne implementacje, z pomocą Guice
 2. **WeatherModel**: interfejs zawierający metody pozwalające na pobranie informacji o pogodzie
-3. **WeatherData/WeatherData**: klasa zawierająca informacje o pogodzie przygotowana z myślą o API OpenWeatherMap
-4. **WeatherData/JsonData/...**: w tym katalogu znajdują się klasy poszczególnych elementów modelu takie jak:
-   - Clouds: klasa zawierająca informacje o zachmurzeniu procentowym
-   - Coord: klasa zawierająca informacje o współrzędnych geograficznych
-   - MainInfo: klasa zawierająca informacje o temperaturze, ciśnieniu, wilgotności czy odczuwalnej temperaturze
-   - Sys: klasa zawierająca informacje o kraju, godzinie wschodu i zachodu słońca
-   - TotalFall: klasa zawierająca informacje o opadach w ciągu ostatniej godziny oraz w ciągu ostatnich 3 godzin
-   - Weather: klasa zawierająca informacje o pogodzie (np. opis, ikona)
-   - Wind: klasa zawierająca informacje o wietrze (np. prędkość, kierunek)
+3. **weatherData/WeatherData**: klasa zawierająca informacje o pogodzie przygotowana z myślą o API OpenWeatherMap
+4. **weatherData/JsonData/...**: w tym katalogu znajdują się klasy poszczególnych elementów modelu takie jak:
+   - CloudsDTO: klasa zawierająca informacje o zachmurzeniu procentowym
+   - CoordDTO: klasa zawierająca informacje o współrzędnych geograficznych
+   - MainInfoDTO: klasa zawierająca informacje o temperaturze, ciśnieniu, wilgotności czy odczuwalnej temperaturze
+   - SysDTO: klasa zawierająca informacje o kraju, godzinie wschodu i zachodu słońca
+   - TotalFallDTO: klasa zawierająca informacje o opadach w ciągu ostatniej godziny oraz w ciągu ostatnich 3 godzin
+   - WeatherDTO: klasa zawierająca informacje o pogodzie (np. opis, ikona)
+   - WindDTO: klasa zawierająca informacje o wietrze (np. prędkość, kierunek)
 5. **Impl/WeatherModelImpl**: klasa implementująca interfejs WeatherModel, zawiera metody pozwalające na asynchroniczne pobranie informacji o pogodzie
-6. **Converter/GsonConverter**: klasa odpowiedzialna za konwersję danych z formatu JSON na obiekt klasy WeatherData
-7. **Converter/IResponseToModelConverter**: interfejs zawierający metodę pozwalające na konwersję danych z formatu JSON na obiekt klasy WeatherData
+6. **converter/GsonConverter**: klasa odpowiedzialna za konwersję danych z formatu JSON na obiekt klasy WeatherData
+7. **converter/IResponseToModelConverter**: interfejs zawierający metodę pozwalające na konwersję danych z formatu JSON na obiekt klasy WeatherData
 
 #### Pakiet presenter
 Zawiera implementację prezentera odpowiedzialną za komunikację między widokiem a modelem.
