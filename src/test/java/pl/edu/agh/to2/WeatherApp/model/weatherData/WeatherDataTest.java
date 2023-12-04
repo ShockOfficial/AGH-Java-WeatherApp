@@ -5,7 +5,7 @@ import pl.edu.agh.to2.WeatherApp.model.weatherData.json.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class WeatherDTODataTest {
+class WeatherDataTest {
 
     @Test
     void testSetAndGetCoord() {
