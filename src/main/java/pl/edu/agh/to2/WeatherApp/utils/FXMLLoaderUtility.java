@@ -12,6 +12,8 @@ import java.net.URL;
 
 public class FXMLLoaderUtility {
 
+    private FXMLLoaderUtility(){}
+
     public static Parent loadMainView(WeatherModel weatherModel) throws IOException {
         URL fxmlResource = FXMLLoaderUtility.class.getResource("/pl.edu.agh.to2.WeatherApp/weatherApp.fxml");
         if (fxmlResource == null) {

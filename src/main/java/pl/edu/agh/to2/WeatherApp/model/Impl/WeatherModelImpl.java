@@ -2,6 +2,7 @@ package pl.edu.agh.to2.WeatherApp.model.Impl;
 
 import com.google.inject.Inject;
 import pl.edu.agh.to2.WeatherApp.api.WeatherDataProvider;
+import pl.edu.agh.to2.WeatherApp.exceptions.DataFetchException;
 import pl.edu.agh.to2.WeatherApp.logger.Logger;
 import pl.edu.agh.to2.WeatherApp.model.converter.IResponseToModelConverter;
 import pl.edu.agh.to2.WeatherApp.model.weatherData.WeatherData;
@@ -22,13 +23,13 @@ public class WeatherModelImpl implements WeatherModel {
     }
 
     @Override
-    public CompletableFuture<WeatherData> getWeatherDataByCity(String city)  {
+    public CompletableFuture<WeatherData> getWeatherDataByCity(String city) {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 String jsonResponse = WeatherDataProvider.getWeather(city);
                 return converter.convert(jsonResponse);
             } catch (IOException e) {
-                throw new RuntimeException("Error fetching weather data");
+                throw new DataFetchException("Error fetching weather data");
             }
         });
     }
@@ -40,7 +41,7 @@ public class WeatherModelImpl implements WeatherModel {
                 String jsonResponse = WeatherDataProvider.getWeather(lon, lat);
                 return converter.convert(jsonResponse);
             } catch (IOException e) {
-                throw new RuntimeException("Error fetching weather data");
+                throw new DataFetchException("Error fetching weather data");
             }
         });
     }
