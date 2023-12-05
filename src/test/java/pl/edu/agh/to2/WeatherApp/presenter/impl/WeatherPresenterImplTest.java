@@ -18,7 +18,7 @@ import java.lang.reflect.Method;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
-class WeatherDTOPresenterImplTest {
+class WeatherPresenterImplTest {
 
     @BeforeAll
     static void init() {

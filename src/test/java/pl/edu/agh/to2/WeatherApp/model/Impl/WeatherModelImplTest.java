@@ -7,7 +7,7 @@ import java.util.concurrent.CompletableFuture;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class WeatherDTOModelImplTest {
+class WeatherModelImplTest {
 
     private static class MockConverter implements IResponseToModelConverter {
         @Override
