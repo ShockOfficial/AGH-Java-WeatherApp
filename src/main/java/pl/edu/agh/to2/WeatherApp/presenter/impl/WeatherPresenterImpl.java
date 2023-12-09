@@ -47,7 +47,7 @@ public class WeatherPresenterImpl implements WeatherPresenter {
             weatherData.setName(city);
             weatherData.getSys().setCountry(country);
             weatherData.getWind().setSpeed(round(weatherData.getWind().getSpeed(), 2));
-            weatherData.getMain().setFeelsLike(round(get_feels_like(weatherData), 2));                          // I don't know if those calculations should be in a presenter but it feels like the logical place
+            weatherData.getMain().setFeelsLike(round(get_feels_like(weatherData), 2));
             weatherData.getMain().setTemp(round(weatherData.getMain().getTemp(), 2));
             weatherData.getMain().setFeelsLike(round(weatherData.getMain().getFeelsLike(), 2));
             weatherData.getMain().setTempMin(round(weatherData.getMain().getTempMin(), 2));
