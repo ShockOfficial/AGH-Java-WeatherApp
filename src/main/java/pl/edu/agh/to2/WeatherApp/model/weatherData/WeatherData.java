@@ -19,7 +19,7 @@ public class WeatherData {
     private MainInfoDTO main;
 
     //general visibilty
-    private int visibility;
+
     //Speed(m/s), angle(deg), and gust(m/s) of the wind
     private WindDTO wind;
 
@@ -39,8 +39,6 @@ public class WeatherData {
     private int timezone;
     private long dt;
     private String base;
-
-
     private int cod;
 
 //***************GETTERS AND SETTERS************************
@@ -77,13 +75,7 @@ public class WeatherData {
         this.main = main;
     }
 
-    public int getVisibility() {
-        return visibility;
-    }
 
-    public void setVisibility(int visibility) {
-        this.visibility = visibility;
-    }
 
     public WindDTO getWind() {
         return wind;

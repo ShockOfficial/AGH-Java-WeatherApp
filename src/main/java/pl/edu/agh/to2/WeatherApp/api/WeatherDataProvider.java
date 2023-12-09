@@ -1,26 +1,18 @@
 package pl.edu.agh.to2.WeatherApp.api;
 
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.Response;
-
 import java.io.IOException;
 import java.util.Map;
 
-public class WeatherDataProvider {
-    //API key has a limit of 100 calls a day if the limit is reached replace this one
-    private static final String apiKey = "09fe2451db15d2b60a0a52041ee82126";
-    private static final String apiUrl = "https://api.openweathermap.org/data/2.5";
-    private static final String apiKeyParamName = "appid";
+public class WeatherDataProvider extends APIProvider{
+    private static final String apiUrl = "/data/2.5/weather";
     private static final String latitudeParamName = "lat";
     private static final String longitudeParamName = "lon";
     private static final String cityParamName = "q";
-    private static final OkHttpClient client = new OkHttpClient();
 
     //Getting weather using longitude and latitude
     public static String getWeather(String lon, String lat) throws IOException {
-        Response response = makeApiCall(Map.of(latitudeParamName, lat, longitudeParamName, lon), "weather");
+        Response response = makeApiCall(Map.of(latitudeParamName, lat, longitudeParamName, lon), apiUrl);
         return response.body().string();                            //returning the text in the body response
     }
 
