@@ -16,7 +16,7 @@ public abstract class APIProvider {
     private static final String apiKeyParamName = "appid";
     private static final OkHttpClient client = new OkHttpClient();
 
-    static Response makeApiCall(Map<String, String> params, String apiUrl) throws IOException {
+    protected static Response makeApiCall(Map<String, String> params, String apiUrl) throws IOException {
         HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
         urlBuilder.addPathSegment(apiUrl);
         for (Map.Entry<String, String> entry : params.entrySet()) {
