@@ -1,4 +1,4 @@
-package pl.edu.agh.to2.example;
+package pl.edu.agh.to2.WeatherApp;
 
 import org.junit.jupiter.api.Test;
 
@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class MainTest {
 
     @Test
-    public void testMain() {
+     void testMain() {
         assertTrue(true);
     }
 }

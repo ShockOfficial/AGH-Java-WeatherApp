@@ -13,7 +13,7 @@ repositories {
 }
 
 application {
-    mainClassName = 'Main'
+    mainClassName = 'pl.edu.agh.to2.WeatherApp.Main'
 }
 java {
     sourceCompatibility = JavaVersion.VERSION_17
@@ -32,4 +32,11 @@ test {
 dependencies {
 	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.1'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.1'
+    implementation("com.squareup.okhttp3:okhttp:4.11.0")
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation group: 'com.google.inject', name: 'guice', version: '5.0.1'
+    testImplementation 'org.mockito:mockito-core:3.12.4'
+    testImplementation "org.testfx:testfx-core:4.0.17"
+    testImplementation group: 'org.hamcrest', name: 'hamcrest', version: '2.1'
+    testImplementation "org.testfx:testfx-junit5:4.0.17"
 }
