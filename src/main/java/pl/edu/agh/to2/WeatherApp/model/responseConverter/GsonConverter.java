@@ -9,7 +9,7 @@ import pl.edu.agh.to2.WeatherApp.model.weatherData.WeatherData;
 
 public class GsonConverter implements IResponseToModelConverter{
 
-    private Gson gson;
+    private final Gson gson;
 
     public GsonConverter(){
         this.gson = new GsonBuilder()
