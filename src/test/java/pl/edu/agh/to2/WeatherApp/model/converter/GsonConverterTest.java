@@ -14,7 +14,7 @@ class GsonConverterTest {
         String jsonResponse = "{ \"visibility\": 100, \"name\": \"Krakow\", \"weather\": [ { \"id\": 1, \"main\": \"Rain\", \"description\": \"light rain\", \"icon\": \"10d\" } ]}";
 
         // when
-        WeatherData weatherData = gsonConverter.convert(jsonResponse);
+        WeatherData weatherData = gsonConverter.convertWeather(jsonResponse);
 
         // then
         assertNotNull(weatherData);
@@ -33,6 +33,6 @@ class GsonConverterTest {
         String invalidJsonResponse = "Invalid JSON Response";
 
         // when & then
-        assertThrows(Exception.class, () -> gsonConverter.convert(invalidJsonResponse));
+        assertThrows(Exception.class, () -> gsonConverter.convertWeather(invalidJsonResponse));
     }
 }

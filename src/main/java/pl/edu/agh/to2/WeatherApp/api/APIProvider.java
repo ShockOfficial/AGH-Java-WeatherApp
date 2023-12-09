@@ -18,11 +18,13 @@ public abstract class APIProvider {
 
     static Response makeApiCall(Map<String, String> params, String apiUrl) throws IOException {
         HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
+        urlBuilder.addPathSegment(apiUrl);
         for (Map.Entry<String, String> entry : params.entrySet()) {
             urlBuilder.addQueryParameter(entry.getKey(), entry.getValue());
         }
         urlBuilder.addQueryParameter(apiKeyParamName, apiKey);      //api key is always required
         String url = urlBuilder.build().toString();
+        System.out.println(url);
 
         Request request = new Request.Builder().url(url).build();
         return client.newCall(request).execute();                   //executing the request and getting HTTPOk response

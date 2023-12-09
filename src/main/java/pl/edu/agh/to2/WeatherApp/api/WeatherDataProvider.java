@@ -1,11 +1,13 @@
 package pl.edu.agh.to2.WeatherApp.api;
 
 import okhttp3.Response;
+import pl.edu.agh.to2.WeatherApp.model.geocodingData.GeocodingData;
+
 import java.io.IOException;
 import java.util.Map;
 
 public class WeatherDataProvider extends APIProvider{
-    private static final String apiUrl = "/data/2.5/weather";
+    private static final String apiUrl = "data/2.5/weather";
     private static final String latitudeParamName = "lat";
     private static final String longitudeParamName = "lon";
     private static final String cityParamName = "q";
@@ -44,4 +46,12 @@ public class WeatherDataProvider extends APIProvider{
         Response response = makeApiCall(Map.of(latitudeParamName, lat, longitudeParamName, lon), "air_pollution");
         System.out.println(response.body().string());                           //returning the text in the body response
     }
+
+    //This way is technically "deprecated" but works fine
+    public static String getWeather(String city) throws IOException {
+        Response response = makeApiCall(Map.of(cityParamName, city), apiUrl);
+        return response.body().string();                            //returning the text in the body response
+    }
+
+
 }

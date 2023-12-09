@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.Map;
 
 public class AirPollutionProvider extends APIProvider{
-    private static final String apiUrl = "/data/2.5/air_pollution";
+    private static final String apiUrl = "data/2.5/air_pollution";
     private static final String latitudeParamName = "lat";
     private static final String longitudeParamName = "lon";
 
