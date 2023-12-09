@@ -91,19 +91,23 @@ public class WeatherView {
             setMinimumTemperatureValue(Float.toString(weatherData.getMain().getTempMin()));
             setMaximumTemperatureValue(Float.toString(weatherData.getMain().getTempMax()));
 
+            if (!isWeatherDisplaying()) {
+                setWeatherDisplaying(true);
+            }
+
             // Set weather icon
             if (weatherData.getWeather() != null && !weatherData.getWeather().isEmpty()) {
                 String iconCode = weatherData.getWeather().get(0).getIcon();
                 weatherIcon.setImage(new Image(iconCode));
-            }
-
-            if (!isWeatherDisplaying()) {
-                setWeatherDisplaying(true);
+                weatherIcon.setVisible(true);
             }
         } else {
             setWeatherError("City not found");
             setWeatherDisplaying(false);
+            weatherIcon.setImage(null);
+            weatherIcon.setVisible(false);
         }
+
     }
 
     public void setWeatherError(String weatherError) {

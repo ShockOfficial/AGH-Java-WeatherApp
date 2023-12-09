@@ -44,7 +44,6 @@ public class WeatherPresenterImpl implements WeatherPresenter {
         if (weatherData.getWeather() != null && !weatherData.getWeather().isEmpty()) {
             String iconCode = weatherData.getWeather().get(0).getIcon();
             String iconUrl = WeatherDataProvider.getIconUrl(iconCode);
-            System.out.println(iconUrl);
             weatherData.getWeather().get(0).setIcon(iconUrl);
         }
     }
