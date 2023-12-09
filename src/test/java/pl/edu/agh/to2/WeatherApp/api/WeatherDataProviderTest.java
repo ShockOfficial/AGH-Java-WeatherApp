@@ -16,7 +16,7 @@ class WeatherDataProviderTest {
         String lon = "12";
 
         // when
-        String response = WeatherDataProvider.getWeather(lat, lon);
+        String response = DataProvider.getWeather(lat, lon);
 
         // then
         assertNotNull(response);
@@ -34,7 +34,7 @@ class WeatherDataProviderTest {
         String city = "London";
 
         // when
-        String response = WeatherDataProvider.getWeather(city);
+        String response = DataProvider.getWeather(city);
 
         // then
         assertNotNull(response);
@@ -50,7 +50,7 @@ class WeatherDataProviderTest {
         String invalidLon = "invalidLon";
 
         // when
-        String response = WeatherDataProvider.getWeather(invalidLon, "12");
+        String response = DataProvider.getWeather(invalidLon, "12");
 
         // then
         assertTrue(response.contains("wrong longitude"));
@@ -62,7 +62,7 @@ class WeatherDataProviderTest {
         String invalidLat = "invalidLat";
 
         // when
-        String response = WeatherDataProvider.getWeather("12", invalidLat);
+        String response = DataProvider.getWeather("12", invalidLat);
 
         // then
         assertTrue(response.contains("wrong latitude"));
@@ -74,7 +74,7 @@ class WeatherDataProviderTest {
         String invalidCity = "invalidCity";
 
         // when
-        String response = WeatherDataProvider.getWeather(invalidCity);
+        String response = DataProvider.getWeather(invalidCity);
 
         // then
         assertTrue(response.contains("city not found"));

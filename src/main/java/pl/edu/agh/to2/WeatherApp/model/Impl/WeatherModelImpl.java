@@ -1,9 +1,7 @@
 package pl.edu.agh.to2.WeatherApp.model.Impl;
 
 import com.google.inject.Inject;
-import pl.edu.agh.to2.WeatherApp.api.AirPollutionProvider;
-import pl.edu.agh.to2.WeatherApp.api.GeocodingProvider;
-import pl.edu.agh.to2.WeatherApp.api.WeatherDataProvider;
+import pl.edu.agh.to2.WeatherApp.api.DataProvider;
 import pl.edu.agh.to2.WeatherApp.exceptions.DataFetchException;
 import pl.edu.agh.to2.WeatherApp.logger.Logger;
 import pl.edu.agh.to2.WeatherApp.model.airPollutionData.AirPollutionData;
@@ -59,18 +57,17 @@ public class WeatherModelImpl implements WeatherModel {
         });
     }
     private WeatherData getWeather(String lon, String lat) throws IOException{
-        String jsonResponse = WeatherDataProvider.getWeather(lon, lat);
+        String jsonResponse = DataProvider.getWeather(lon, lat);
         return converter.convertWeather(jsonResponse);
     }
 
     private GeocodingData getCoords(String city) throws IOException{
-        String jsonResponse = GeocodingProvider.getCoords(city);
-        return converter.convertCoords(jsonResponse.
-                substring(1, jsonResponse.length()-1));
+        String jsonResponse = DataProvider.getCoords(city);
+        return converter.convertCoords(jsonResponse);
     }
 
     private AirPollutionData getAirPollution(String lon, String lat) throws IOException{
-        String jsonResponse = AirPollutionProvider.getAirPolution(lon, lat);
+        String jsonResponse = DataProvider.getAirPollution(lon, lat);
         return converter.convertAirPollution(jsonResponse);
     }
 }
