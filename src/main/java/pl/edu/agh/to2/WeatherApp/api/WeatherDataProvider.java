@@ -30,6 +30,10 @@ public class WeatherDataProvider {
         return response.body().string();                            //returning the text in the body response
     }
 
+    public static String getIconUrl(String iconCode) {
+        return "https://openweathermap.org/img/wn/" + iconCode + "@4x.png";
+    }
+
     public static Response makeApiCall(Map<String, String> params) throws IOException {
         HttpUrl.Builder urlBuilder = HttpUrl.parse(apiUrl).newBuilder();
         for (Map.Entry<String, String> entry : params.entrySet()) {

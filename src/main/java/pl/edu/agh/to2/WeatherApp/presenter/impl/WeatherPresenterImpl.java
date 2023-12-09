@@ -2,6 +2,7 @@ package pl.edu.agh.to2.WeatherApp.presenter.impl;
 
 import com.google.inject.Inject;
 import javafx.application.Platform;
+import pl.edu.agh.to2.WeatherApp.api.WeatherDataProvider;
 import pl.edu.agh.to2.WeatherApp.model.weatherData.WeatherData;
 import pl.edu.agh.to2.WeatherApp.model.WeatherModel;
 import pl.edu.agh.to2.WeatherApp.presenter.WeatherPresenter;
@@ -39,6 +40,15 @@ public class WeatherPresenterImpl implements WeatherPresenter {
         });
     }
 
+    private void updateIconUrl(WeatherData weatherData) {
+        if (weatherData.getWeather() != null && !weatherData.getWeather().isEmpty()) {
+            String iconCode = weatherData.getWeather().get(0).getIcon();
+            String iconUrl = WeatherDataProvider.getIconUrl(iconCode);
+            System.out.println(iconUrl);
+            weatherData.getWeather().get(0).setIcon(iconUrl);
+        }
+    }
+
     private void updateWeatherDisplay(WeatherData weatherData) {
         if (weatherData.getSys() != null) {
             String city = weatherData.getName() == null || Objects.equals(weatherData.getName(), "") ? "Unknown" : weatherData.getName();
@@ -52,6 +62,7 @@ public class WeatherPresenterImpl implements WeatherPresenter {
             weatherData.getMain().setTempMin(round(weatherData.getMain().getTempMin(), 2));
             weatherData.getMain().setTempMax(round(weatherData.getMain().getTempMax(), 2));
         }
+        updateIconUrl(weatherData);
         view.updateWeatherDisplay(weatherData);
     }
 
