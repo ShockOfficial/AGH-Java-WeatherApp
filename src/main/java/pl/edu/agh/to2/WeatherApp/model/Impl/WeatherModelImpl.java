@@ -63,7 +63,8 @@ public class WeatherModelImpl implements WeatherModel {
 
     private GeocodingData getCoords(String city) throws IOException{
         String jsonResponse = DataProvider.getCoords(city);
-        return converter.convertCoords(jsonResponse);
+        return converter.convertCoords(jsonResponse.
+                substring(1, jsonResponse.length()-1));
     }
 
     private AirPollutionData getAirPollution(String lon, String lat) throws IOException{
