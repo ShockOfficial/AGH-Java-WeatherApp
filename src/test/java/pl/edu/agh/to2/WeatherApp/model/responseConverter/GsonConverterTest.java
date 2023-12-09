@@ -1,4 +1,4 @@
-package pl.edu.agh.to2.WeatherApp.model.converter;
+package pl.edu.agh.to2.WeatherApp.model.responseConverter;
 
 import org.junit.jupiter.api.Test;
 import pl.edu.agh.to2.WeatherApp.model.weatherData.WeatherData;

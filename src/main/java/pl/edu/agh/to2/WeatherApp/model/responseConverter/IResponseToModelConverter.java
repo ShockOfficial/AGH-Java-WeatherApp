@@ -1,4 +1,4 @@
-package pl.edu.agh.to2.WeatherApp.model.converter;
+package pl.edu.agh.to2.WeatherApp.model.responseConverter;
 
 import pl.edu.agh.to2.WeatherApp.model.airPollutionData.AirPollutionData;
 import pl.edu.agh.to2.WeatherApp.model.geocodingData.GeocodingData;

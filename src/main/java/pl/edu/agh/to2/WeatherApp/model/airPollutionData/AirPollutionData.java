@@ -11,7 +11,7 @@ public class AirPollutionData {
     private List<AirListElementDTO> PollutionElementList = new ArrayList<>();
 
 
-    public AirListElementDTO getPollutionList() {
+    public AirListElementDTO getPollutionListElement() {
         return PollutionElementList.get(0);
     }
 

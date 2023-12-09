@@ -2,7 +2,7 @@ package pl.edu.agh.to2.WeatherApp.model.Impl;
 
 import org.junit.jupiter.api.Test;
 import pl.edu.agh.to2.WeatherApp.model.airPollutionData.AirPollutionData;
-import pl.edu.agh.to2.WeatherApp.model.converter.IResponseToModelConverter;
+import pl.edu.agh.to2.WeatherApp.model.responseConverter.IResponseToModelConverter;
 import pl.edu.agh.to2.WeatherApp.model.geocodingData.GeocodingData;
 import pl.edu.agh.to2.WeatherApp.model.weatherData.WeatherData;
 import java.util.concurrent.CompletableFuture;

@@ -1,4 +1,4 @@
-package pl.edu.agh.to2.WeatherApp.model.converter;
+package pl.edu.agh.to2.WeatherApp.model.responseConverter;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
