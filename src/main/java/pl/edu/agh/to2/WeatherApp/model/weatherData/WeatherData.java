@@ -13,7 +13,7 @@ public class WeatherData {
 
 
     //name of the city
-    private GeocodingData geocodingData;
+    private GeocodingData geocodingData = new GeocodingData();
     private AirPollutionData airpollutionData;
     //Coordinates of the place
     private CoordDTO coord;

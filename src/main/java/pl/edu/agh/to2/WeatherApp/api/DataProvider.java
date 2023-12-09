@@ -32,7 +32,6 @@ public class DataProvider {
         }
         urlBuilder.addQueryParameter(apiKeyParamName, apiKey);      //api key is always required
         String url = urlBuilder.build().toString();
-        System.out.println(url);
 
         Request request = new Request.Builder().url(url).build();
         return client.newCall(request).execute();                   //executing the request and getting HTTPOk response
@@ -43,7 +42,7 @@ public class DataProvider {
         return response.body().string();                            //returning the text in the body response
     }
 
-    //This way is technically deprecated but works in a pinch, not recommended
+    //This way is technically deprecated but works fine
     public static String getWeather(String city) throws IOException {
         Response response = makeApiCall(Map.of(cityParamName, city), apiUrls.get("weather"));
         return response.body().string();                            //returning the text in the body response
@@ -51,8 +50,7 @@ public class DataProvider {
 
     public static String getCoords(String city) throws IOException {
         Response response = makeApiCall(Map.of(cityParamName, city, limitParamName, limit), apiUrls.get("geo"));
-        return response.body().string()
-                .substring(1, response.body().string().length()-1);  //returning the text in the body response
+        return response.body().string();                          //returning the text in the body response
     }
 
     public static String getAirPollution(String lon, String lat) throws IOException {
