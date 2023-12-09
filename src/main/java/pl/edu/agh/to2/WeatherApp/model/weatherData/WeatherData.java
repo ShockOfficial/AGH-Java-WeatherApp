@@ -1,5 +1,7 @@
 package pl.edu.agh.to2.WeatherApp.model.weatherData;
 
+import pl.edu.agh.to2.WeatherApp.model.airPollutionData.AirPollutionData;
+import pl.edu.agh.to2.WeatherApp.model.geocodingData.GeocodingData;
 import pl.edu.agh.to2.WeatherApp.model.weatherData.json.*;
 
 import java.util.ArrayList;
@@ -8,8 +10,11 @@ import java.util.List;
 
 //Detailed description at https://openweathermap.org/current
 public class WeatherData {
+
+
     //name of the city
-    private String name;
+    private GeocodingData geocodingData;
+    private AirPollutionData airpollutionData;
     //Coordinates of the place
     private CoordDTO coord;
     //Group of weather parameters (Rain, Snow, Clouds etc.) and detailed i.e "heavy rain"
@@ -140,11 +145,11 @@ public class WeatherData {
     }
 
     public String getName() {
-        return name;
+        return geocodingData.getName();
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.geocodingData.setName(name);
     }
 
     public int getCod() {
@@ -161,6 +166,22 @@ public class WeatherData {
 
     public void setSnow(TotalFallDTO snow) {
         this.snow = snow;
+    }
+
+    public GeocodingData getGeocodingData() {
+        return geocodingData;
+    }
+
+    public void setGeocodingData(GeocodingData geocodingData) {
+        this.geocodingData = geocodingData;
+    }
+
+    public AirPollutionData getAirpollutionData() {
+        return airpollutionData;
+    }
+
+    public void setAirpollutionData(AirPollutionData airpollutionData) {
+        this.airpollutionData = airpollutionData;
     }
 
     @Override

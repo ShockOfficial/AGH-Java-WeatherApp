@@ -1,10 +1,12 @@
 package pl.edu.agh.to2.WeatherApp.model.Impl;
 
 import com.google.inject.Inject;
+import pl.edu.agh.to2.WeatherApp.api.AirPollutionProvider;
 import pl.edu.agh.to2.WeatherApp.api.GeocodingProvider;
 import pl.edu.agh.to2.WeatherApp.api.WeatherDataProvider;
 import pl.edu.agh.to2.WeatherApp.exceptions.DataFetchException;
 import pl.edu.agh.to2.WeatherApp.logger.Logger;
+import pl.edu.agh.to2.WeatherApp.model.airPollutionData.AirPollutionData;
 import pl.edu.agh.to2.WeatherApp.model.converter.IResponseToModelConverter;
 import pl.edu.agh.to2.WeatherApp.model.geocodingData.GeocodingData;
 import pl.edu.agh.to2.WeatherApp.model.weatherData.WeatherData;
@@ -28,10 +30,15 @@ public class WeatherModelImpl implements WeatherModel {
     public CompletableFuture<WeatherData> getWeatherDataByCity(String city) {
         return CompletableFuture.supplyAsync(() -> {
             try {
-                String jsonResponse = GeocodingProvider.getGeocodingInfo(city);
-                GeocodingData geocoding = converter.convertCoords(
-                        jsonResponse.substring(1, jsonResponse.length()-1));
-                return this.getWeather(geocoding.getLon(), geocoding.getLat());
+
+                GeocodingData geocoding = this.getCoords(city);
+                WeatherData weather = this.getWeather(geocoding.getLon(), geocoding.getLat());
+                AirPollutionData airPollution = this.getAirPollution(geocoding.getLon(), geocoding.getLat());
+
+                weather.setGeocodingData(geocoding);
+                weather.setAirpollutionData(airPollution);
+
+                return weather;
             } catch (IOException e) {
                 throw new DataFetchException("Error fetching weather data");
             }
@@ -42,7 +49,10 @@ public class WeatherModelImpl implements WeatherModel {
     public  CompletableFuture<WeatherData> getWeatherDataByCoordinates(String lon, String lat) {
         return CompletableFuture.supplyAsync(() -> {
             try {
-                return this.getWeather(lon, lat);
+                AirPollutionData airPollution = this.getAirPollution(lon, lat);
+                WeatherData weather = this.getWeather(lon, lat);
+                weather.setAirpollutionData(airPollution);
+                return weather;
             } catch (IOException e) {
                 throw new DataFetchException("Error fetching weather data");
             }
@@ -51,5 +61,16 @@ public class WeatherModelImpl implements WeatherModel {
     private WeatherData getWeather(String lon, String lat) throws IOException{
         String jsonResponse = WeatherDataProvider.getWeather(lon, lat);
         return converter.convertWeather(jsonResponse);
+    }
+
+    private GeocodingData getCoords(String city) throws IOException{
+        String jsonResponse = GeocodingProvider.getCoords(city);
+        return converter.convertCoords(jsonResponse.
+                substring(1, jsonResponse.length()-1));
+    }
+
+    private AirPollutionData getAirPollution(String lon, String lat) throws IOException{
+        String jsonResponse = AirPollutionProvider.getAirPolution(lon, lat);
+        return converter.convertAirPollution(jsonResponse);
     }
 }
