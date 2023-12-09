@@ -1,7 +1,10 @@
 package pl.edu.agh.to2.WeatherApp.model.airPollutionData.json;
 
+import com.google.gson.annotations.SerializedName;
+
 public class AirListElementDTO {
 
+    @SerializedName("main")
     private AirMainInfoDTO mainInfo;
     private ComponentsDTO components;
 

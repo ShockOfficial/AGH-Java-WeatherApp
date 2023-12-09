@@ -12,7 +12,7 @@ public class GeocodingProvider extends APIProvider {
 
 
     //The API does not support air pollution calls with city name
-    public static String getGeocodingInfo(String city) throws IOException {
+    public static String getCoords(String city) throws IOException {
         Response response = makeApiCall(Map.of(cityParamName, city, limitParamName, limit), apiUrl);
         return response.body().string();                          //returning the text in the body response
     }
