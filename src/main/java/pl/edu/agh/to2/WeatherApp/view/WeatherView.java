@@ -4,6 +4,8 @@ import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import pl.edu.agh.to2.WeatherApp.model.weatherData.WeatherData;
 import pl.edu.agh.to2.WeatherApp.presenter.WeatherPresenter;
@@ -41,6 +43,8 @@ public class WeatherView {
     private Label sensedTemperatureValue;
     @FXML
     private Label maximumTemperatureValue;
+    @FXML
+    private ImageView weatherIcon;
 
     private WeatherPresenter presenter;
 
@@ -57,6 +61,7 @@ public class WeatherView {
             presenter.getWeatherByCoordinates(latitudeInput.getText(), longitudeInput.getText());
         } else {
             setWeatherDisplaying(false);
+            weatherIcon.setImage(null);
             weatherError.setText("Please provide city name or coordinates");
         }
     }
@@ -90,10 +95,20 @@ public class WeatherView {
             if (!isWeatherDisplaying()) {
                 setWeatherDisplaying(true);
             }
+
+            // Set weather icon
+            if (weatherData.getWeather() != null && !weatherData.getWeather().isEmpty()) {
+                String iconCode = weatherData.getWeather().get(0).getIcon();
+                weatherIcon.setImage(new Image(iconCode));
+                weatherIcon.setVisible(true);
+            }
         } else {
             setWeatherError("City not found");
             setWeatherDisplaying(false);
+            weatherIcon.setImage(null);
+            weatherIcon.setVisible(false);
         }
+
     }
 
     public void setWeatherError(String weatherError) {
