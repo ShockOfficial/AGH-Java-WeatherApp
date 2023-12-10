@@ -6,7 +6,6 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -17,7 +16,7 @@
 
 <VBox alignment="CENTER" minHeight="600.0" minWidth="400.0" prefHeight="650.0" prefWidth="480.0" spacing="5"
       stylesheets="@./style.css"
-      xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.to2.WeatherApp.view.WeatherView">
+      xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.to2.weather_app.view.WeatherView">
     <GridPane alignment="CENTER" hgap="10" vgap="10">
         <GridPane.margin>
             <Insets top="10.0" />
@@ -58,7 +57,7 @@
         </VBox.margin>
     </Button>
 
-    <ImageView fx:id="weatherIcon" preserveRatio="true" smooth="true" cache="true" >
+    <ImageView fx:id="weatherIcon" preserveRatio="true"  cache="true" >
         <viewport>
             <Rectangle2D minX="30" minY="50" width="145" height="100"/>
         </viewport>

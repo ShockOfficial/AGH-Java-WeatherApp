@@ -12,11 +12,17 @@ import pl.edu.agh.to2.WeatherApp.presenter.WeatherPresenter;
 
 public class WeatherView {
     @FXML
-    private TextField cityInput;
+    private TextField aInputCity;
     @FXML
-    private TextField latitudeInput;
+    private TextField bInputCity;
     @FXML
-    private TextField longitudeInput;
+    private TextField aLatitudeInput;
+    @FXML
+    private TextField aLongitudeInput;
+    @FXML
+    private TextField bLatitudeInput;
+    @FXML
+    private TextField bLongitudeInput;
     @FXML
     public Label weatherError;
     @FXML
@@ -55,17 +61,30 @@ public class WeatherView {
 
     @FXML
     public void handleGetWeatherAction() {
-        if (!cityInput.getText().isEmpty()) {
-            presenter.getWeatherByCity(cityInput.getText());
-        } else if (!latitudeInput.getText().isEmpty() && !longitudeInput.getText().isEmpty()) {
-            presenter.getWeatherByCoordinates(latitudeInput.getText(), longitudeInput.getText());
+        boolean aCityProvided = !aInputCity.getText().isEmpty();
+        boolean bCityProvided = !bInputCity.getText().isEmpty();
+        boolean aCoordsProvided = !aLatitudeInput.getText().isEmpty() && !aLongitudeInput.getText().isEmpty();
+        boolean bCoordsProvided = !bLatitudeInput.getText().isEmpty() && !bLongitudeInput.getText().isEmpty();
+
+        if (aCityProvided) {
+            if (bCityProvided) {
+                presenter.getWeatherByCities(aInputCity.getText(), bInputCity.getText());
+            } else {
+                presenter.getWeatherByCity(aInputCity.getText());
+            }
+        } else if (aCoordsProvided) {
+            if (bCoordsProvided) {
+                presenter.getWeatherByCoordinates(aLatitudeInput.getText(), aLongitudeInput.getText(),
+                        bLatitudeInput.getText(), bLongitudeInput.getText());
+            } else {
+                presenter.getWeatherByCoordinates(aLatitudeInput.getText(), aLongitudeInput.getText());
+            }
         } else {
+            setWeatherError("Please provide at least A city name or coordinates");
             setWeatherDisplaying(false);
             weatherIcon.setImage(null);
-            weatherError.setText("Please provide city name or coordinates");
         }
     }
-
     public void updateWeatherDisplay(WeatherData weatherData) {
         if (weatherData.getSys() != null) {
             setWeatherOutputInformer("Weather in " + weatherData.getName() + " (" + weatherData.getSys().getCountry() + "): " + weatherData.getWeather().get(0).getMain() + "\n");
