@@ -63,6 +63,6 @@ public class WeatherPresenterImpl implements WeatherPresenter {
 
     private double get_feels_like(WeatherData data){
         return TempCalculator.CalculatePerceivedTemp(
-                data.getMain().getTemp(), data.getWind().getSpeed());
+                data.getMain().getTemp(), data.getWind().getSpeed()) + 273; //+273 is temporary only so that the unit matches the rest of the temperatures, remove after proper conversion is done
     }
 }
