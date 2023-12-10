@@ -3,6 +3,7 @@ package pl.edu.agh.to2.WeatherApp.model.Impl;
 import com.google.inject.Inject;
 import pl.edu.agh.to2.WeatherApp.api.DataProvider;
 import pl.edu.agh.to2.WeatherApp.exceptions.DataFetchException;
+import pl.edu.agh.to2.WeatherApp.exceptions.GeocodingException;
 import pl.edu.agh.to2.WeatherApp.logger.Logger;
 import pl.edu.agh.to2.WeatherApp.model.airPollutionData.AirPollutionData;
 import pl.edu.agh.to2.WeatherApp.model.responseConverter.IResponseToModelConverter;
@@ -34,10 +35,14 @@ public class WeatherModelImpl implements WeatherModel {
                 AirPollutionData airPollution = this.getAirPollution(geocoding.getLon(), geocoding.getLat());
 
                 weather.setGeocodingData(geocoding);
-                weather.setAirpollutionData(airPollution);
+                weather.setAirPollutionData(airPollution);
 
                 return weather;
+            } catch (NullPointerException e){
+                logger.log("Geocoding API error:" + city + "not found");
+                throw new GeocodingException(city + " not found");
             } catch (IOException e) {
+                logger.log("Failed to fetch data from API for " + city);
                 throw new DataFetchException("Error fetching weather data");
             }
         });
@@ -49,9 +54,10 @@ public class WeatherModelImpl implements WeatherModel {
             try {
                 AirPollutionData airPollution = this.getAirPollution(lon, lat);
                 WeatherData weather = this.getWeather(lon, lat);
-                weather.setAirpollutionData(airPollution);
+                weather.setAirPollutionData(airPollution);
                 return weather;
             } catch (IOException e) {
+                logger.log(String.format("Failed to fetch data from API for %s, %s", lon, lat));
                 throw new DataFetchException("Error fetching weather data");
             }
         });
