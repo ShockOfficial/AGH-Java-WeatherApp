@@ -6,6 +6,7 @@ import pl.edu.agh.to2.WeatherApp.api.WeatherDataProvider;
 import pl.edu.agh.to2.WeatherApp.model.weatherData.WeatherData;
 import pl.edu.agh.to2.WeatherApp.model.WeatherModel;
 import pl.edu.agh.to2.WeatherApp.presenter.WeatherPresenter;
+import pl.edu.agh.to2.WeatherApp.utils.TempCalculator;
 import pl.edu.agh.to2.WeatherApp.view.WeatherView;
 
 import java.util.Objects;
@@ -55,7 +56,7 @@ public class WeatherPresenterImpl implements WeatherPresenter {
             weatherData.setName(city);
             weatherData.getSys().setCountry(country);
             weatherData.getWind().setSpeed(round(weatherData.getWind().getSpeed(), 2));
-            weatherData.getMain().setFeelsLike(round(weatherData.getMain().getFeelsLike(), 2));
+            weatherData.getMain().setFeelsLike(round(get_feels_like(weatherData), 2));
             weatherData.getMain().setTemp(round(weatherData.getMain().getTemp(), 2));
             weatherData.getMain().setFeelsLike(round(weatherData.getMain().getFeelsLike(), 2));
             weatherData.getMain().setTempMin(round(weatherData.getMain().getTempMin(), 2));
@@ -68,5 +69,10 @@ public class WeatherPresenterImpl implements WeatherPresenter {
     private float round(double value, int places) {
         double scale = Math.pow(10, places);
         return (float) (Math.round(value * scale) / scale);
+    }
+
+    private double get_feels_like(WeatherData data){
+        return TempCalculator.CalculatePerceivedTemp(
+                data.getMain().getTemp(), data.getWind().getSpeed()) + 273; //+273 is temporary only so that the unit matches the rest of the temperatures, remove after proper conversion is done
     }
 }
