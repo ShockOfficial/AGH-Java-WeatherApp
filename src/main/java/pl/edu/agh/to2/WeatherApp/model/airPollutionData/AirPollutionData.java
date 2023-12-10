@@ -8,14 +8,14 @@ import java.util.List;
 
 public class AirPollutionData {
     @SerializedName("list")
-    private List<AirListElementDTO> PollutionElementList = new ArrayList<>();
+    private List<AirListElementDTO> pollutionElementList = new ArrayList<>();
 
 
     public AirListElementDTO getPollutionListElement() {
-        return PollutionElementList.get(0);
+        return pollutionElementList.get(0);
     }
 
     public void setPollutionList(List<AirListElementDTO> list) {
-        this.PollutionElementList = list;
+        this.pollutionElementList = list;
     }
 }

@@ -14,7 +14,7 @@ public class WeatherData {
 
     //name of the city
     private GeocodingData geocodingData = new GeocodingData();
-    private AirPollutionData airpollutionData;
+    private AirPollutionData airPollutionData;
     //Coordinates of the place
     private CoordDTO coord;
     //Group of weather parameters (Rain, Snow, Clouds etc.) and detailed i.e "heavy rain"
@@ -28,7 +28,7 @@ public class WeatherData {
     //Speed(m/s), angle(deg), and gust(m/s) of the wind
     private WindDTO wind;
 
-    //Rain and snow volume over the past 1h and 3h in mm(only if aplicable)
+    //Rain and snow volume over the past 1h and 3h in mm(only if applicable)
     private TotalFallDTO rain;
     private TotalFallDTO snow;
 
@@ -176,12 +176,12 @@ public class WeatherData {
         this.geocodingData = geocodingData;
     }
 
-    public AirPollutionData getAirpollutionData() {
-        return airpollutionData;
+    public AirPollutionData getAirPollutionData() {
+        return airPollutionData;
     }
 
-    public void setAirpollutionData(AirPollutionData airpollutionData) {
-        this.airpollutionData = airpollutionData;
+    public void setAirPollutionData(AirPollutionData airPollutionData) {
+        this.airPollutionData = airPollutionData;
     }
 
     @Override
