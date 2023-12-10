@@ -19,33 +19,34 @@
       stylesheets="@./style.css"
       xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.to2.WeatherApp.view.WeatherView">
     <GridPane alignment="CENTER" hgap="10" vgap="10">
-        <Label text="City:">
-            <GridPane.margin>
-                <Insets left="16.0" />
-            </GridPane.margin></Label>
-        <TextField fx:id="cityInput" promptText="City" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-
-        <Label text="Coordinates:" GridPane.rowIndex="1">
-            <GridPane.margin>
-                <Insets left="16.0" />
-            </GridPane.margin>
+        <GridPane.margin>
+            <Insets top="10.0" />
+        </GridPane.margin>
+        <Label text="Enter cities names" wrapText="true" styleClass="header"  GridPane.rowIndex="0"  GridPane.columnSpan="2">
+            <font>
+                <Font name="System Bold" size="24.0" />
+            </font>
         </Label>
-        <HBox spacing="5">
-            <GridPane.margin>
-                <Insets left="16.0" />
-            </GridPane.margin>
-        </HBox>
-        <TextField fx:id="latitudeInput" promptText="Latitude" GridPane.rowIndex="2">
-            <GridPane.margin>
-                <Insets left="16.0" />
-            </GridPane.margin>
-        </TextField>
-        <TextField fx:id="longitudeInput" promptText="Longitude" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <TextField fx:id="aInput" promptText="A City"  GridPane.columnIndex="0"  GridPane.rowIndex="1"    />
+        <TextField fx:id="bInput" promptText="B City" GridPane.columnIndex="1" GridPane.rowIndex="1"   />
+
+        <Label text="Enter coords of cities" wrapText="true" styleClass="header"  GridPane.rowIndex="2"  GridPane.columnSpan="2">
+            <font>
+                <Font name="System Bold" size="24.0" />
+            </font>
+        </Label>
+        <TextField fx:id="aLatitudeInput" promptText="A Latitude" GridPane.rowIndex="3" />
+        <TextField fx:id="aLongitudeInput" promptText="A Longitude" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <TextField fx:id="bLatitudeInput" promptText="B Latitude" GridPane.rowIndex="4" />
+        <TextField fx:id="bLongitudeInput" promptText="B Longitude" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
         <columnConstraints>
-            <ColumnConstraints />
-            <ColumnConstraints />
+            <ColumnConstraints percentWidth="45" />
+            <ColumnConstraints percentWidth="45" />
         </columnConstraints>
         <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
             <RowConstraints />
             <RowConstraints />
             <RowConstraints />

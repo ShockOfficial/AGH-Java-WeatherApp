@@ -16,6 +16,9 @@
     -fx-background-color: #F0F8FF;
     -fx-border-color: #708090;
     -fx-padding: 5px;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    /*-fx-pref-width: 200;*/
 }
 
 .button {
@@ -54,11 +57,21 @@
     -fx-padding: 10px;
     -fx-alignment: top-center;
 }
-
+.header {
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+}
 
 .weather-header {
     -fx-font-size: 24px;
     -fx-font-weight: bold;
     -fx-text-fill: #eb6c42;
     -fx-padding: 0 0 10 0;
+}
+
+.text-field {
+    -fx-background-color: rgba(237, 237, 237, 0.8);
+    -fx-underline: true;
+    -fx-outline: none;
+    -fx-border-color: transparent;
 }
