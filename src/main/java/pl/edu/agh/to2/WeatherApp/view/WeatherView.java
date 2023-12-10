@@ -54,6 +54,47 @@ public class WeatherView {
 
     private WeatherPresenter presenter;
 
+    @FXML
+    public void initialize() {
+        setupInputListeners();
+    }
+
+    private void updateFieldsState() {
+        boolean cityFieldsFilled = !aInputCity.getText().isEmpty() || !bInputCity.getText().isEmpty();
+        boolean coordFieldsFilled = !aLatitudeInput.getText().isEmpty() || !aLongitudeInput.getText().isEmpty()
+                || !bLatitudeInput.getText().isEmpty() || !bLongitudeInput.getText().isEmpty();
+
+        aLatitudeInput.setDisable(cityFieldsFilled);
+        aLongitudeInput.setDisable(cityFieldsFilled);
+        bLatitudeInput.setDisable(cityFieldsFilled);
+        bLongitudeInput.setDisable(cityFieldsFilled);
+
+        aInputCity.setDisable(coordFieldsFilled);
+        bInputCity.setDisable(coordFieldsFilled);
+    }
+
+    private void setupInputListeners() {
+        aInputCity.textProperty().addListener((observable, oldValue, newValue) -> {
+            updateFieldsState();
+        });
+        bInputCity.textProperty().addListener((observable, oldValue, newValue) -> {
+            updateFieldsState();
+        });
+
+        aLatitudeInput.textProperty().addListener((observable, oldValue, newValue) -> {
+            updateFieldsState();
+        });
+        aLongitudeInput.textProperty().addListener((observable, oldValue, newValue) -> {
+            updateFieldsState();
+        });
+        bLatitudeInput.textProperty().addListener((observable, oldValue, newValue) -> {
+            updateFieldsState();
+        });
+        bLongitudeInput.textProperty().addListener((observable, oldValue, newValue) -> {
+            updateFieldsState();
+        });
+    }
+
     @Inject
     public void setPresenter(WeatherPresenter presenter) {
         this.presenter = presenter;
@@ -80,11 +121,12 @@ public class WeatherView {
                 presenter.getWeatherByCoordinates(aLatitudeInput.getText(), aLongitudeInput.getText());
             }
         } else {
-            setWeatherError("Please provide at least A city name or coordinates");
+            setWeatherError("Please provide at least A city name or A coordinates");
             setWeatherDisplaying(false);
             weatherIcon.setImage(null);
         }
     }
+
     public void updateWeatherDisplay(WeatherData weatherData) {
         if (weatherData.getSys() != null) {
             setWeatherOutputInformer("Weather in " + weatherData.getName() + " (" + weatherData.getSys().getCountry() + "): " + weatherData.getWeather().get(0).getMain() + "\n");
