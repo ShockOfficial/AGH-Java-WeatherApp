@@ -58,7 +58,7 @@
         </VBox.margin>
     </Button>
 
-    <ImageView fx:id="weatherIcon" preserveRatio="true" smooth="true" cache="true" >
+    <ImageView fx:id="weatherIcon" preserveRatio="true"  cache="true" >
         <viewport>
             <Rectangle2D minX="30" minY="50" width="145" height="100"/>
         </viewport>

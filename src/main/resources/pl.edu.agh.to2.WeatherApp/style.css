@@ -75,3 +75,8 @@
     -fx-outline: none;
     -fx-border-color: transparent;
 }
+
+.error-message {
+    -fx-text-fill: red;
+    -fx-font-weight: bold;
+}
