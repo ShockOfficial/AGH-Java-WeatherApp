@@ -37,6 +37,10 @@ public class DataProvider {
         return client.newCall(request).execute();                   //executing the request and getting HTTPOk response
     }
 
+    public static String getIconUrl(String iconCode) {
+        return "https://openweathermap.org/img/wn/" + iconCode + "@4x.png";
+    }
+
     public static String getWeather(String lon, String lat) throws IOException {
         Response response = makeApiCall(Map.of(latitudeParamName, lat, longitudeParamName, lon), apiUrls.get("weather"));
         return response.body().string();                            //returning the text in the body response
