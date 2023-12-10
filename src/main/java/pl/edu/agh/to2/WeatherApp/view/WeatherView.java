@@ -61,6 +61,7 @@ public class WeatherView {
             presenter.getWeatherByCoordinates(latitudeInput.getText(), longitudeInput.getText());
         } else {
             setWeatherDisplaying(false);
+            weatherIcon.setImage(null);
             weatherError.setText("Please provide city name or coordinates");
         }
     }
