@@ -1,10 +1,13 @@
 package pl.edu.agh.to2.WeatherApp.model.Impl;
 
 import com.google.inject.Inject;
-import pl.edu.agh.to2.WeatherApp.api.WeatherDataProvider;
+import pl.edu.agh.to2.WeatherApp.api.DataProvider;
 import pl.edu.agh.to2.WeatherApp.exceptions.DataFetchException;
+import pl.edu.agh.to2.WeatherApp.exceptions.GeocodingException;
 import pl.edu.agh.to2.WeatherApp.logger.Logger;
-import pl.edu.agh.to2.WeatherApp.model.converter.IResponseToModelConverter;
+import pl.edu.agh.to2.WeatherApp.model.airPollutionData.AirPollutionData;
+import pl.edu.agh.to2.WeatherApp.model.responseConverter.IResponseToModelConverter;
+import pl.edu.agh.to2.WeatherApp.model.geocodingData.GeocodingData;
 import pl.edu.agh.to2.WeatherApp.model.weatherData.WeatherData;
 import pl.edu.agh.to2.WeatherApp.model.WeatherModel;
 
@@ -26,9 +29,20 @@ public class WeatherModelImpl implements WeatherModel {
     public CompletableFuture<WeatherData> getWeatherDataByCity(String city) {
         return CompletableFuture.supplyAsync(() -> {
             try {
-                String jsonResponse = WeatherDataProvider.getWeather(city);
-                return converter.convert(jsonResponse);
+
+                GeocodingData geocoding = this.getCoords(city);
+                WeatherData weather = this.getWeather(geocoding.getLon(), geocoding.getLat());
+                AirPollutionData airPollution = this.getAirPollution(geocoding.getLon(), geocoding.getLat());
+
+                weather.setGeocodingData(geocoding);
+                weather.setAirPollutionData(airPollution);
+
+                return weather;
+            } catch (NullPointerException e){
+                logger.log("Geocoding API error:" + city + "not found");
+                throw new GeocodingException(city + " not found");
             } catch (IOException e) {
+                logger.log("Failed to fetch data from API for " + city);
                 throw new DataFetchException("Error fetching weather data");
             }
         });
@@ -38,11 +52,29 @@ public class WeatherModelImpl implements WeatherModel {
     public  CompletableFuture<WeatherData> getWeatherDataByCoordinates(String lon, String lat) {
         return CompletableFuture.supplyAsync(() -> {
             try {
-                String jsonResponse = WeatherDataProvider.getWeather(lon, lat);
-                return converter.convert(jsonResponse);
+                AirPollutionData airPollution = this.getAirPollution(lon, lat);
+                WeatherData weather = this.getWeather(lon, lat);
+                weather.setAirPollutionData(airPollution);
+                return weather;
             } catch (IOException e) {
+                logger.log(String.format("Failed to fetch data from API for %s, %s", lon, lat));
                 throw new DataFetchException("Error fetching weather data");
             }
         });
+    }
+    private WeatherData getWeather(String lon, String lat) throws IOException{
+        String jsonResponse = DataProvider.getWeather(lon, lat);
+        return converter.convertWeather(jsonResponse);
+    }
+
+    private GeocodingData getCoords(String city) throws IOException{
+        String jsonResponse = DataProvider.getCoords(city);
+        return converter.convertCoords(jsonResponse.
+                substring(1, jsonResponse.length()-1));
+    }
+
+    private AirPollutionData getAirPollution(String lon, String lat) throws IOException{
+        String jsonResponse = DataProvider.getAirPollution(lon, lat);
+        return converter.convertAirPollution(jsonResponse);
     }
 }
