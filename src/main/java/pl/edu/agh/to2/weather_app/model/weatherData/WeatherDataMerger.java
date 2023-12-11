@@ -88,15 +88,17 @@ public class WeatherDataMerger {
             result.getWeather().get(0).addIconToList(iconA);
         }
         if (dataA.getAirPollutionData() != null || dataB.getAirPollutionData() != null) {
-            String iconBmask = "0";
-            String iconAmask = "0";
-            if (dataA.getAirPollutionData() != null){
-                iconAmask = dataA.getAirPollutionData().getPollutionListElement().getMainInfo().getAqi();
+            String iconMask;
+
+            if (dataA.getAirPollutionData() != null) {
+                iconMask = dataA.getAirPollutionData().getPollutionListElement().getMainInfo().getAqi();
+            } else if (dataB.getAirPollutionData() != null) {
+                iconMask = dataB.getAirPollutionData().getPollutionListElement().getMainInfo().getAqi();
+            } else {
+                iconMask = "0";
             }
-            else{
-                iconBmask = dataB.getAirPollutionData().getPollutionListElement().getMainInfo().getAqi();
-            }
-            if (Float.parseFloat(iconAmask) >= 4 || Float.parseFloat(iconBmask) >= 4) {
+
+            if (Float.parseFloat(iconMask) >= 4) {
                 result.getWeather().get(0).addIconToList("mask");
             }
         }

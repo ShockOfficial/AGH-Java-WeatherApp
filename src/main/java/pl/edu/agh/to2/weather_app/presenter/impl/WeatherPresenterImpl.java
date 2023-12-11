@@ -7,6 +7,7 @@ import pl.edu.agh.to2.weather_app.model.weatherData.WeatherData;
 import pl.edu.agh.to2.weather_app.model.WeatherModel;
 import pl.edu.agh.to2.weather_app.model.weatherData.WeatherDataMerger;
 import pl.edu.agh.to2.weather_app.presenter.WeatherPresenter;
+import pl.edu.agh.to2.weather_app.utils.Constans;
 import pl.edu.agh.to2.weather_app.utils.TempCalculator;
 import pl.edu.agh.to2.weather_app.view.WeatherView;
 
@@ -18,7 +19,6 @@ import java.util.concurrent.CompletableFuture;
 public class WeatherPresenterImpl implements WeatherPresenter {
     private final WeatherModel model;
     private final WeatherView view;
-    private static String maskURL = "https://cdn-icons-png.flaticon.com/512/3579/3579773.png";
     private static final String DEFAULT_ERROR_MSG = "Error fetching weather data";
 
     @Inject
@@ -78,13 +78,13 @@ public class WeatherPresenterImpl implements WeatherPresenter {
                 if (weatherData.getAirPollutionData()!=null){
                     String poll = weatherData.getAirPollutionData().getPollutionListElement().getMainInfo().getAqi();
                     if (Float.parseFloat(poll) >= 4){
-                        newIconList.add(maskURL);
+                        newIconList.add(Constans.MASK_URL);
                     }
                 }
             } else {
                 for (String iconCode : iconCodeList) {
                     if (Objects.equals(iconCode, "mask")){
-                        newIconList.add(maskURL);
+                        newIconList.add(Constans.MASK_URL);
                     }
                     String iconUrl = DataProvider.getIconUrl(iconCode);
                     newIconList.add(iconUrl);
