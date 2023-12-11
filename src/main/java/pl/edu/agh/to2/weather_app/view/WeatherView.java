@@ -113,9 +113,7 @@ public class WeatherView {
                 presenter.getWeatherByCoordinates(aLatitudeInput.getText(), aLongitudeInput.getText());
             }
         } else {
-            setWeatherError("Please provide at least A city name or A coordinates");
-            setWeatherDisplaying(false);
-            hideIcons();
+            showError("Please provide city name or coordinates");
         }
     }
 
@@ -182,11 +180,8 @@ public class WeatherView {
                 hideIcons();
             }
         } else {
-            setWeatherError("City not found");
-            setWeatherDisplaying(false);
-            hideIcons();
+            showError("City not found");
         }
-
     }
 
     private void hideIcons() {
@@ -213,6 +208,9 @@ public class WeatherView {
     public void setWeatherDisplaying(boolean weatherDisplaying) {
         this.weatherInfo.setVisible(weatherDisplaying);
         this.weatherError.setVisible(!weatherDisplaying);
+        if (!weatherDisplaying) {
+            hideIcons();
+        }
     }
 
     public void setCloudinessValue(String cloudinessValue) {
@@ -255,4 +253,8 @@ public class WeatherView {
         this.maximumTemperatureValue.setText(maximumTemperatureValue);
     }
 
+    public void showError(String error) {
+        setWeatherError(error);
+        setWeatherDisplaying(false);
+    }
 }
