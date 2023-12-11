@@ -5,9 +5,12 @@ import javafx.application.Platform;
 import pl.edu.agh.to2.weather_app.api.DataProvider;
 import pl.edu.agh.to2.weather_app.model.weatherData.WeatherData;
 import pl.edu.agh.to2.weather_app.model.WeatherModel;
+import pl.edu.agh.to2.weather_app.model.weatherData.WeatherDataMerger;
 import pl.edu.agh.to2.weather_app.presenter.WeatherPresenter;
 import pl.edu.agh.to2.weather_app.view.WeatherView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
@@ -36,7 +39,7 @@ public class WeatherPresenterImpl implements WeatherPresenter {
         CompletableFuture<WeatherData> weatherDataA = model.getWeatherDataByCity(cityA);
         CompletableFuture<WeatherData> weatherDataB = model.getWeatherDataByCity(cityB);
 
-        weatherDataA.thenCombine(weatherDataB, this::compareWeatherData).thenAccept(worstWeatherData -> Platform.runLater(() -> updateWeatherDisplay(worstWeatherData)))
+        weatherDataA.thenCombine(weatherDataB, WeatherDataMerger::mergeWorseWeatherData).thenAccept(worstWeatherData -> Platform.runLater(() -> updateWeatherDisplay(worstWeatherData)))
                 .exceptionally(e -> {
                     Platform.runLater(() -> view.setWeatherError(DEFAULT_ERROR_MSG));
                     return null;
@@ -56,7 +59,7 @@ public class WeatherPresenterImpl implements WeatherPresenter {
         CompletableFuture<WeatherData> weatherDataA = model.getWeatherDataByCoordinates(latA, lonA);
         CompletableFuture<WeatherData> weatherDataB = model.getWeatherDataByCoordinates(latB, lonB);
 
-        weatherDataA.thenCombine(weatherDataB, this::compareWeatherData).thenAccept(worstWeatherData -> Platform.runLater(() -> updateWeatherDisplay(worstWeatherData)))
+        weatherDataA.thenCombine(weatherDataB, WeatherDataMerger::mergeWorseWeatherData).thenAccept(worstWeatherData -> Platform.runLater(() -> updateWeatherDisplay(worstWeatherData)))
                 .exceptionally(e -> {
                     Platform.runLater(() -> view.setWeatherError(DEFAULT_ERROR_MSG));
                     return null;
@@ -65,9 +68,20 @@ public class WeatherPresenterImpl implements WeatherPresenter {
 
     private void updateIconUrl(WeatherData weatherData) {
         if (weatherData.getWeather() != null && !weatherData.getWeather().isEmpty()) {
-            String iconCode = weatherData.getWeather().get(0).getIcon();
-            String iconUrl = DataProvider.getIconUrl(iconCode);
-            weatherData.getWeather().get(0).setIcon(iconUrl);
+            List<String> iconCodeList = weatherData.getWeather().get(0).getIconList();
+            List<String> newIconList = new ArrayList<>();
+
+            if (iconCodeList == null) {
+                String iconUrl = DataProvider.getIconUrl(weatherData.getWeather().get(0).getIcon());
+                newIconList.add(iconUrl);
+            } else {
+                for (String iconCode : iconCodeList) {
+                    String iconUrl = DataProvider.getIconUrl(iconCode);
+                    newIconList.add(iconUrl);
+                }
+            }
+
+            weatherData.getWeather().get(0).setIconList(newIconList);
         }
     }
 
@@ -93,31 +107,8 @@ public class WeatherPresenterImpl implements WeatherPresenter {
         return (float) (Math.round(value * scale) / scale);
     }
 
-    private WeatherData compareWeatherData(WeatherData dataA, WeatherData dataB) {
-        if (dataA == null) {
-            return dataB;
-        } else if (dataB == null) {
-            return dataA;
-        }
 
-        boolean rainInA = dataA.getRain() != null && dataA.getRain().getOneH() > 0;
-        boolean rainInB = dataB.getRain() != null && dataB.getRain().getOneH() > 0;
 
-        boolean snowInA = dataA.getSnow() != null && dataA.getSnow().getOneH() > 0;
-        boolean snowInB = dataB.getSnow() != null && dataB.getSnow().getOneH() > 0;
 
-        if (rainInB || snowInB) {
-            return dataB;
-        } else if (rainInA || snowInA) {
-            return dataA;
-        }
 
-        double feelsLikeA = dataA.getMain().getFeelsLike();
-        double feelsLikeB = dataB.getMain().getFeelsLike();
-        if (feelsLikeB != feelsLikeA) {
-            return feelsLikeB > feelsLikeA ? dataA : dataB;
-        }
-
-        return dataB.getWind().getSpeed() > dataA.getWind().getSpeed() ? dataB : dataA;
-    }
 }

@@ -10,6 +10,8 @@ import javafx.scene.layout.VBox;
 import pl.edu.agh.to2.weather_app.model.weatherData.WeatherData;
 import pl.edu.agh.to2.weather_app.presenter.WeatherPresenter;
 
+import java.util.List;
+
 public class WeatherView {
     @FXML
     private TextField aInputCity;
@@ -50,7 +52,9 @@ public class WeatherView {
     @FXML
     private Label maximumTemperatureValue;
     @FXML
-    private ImageView weatherIcon;
+    private ImageView weatherIconLeft;
+    @FXML
+    private ImageView weatherIconRight;
 
     private WeatherPresenter presenter;
 
@@ -111,7 +115,7 @@ public class WeatherView {
         } else {
             setWeatherError("Please provide at least A city name or A coordinates");
             setWeatherDisplaying(false);
-            weatherIcon.setImage(null);
+            hideIcons();
         }
     }
 
@@ -145,19 +149,34 @@ public class WeatherView {
                 setWeatherDisplaying(true);
             }
 
-            // Set weather icon
-            if (weatherData.getWeather() != null && !weatherData.getWeather().isEmpty()) {
-                String iconCode = weatherData.getWeather().get(0).getIcon();
-                weatherIcon.setImage(new Image(iconCode));
-                weatherIcon.setVisible(true);
+            // Set weather icons
+            List<String> icons = weatherData.getWeather().get(0).getIconList();
+            if (!icons.isEmpty()) {
+                weatherIconLeft.setImage(new Image(icons.get(0)));
+                weatherIconLeft.setVisible(true);
+
+                if (icons.size() > 1) {
+                    weatherIconRight.setImage(new Image(icons.get(1)));
+                    weatherIconRight.setVisible(true);
+                } else {
+                    weatherIconRight.setVisible(false);
+                }
+            } else {
+                hideIcons();
             }
         } else {
             setWeatherError("City not found");
             setWeatherDisplaying(false);
-            weatherIcon.setImage(null);
-            weatherIcon.setVisible(false);
+            hideIcons();
         }
 
+    }
+
+    private void hideIcons() {
+        weatherIconLeft.setImage(null);
+        weatherIconLeft.setVisible(false);
+        weatherIconRight.setImage(null);
+        weatherIconRight.setVisible(false);
     }
 
     public void setWeatherError(String weatherError) {
