@@ -30,7 +30,7 @@ public class WeatherPresenterImpl implements WeatherPresenter {
     @Override
     public void getWeatherByCity(String city) {
         model.getWeatherDataByCity(city).thenAccept(weatherData -> Platform.runLater(() -> updateWeatherDisplay(weatherData))).exceptionally(e -> {
-            Platform.runLater(() -> view.setWeatherError(DEFAULT_ERROR_MSG));
+            Platform.runLater(() -> view.showError(DEFAULT_ERROR_MSG));
             return null;
         });
     }
@@ -42,7 +42,7 @@ public class WeatherPresenterImpl implements WeatherPresenter {
 
         weatherDataA.thenCombine(weatherDataB, WeatherDataMerger::mergeWorseWeatherData).thenAccept(worstWeatherData -> Platform.runLater(() -> updateWeatherDisplay(worstWeatherData)))
                 .exceptionally(e -> {
-                    Platform.runLater(() -> view.setWeatherError(DEFAULT_ERROR_MSG));
+                    Platform.runLater(() -> view.showError(DEFAULT_ERROR_MSG));
                     return null;
                 });
     }
@@ -50,7 +50,7 @@ public class WeatherPresenterImpl implements WeatherPresenter {
     @Override
     public void getWeatherByCoordinates(String lat, String lon) {
         model.getWeatherDataByCoordinates(lat, lon).thenAccept(weatherData -> Platform.runLater(() -> updateWeatherDisplay(weatherData))).exceptionally(e -> {
-            Platform.runLater(() -> view.setWeatherError(DEFAULT_ERROR_MSG));
+            Platform.runLater(() -> view.showError(DEFAULT_ERROR_MSG));
             return null;
         });
     }
@@ -62,7 +62,7 @@ public class WeatherPresenterImpl implements WeatherPresenter {
 
         weatherDataA.thenCombine(weatherDataB, WeatherDataMerger::mergeWorseWeatherData).thenAccept(worstWeatherData -> Platform.runLater(() -> updateWeatherDisplay(worstWeatherData)))
                 .exceptionally(e -> {
-                    Platform.runLater(() -> view.setWeatherError(DEFAULT_ERROR_MSG));
+                    Platform.runLater(() -> view.showError(DEFAULT_ERROR_MSG));
                     return null;
                 });
     }
@@ -112,9 +112,4 @@ public class WeatherPresenterImpl implements WeatherPresenter {
         return TempCalculator.CalculatePerceivedTemp(
                 data.getMain().getTemp(), data.getWind().getSpeed()) + 273; //+273 is temporary only so that the unit matches the rest of the temperatures, remove after proper conversion is done
     }
-
-
-
-
-
 }
