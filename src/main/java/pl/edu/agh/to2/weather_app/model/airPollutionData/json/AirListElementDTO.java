@@ -1,4 +1,4 @@
-package pl.edu.agh.to2.WeatherApp.model.airPollutionData.json;
+package pl.edu.agh.to2.weather_app.model.airPollutionData.json;
 
 import com.google.gson.annotations.SerializedName;
 

@@ -1,13 +1,13 @@
-package pl.edu.agh.to2.WeatherApp.model.responseConverter;
+package pl.edu.agh.to2.weather_app.model.responseConverter;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import pl.edu.agh.to2.WeatherApp.model.airPollutionData.AirPollutionData;
-import pl.edu.agh.to2.WeatherApp.model.geocodingData.GeocodingData;
-import pl.edu.agh.to2.WeatherApp.model.weatherData.WeatherData;
+import pl.edu.agh.to2.weather_app.model.airPollutionData.AirPollutionData;
+import pl.edu.agh.to2.weather_app.model.geocodingData.GeocodingData;
+import pl.edu.agh.to2.weather_app.model.weatherData.WeatherData;
 
-public class GsonConverter implements IResponseToModelConverter{
+public class GsonConverter implements IResponseToModelConverter {
 
     private final Gson gson;
 

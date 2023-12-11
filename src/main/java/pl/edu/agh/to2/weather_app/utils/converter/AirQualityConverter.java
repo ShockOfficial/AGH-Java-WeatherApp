@@ -1,6 +1,6 @@
 package pl.edu.agh.to2.WeatherApp.utils.converter;
 
-import pl.edu.agh.to2.WeatherApp.model.airPollutionData.AirPollutionData;
+import pl.edu.agh.to2.weather_app.model.airPollutionData.AirPollutionData;
 
 import java.util.Map;
 

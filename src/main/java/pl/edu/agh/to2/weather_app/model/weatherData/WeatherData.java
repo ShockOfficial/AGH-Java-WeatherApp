@@ -1,8 +1,10 @@
-package pl.edu.agh.to2.WeatherApp.model.weatherData;
+package pl.edu.agh.to2.weather_app.model.weatherData;
 
-import pl.edu.agh.to2.WeatherApp.model.airPollutionData.AirPollutionData;
-import pl.edu.agh.to2.WeatherApp.model.geocodingData.GeocodingData;
-import pl.edu.agh.to2.WeatherApp.model.weatherData.json.*;
+import pl.edu.agh.to2.weather_app.model.airPollutionData.AirPollutionData;
+import pl.edu.agh.to2.weather_app.model.geocodingData.GeocodingData;
+import pl.edu.agh.to2.weather_app.model.weatherData.json.*;
+import pl.edu.agh.to2.weather_app.model.weatherData.json.CoordDTO;
+import pl.edu.agh.to2.weather_app.model.weatherData.json.MainInfoDTO;
 
 import java.util.ArrayList;
 import java.util.List;

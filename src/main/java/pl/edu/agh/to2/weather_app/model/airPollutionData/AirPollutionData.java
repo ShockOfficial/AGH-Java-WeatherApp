@@ -1,7 +1,7 @@
-package pl.edu.agh.to2.WeatherApp.model.airPollutionData;
+package pl.edu.agh.to2.weather_app.model.airPollutionData;
 
 import com.google.gson.annotations.SerializedName;
-import pl.edu.agh.to2.WeatherApp.model.airPollutionData.json.AirListElementDTO;
+import pl.edu.agh.to2.weather_app.model.airPollutionData.json.AirListElementDTO;
 
 import java.util.ArrayList;
 import java.util.List;

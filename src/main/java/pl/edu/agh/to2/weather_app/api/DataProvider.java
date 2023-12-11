@@ -18,12 +18,14 @@ public class DataProvider {
     private static final String limit = "1";
     private static final String latitudeParamName = "lat";
     private static final String longitudeParamName = "lon";
+    private static final String unitsParamName = "units";
+    private static final String unit = "metric";
     private static final Map<String, String> apiUrls = Map.of(
             "geo", "geo/1.0/direct",
             "air", "data/2.5/air_pollution",
             "weather", "data/2.5/weather" );
     private static final OkHttpClient client = new OkHttpClient();
-    private WeatherDataProvider(){}
+    private DataProvider(){}
 
     protected static Response makeApiCall(Map<String, String> params, String apiUrl) throws IOException {
         HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
@@ -43,13 +45,13 @@ public class DataProvider {
     }
 
     public static String getWeather(String lon, String lat) throws IOException {
-        Response response = makeApiCall(Map.of(latitudeParamName, lat, longitudeParamName, lon), apiUrls.get("weather"));
+        Response response = makeApiCall(Map.of(latitudeParamName, lat, longitudeParamName, lon,unitsParamName,unit), apiUrls.get("weather"));
         return response.body().string();                            //returning the text in the body response
     }
 
     //This way is technically deprecated but works fine
     public static String getWeather(String city) throws IOException {
-        Response response = makeApiCall(Map.of(cityParamName, city), apiUrls.get("weather"));
+        Response response = makeApiCall(Map.of(cityParamName, city,unitsParamName,unit), apiUrls.get("weather"));
         return response.body().string();                            //returning the text in the body response
     }
 
@@ -59,7 +61,7 @@ public class DataProvider {
     }
 
     public static String getAirPollution(String lon, String lat) throws IOException {
-        Response response = makeApiCall(Map.of(latitudeParamName, lat, longitudeParamName, lon), apiUrls.get("air"));
+        Response response = makeApiCall(Map.of(latitudeParamName, lat, longitudeParamName, lon, unitsParamName,unit), apiUrls.get("air"));
         return response.body().string();                          //returning the text in the body response
     }
 

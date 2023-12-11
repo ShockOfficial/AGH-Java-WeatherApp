@@ -1,11 +1,11 @@
-package pl.edu.agh.to2.WeatherApp.model;
+package pl.edu.agh.to2.weather_app.model;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
-import pl.edu.agh.to2.WeatherApp.logger.ConsoleSerializer;
-import pl.edu.agh.to2.WeatherApp.logger.IMessageSerializer;
-import pl.edu.agh.to2.WeatherApp.model.responseConverter.GsonConverter;
-import pl.edu.agh.to2.WeatherApp.model.responseConverter.IResponseToModelConverter;
+import pl.edu.agh.to2.weather_app.logger.ConsoleSerializer;
+import pl.edu.agh.to2.weather_app.logger.IMessageSerializer;
+import pl.edu.agh.to2.weather_app.model.responseConverter.GsonConverter;
+import pl.edu.agh.to2.weather_app.model.responseConverter.IResponseToModelConverter;
 
 
 public class WeatherModule extends AbstractModule {

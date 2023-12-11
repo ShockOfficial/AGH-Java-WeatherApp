@@ -1,15 +1,15 @@
-package pl.edu.agh.to2.WeatherApp.model.Impl;
+package pl.edu.agh.to2.weather_app.model.impl;
 
 import com.google.inject.Inject;
-import pl.edu.agh.to2.WeatherApp.api.DataProvider;
-import pl.edu.agh.to2.WeatherApp.exceptions.DataFetchException;
-import pl.edu.agh.to2.WeatherApp.exceptions.GeocodingException;
-import pl.edu.agh.to2.WeatherApp.logger.Logger;
-import pl.edu.agh.to2.WeatherApp.model.airPollutionData.AirPollutionData;
-import pl.edu.agh.to2.WeatherApp.model.responseConverter.IResponseToModelConverter;
-import pl.edu.agh.to2.WeatherApp.model.geocodingData.GeocodingData;
-import pl.edu.agh.to2.WeatherApp.model.weatherData.WeatherData;
-import pl.edu.agh.to2.WeatherApp.model.WeatherModel;
+import pl.edu.agh.to2.weather_app.api.DataProvider;
+import pl.edu.agh.to2.weather_app.exceptions.DataFetchException;
+import pl.edu.agh.to2.weather_app.exceptions.GeocodingException;
+import pl.edu.agh.to2.weather_app.logger.Logger;
+import pl.edu.agh.to2.weather_app.model.WeatherModel;
+import pl.edu.agh.to2.weather_app.model.airPollutionData.AirPollutionData;
+import pl.edu.agh.to2.weather_app.model.responseConverter.IResponseToModelConverter;
+import pl.edu.agh.to2.weather_app.model.geocodingData.GeocodingData;
+import pl.edu.agh.to2.weather_app.model.weatherData.WeatherData;
 
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;

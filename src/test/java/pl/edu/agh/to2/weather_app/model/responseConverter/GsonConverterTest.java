@@ -1,3 +1,5 @@
+package pl.edu.agh.to2.weather_app.model.responseConverter;
+
 <<<<<<<< HEAD:src/test/java/pl/edu/agh/to2/WeatherApp/model/responseConverter/GsonConverterTest.java
 package pl.edu.agh.to2.WeatherApp.model.responseConverter;
 ========

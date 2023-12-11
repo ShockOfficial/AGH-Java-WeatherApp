@@ -1,4 +1,4 @@
-package pl.edu.agh.to2.WeatherApp.model.geocodingData;
+package pl.edu.agh.to2.weather_app.model.geocodingData;
 
 public class GeocodingData {
     private String name;
