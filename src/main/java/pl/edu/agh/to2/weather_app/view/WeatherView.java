@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import pl.edu.agh.to2.weather_app.model.weatherData.WeatherData;
 import pl.edu.agh.to2.weather_app.presenter.WeatherPresenter;
+import pl.edu.agh.to2.weather_app.utils.converter.AirQualityConverter;
 
 import java.util.List;
 
@@ -32,25 +33,15 @@ public class WeatherView {
     @FXML
     private Label weatherOutputInformer;
     @FXML
-    private Label cloudinessValue;
-    @FXML
     private Label humidityValue;
     @FXML
     private Label pressureValue;
     @FXML
     private Label windValue;
     @FXML
-    private Label rainValue;
-    @FXML
-    public Label snowValue;
-    @FXML
-    private Label temperatureValue;
-    @FXML
-    private Label minimumTemperatureValue;
-    @FXML
     private Label sensedTemperatureValue;
     @FXML
-    private Label maximumTemperatureValue;
+    private Label airQuality;
     @FXML
     private ImageView weatherIconLeft;
     @FXML
@@ -121,27 +112,15 @@ public class WeatherView {
         if (weatherData.getSys() != null) {
             setWeatherOutputInformer("Weather in " + weatherData.getName() + " (" + weatherData.getSys().getCountry() + "): " + weatherData.getWeather().get(0).getMain() + "\n");
 
-            setCloudinessValue(Integer.toString(weatherData.getClouds().getAll()));
             setPressureValue(Integer.toString(weatherData.getMain().getPressure()));
             setHumidityValue(Integer.toString(weatherData.getMain().getHumidity()));
             setWindValue(Float.toString(weatherData.getWind().getSpeed()));
-
-            if (weatherData.getRain() != null) {
-                setRainValue(Float.toString(weatherData.getRain().getOneH()));
-            } else {
-                setRainValue("Unknown");
-            }
-
-            if (weatherData.getSnow() != null) {
-                setSnowValue(Float.toString(weatherData.getSnow().getOneH()));
-            } else {
-                setSnowValue("Unknown");
-            }
-
-            setTemperatureValue(Float.toString(weatherData.getMain().getTemp()));
             setSensedTemperatureValue(Float.toString(weatherData.getMain().getFeelsLike()));
-            setMinimumTemperatureValue(Float.toString(weatherData.getMain().getTempMin()));
-            setMaximumTemperatureValue(Float.toString(weatherData.getMain().getTempMax()));
+            if (weatherData.getAirPollutionData() != null) {
+                setAirQuality(AirQualityConverter.getAirQualityString(weatherData.getAirPollutionData()));
+            } else {
+                setAirQuality("Unknown");
+            }
 
             if (!isWeatherDisplaying()) {
                 setWeatherDisplaying(true);
@@ -194,10 +173,6 @@ public class WeatherView {
         }
     }
 
-    public void setCloudinessValue(String cloudinessValue) {
-        this.cloudinessValue.setText(cloudinessValue);
-    }
-
     public void setHumidityValue(String humidityValue) {
         this.humidityValue.setText(humidityValue);
     }
@@ -210,28 +185,12 @@ public class WeatherView {
         this.windValue.setText(windValue);
     }
 
-    public void setRainValue(String rainValue) {
-        this.rainValue.setText(rainValue);
-    }
-
-    public void setSnowValue(String snowValue) {
-        this.snowValue.setText(snowValue);
-    }
-
-    public void setTemperatureValue(String temperatureValue) {
-        this.temperatureValue.setText(temperatureValue);
-    }
-
-    public void setMinimumTemperatureValue(String minimumTemperatureValue) {
-        this.minimumTemperatureValue.setText(minimumTemperatureValue);
-    }
-
     public void setSensedTemperatureValue(String sensedTemperatureValue) {
         this.sensedTemperatureValue.setText(sensedTemperatureValue);
     }
 
-    public void setMaximumTemperatureValue(String maximumTemperatureValue) {
-        this.maximumTemperatureValue.setText(maximumTemperatureValue);
+    public void setAirQuality(String airQuality) {
+        this.airQuality.setText(airQuality);
     }
 
     public void showError(String error) {
