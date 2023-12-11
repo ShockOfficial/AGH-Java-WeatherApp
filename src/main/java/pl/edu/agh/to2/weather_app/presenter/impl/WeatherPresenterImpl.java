@@ -95,7 +95,6 @@ public class WeatherPresenterImpl implements WeatherPresenter {
             weatherData.getWind().setSpeed(round(weatherData.getWind().getSpeed(), 2));
             weatherData.getMain().setFeelsLike(round(getFeelsLike(weatherData), 2));
             weatherData.getMain().setTemp(round(weatherData.getMain().getTemp(), 2));
-            weatherData.getMain().setFeelsLike(round(weatherData.getMain().getFeelsLike(), 2));
             weatherData.getMain().setTempMin(round(weatherData.getMain().getTempMin(), 2));
             weatherData.getMain().setTempMax(round(weatherData.getMain().getTempMax(), 2));
         }

@@ -18,6 +18,7 @@ public class WeatherDataMerger {
         mergeNamesAndCountries(dataA, dataB, result);
         mergeMainWeatherConditions(dataA, dataB, result);
         mergeWeatherDetails(dataA, dataB, result);
+        mergeAirPollutionData(dataA, dataB, result);
 
         mergeTotalFall(dataA.getRain(), dataB.getRain(), result, true);
         mergeTotalFall(dataA.getSnow(), dataB.getSnow(), result, false);
@@ -85,6 +86,22 @@ public class WeatherDataMerger {
             result.getWeather().get(0).addIconToList(iconB);
         } else {
             result.getWeather().get(0).addIconToList(iconA);
+        }
+    }
+
+    private static void mergeAirPollutionData(WeatherData dataA, WeatherData dataB, WeatherData result) {
+        if (dataA.getAirPollutionData() != null && dataB.getAirPollutionData() != null) {
+            int aqiA = Integer.parseInt(dataA.getAirPollutionData().getPollutionListElement().getMainInfo().getAqi());
+            int aqiB = Integer.parseInt(dataB.getAirPollutionData().getPollutionListElement().getMainInfo().getAqi());
+            if (aqiA > aqiB) {
+                result.setAirPollutionData(dataA.getAirPollutionData());
+            } else {
+                result.setAirPollutionData(dataB.getAirPollutionData());
+            }
+        } else if (dataA.getAirPollutionData() != null) {
+            result.setAirPollutionData(dataA.getAirPollutionData());
+        } else if (dataB.getAirPollutionData() != null) {
+            result.setAirPollutionData(dataB.getAirPollutionData());
         }
     }
 }
