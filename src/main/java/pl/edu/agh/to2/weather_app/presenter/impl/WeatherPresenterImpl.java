@@ -94,7 +94,6 @@ public class WeatherPresenterImpl implements WeatherPresenter {
             weatherData.getWeather().get(0).setIconList(newIconList);
         }
     }
-
     private void updateWeatherDisplay(WeatherData weatherData) {
         if (weatherData.getSys() != null) {
             String city = weatherData.getName() == null || Objects.equals(weatherData.getName(), "") ? "Unknown" : weatherData.getName();
@@ -102,7 +101,7 @@ public class WeatherPresenterImpl implements WeatherPresenter {
             weatherData.setName(city);
             weatherData.getSys().setCountry(country);
             weatherData.getWind().setSpeed(round(weatherData.getWind().getSpeed(), 2));
-            weatherData.getMain().setFeelsLike(round(calcFeelsLike(weatherData), 2));
+            weatherData.getMain().setFeelsLike(round(getFeelsLike(weatherData), 2));
             weatherData.getMain().setTemp(round(weatherData.getMain().getTemp(), 2));
             weatherData.getMain().setFeelsLike(round(weatherData.getMain().getFeelsLike(), 2));
             weatherData.getMain().setTempMin(round(weatherData.getMain().getTempMin(), 2));
@@ -117,13 +116,9 @@ public class WeatherPresenterImpl implements WeatherPresenter {
         return (float) (Math.round(value * scale) / scale);
     }
 
-    private double calcFeelsLike(WeatherData data){
-        return TempCalculator.calculatePerceivedTemp(
+    private double getFeelsLike(WeatherData data){
+        return TempCalculator.CalculatePerceivedTemp(
                 data.getMain().getTemp(), data.getWind().getSpeed()) + 273; //+273 is temporary only so that the unit matches the rest of the temperatures, remove after proper conversion is done
     }
-
-
-
-
 
 }
