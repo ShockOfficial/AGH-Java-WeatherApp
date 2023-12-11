@@ -96,7 +96,7 @@ public class WeatherDataMerger {
             else{
                 iconBmask = dataB.getAirPollutionData().getPollutionListElement().getMainInfo().getAqi();
             }
-            if (Float.parseFloat(iconAmask) >= 2 || Float.parseFloat(iconBmask) >= 2) {
+            if (Float.parseFloat(iconAmask) >= 4 || Float.parseFloat(iconBmask) >= 4) {
                 result.getWeather().get(0).addIconToList("mask");
             }
         }

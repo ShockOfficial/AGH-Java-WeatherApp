@@ -77,7 +77,7 @@ public class WeatherPresenterImpl implements WeatherPresenter {
                 newIconList.add(iconUrl);
                 if (weatherData.getAirPollutionData()!=null){
                     String poll = weatherData.getAirPollutionData().getPollutionListElement().getMainInfo().getAqi();
-                    if (Float.parseFloat(poll) >= 2){
+                    if (Float.parseFloat(poll) >= 4){
                         newIconList.add(maskURL);
                     }
                 }
