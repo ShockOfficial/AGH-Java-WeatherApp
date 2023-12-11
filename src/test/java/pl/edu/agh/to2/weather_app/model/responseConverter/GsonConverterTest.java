@@ -1,11 +1,5 @@
 package pl.edu.agh.to2.weather_app.model.responseConverter;
 
-<<<<<<<< HEAD:src/test/java/pl/edu/agh/to2/WeatherApp/model/responseConverter/GsonConverterTest.java
-package pl.edu.agh.to2.WeatherApp.model.responseConverter;
-========
-package pl.edu.agh.to2.weather_app.model.converter;
->>>>>>>> 093cd10 (Apply SonarLint guides):src/test/java/pl/edu/agh/to2/weather_app/model/converter/GsonConverterTest.java
-
 import org.junit.jupiter.api.Test;
 import pl.edu.agh.to2.weather_app.model.weatherData.WeatherData;
 
