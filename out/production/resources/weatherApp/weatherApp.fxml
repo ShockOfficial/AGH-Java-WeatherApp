@@ -14,7 +14,8 @@
 <?import javafx.geometry.Pos?>
 <?import javafx.geometry.Rectangle2D?>
 
-<VBox alignment="CENTER" minHeight="600.0" minWidth="400.0" prefHeight="650.0" prefWidth="480.0" spacing="5"
+<?import javafx.scene.layout.HBox?>
+<VBox alignment="CENTER" minHeight="600.0" minWidth="650.0" prefHeight="650.0" prefWidth="720.0" spacing="5"
       stylesheets="@./style.css"
       xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.to2.weather_app.view.WeatherView">
     <GridPane alignment="CENTER" hgap="10" vgap="10">
@@ -57,11 +58,7 @@
         </VBox.margin>
     </Button>
 
-    <ImageView fx:id="weatherIcon" preserveRatio="true"  cache="true" >
-        <viewport>
-            <Rectangle2D minX="30" minY="50" width="145" height="100"/>
-        </viewport>
-    </ImageView>
+
 
     <Label fx:id="weatherError" text="City not found" visible="false" wrapText="true" styleClass="error-message">
             <StackPane.alignment>
@@ -69,10 +66,27 @@
             </StackPane.alignment>
         </Label>
     <VBox fx:id="weatherInfo" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" visible="false" >
+        <HBox alignment="CENTER" spacing="10">
+            <ImageView fx:id="weatherIconLeft" preserveRatio="true"  cache="true" >
+                <viewport>
+                    <Rectangle2D width="145" height="100"/>
+                </viewport>
+            </ImageView>
+            <ImageView fx:id="weatherIconRight" preserveRatio="true"  cache="true" >
+                <viewport>
+                    <Rectangle2D width="145" height="100"/>
+                </viewport>
+            </ImageView>
+            <ImageView fx:id="maskIcon" preserveRatio="true"  cache="true"  >
+                <viewport>
+                    <Rectangle2D width="145" height="100"/>
+                </viewport>
+            </ImageView>
+        </HBox>
         <VBox.margin>
             <Insets top="-30.0" />
         </VBox.margin>
-        <Label fx:id="weatherOutputInformer" text="Weather for City" wrapText="true" styleClass="weather-header">
+        <Label fx:id="weatherOutputInformer" text="Weather for City" textAlignment="CENTER" wrapText="true"  styleClass="weather-header" alignment="CENTER">
             <font>
                 <Font name="System Bold" size="12.0" />
             </font>

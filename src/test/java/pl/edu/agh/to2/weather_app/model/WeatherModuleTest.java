@@ -1,11 +1,11 @@
-package pl.edu.agh.to2.WeatherApp.model;
+package pl.edu.agh.to2.weather_app.model;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import org.junit.jupiter.api.Test;
-import pl.edu.agh.to2.WeatherApp.logger.ConsoleSerializer;
-import pl.edu.agh.to2.WeatherApp.logger.IMessageSerializer;
-import pl.edu.agh.to2.WeatherApp.model.responseConverter.GsonConverter;
+import pl.edu.agh.to2.weather_app.logger.ConsoleSerializer;
+import pl.edu.agh.to2.weather_app.logger.IMessageSerializer;
+import pl.edu.agh.to2.weather_app.model.responseConverter.GsonConverter;
 import pl.edu.agh.to2.weather_app.model.responseConverter.IResponseToModelConverter;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;

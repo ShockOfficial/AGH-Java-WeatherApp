@@ -38,7 +38,6 @@ class WeatherPresenterImplTest {
 
         // when
         presenter.getWeatherByCity(city);
-        Thread.sleep(1000); // Consider using CompletableFuture.join or other non-blocking methods
 
         // then
         verify(mockView).updateWeatherDisplay(mockWeatherData);

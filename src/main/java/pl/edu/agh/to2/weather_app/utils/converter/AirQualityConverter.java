@@ -1,4 +1,4 @@
-package pl.edu.agh.to2.WeatherApp.utils.converter;
+package pl.edu.agh.to2.weather_app.utils.converter;
 
 import pl.edu.agh.to2.weather_app.model.airPollutionData.AirPollutionData;
 

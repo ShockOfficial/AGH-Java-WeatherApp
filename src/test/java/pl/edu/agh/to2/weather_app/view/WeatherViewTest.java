@@ -17,9 +17,8 @@ import pl.edu.agh.to2.weather_app.presenter.WeatherPresenter;
 import static org.testfx.api.FxAssert.verifyThat;
 
 
-public class WeatherViewTest extends ApplicationTest {
+class WeatherViewTest extends ApplicationTest {
 
-    private WeatherView weatherView;
     private static class MockPresenter implements WeatherPresenter {
         private final WeatherView view;
 
@@ -28,12 +27,23 @@ public class WeatherViewTest extends ApplicationTest {
         }
         @Override
         public void getWeatherByCity(String city){
-            Platform.runLater(() -> insertMockData());
+            Platform.runLater(this::insertMockData);
         }
         @Override
         public void getWeatherByCoordinates(String lon, String lat){
-            Platform.runLater(() -> insertMockData());
+            Platform.runLater(this::insertMockData);
         }
+
+        @Override
+        public void getWeatherByCities(String cityA, String cityB) {
+
+        }
+
+        @Override
+        public void getWeatherByCoordinates(String latA, String lonA, String latB, String lonB) {
+
+        }
+
         private void insertMockData(){
             view.updateWeatherDisplay(getExampleWeatherData());
         }
@@ -44,8 +54,8 @@ public class WeatherViewTest extends ApplicationTest {
         //Given
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/weatherApp/weatherApp.fxml"));
         Parent root = loader.load();
-        this.weatherView = loader.getController();
-        MockPresenter presenter = new MockPresenter(this.weatherView);
+        WeatherView weatherView = loader.getController();
+        MockPresenter presenter = new MockPresenter(weatherView);
         weatherView.setPresenter(presenter);
         stage.setScene(new Scene(root));
         stage.show();
@@ -55,7 +65,7 @@ public class WeatherViewTest extends ApplicationTest {
     void displayWeatherFromCity(){
         //when
         FxRobot robot = new FxRobot();
-        robot.clickOn("#cityInput").write("test");
+        robot.clickOn("#aInputCity").write("test");
         robot.clickOn(".button");
 
         //then
@@ -73,8 +83,8 @@ public class WeatherViewTest extends ApplicationTest {
     void displayWeatherFromCoords(){
         //when
         FxRobot robot = new FxRobot();
-        robot.clickOn("#latitudeInput").write("1");
-        robot.clickOn("#longitudeInput").write("1");
+        robot.clickOn("#aLatitudeInput").write("1");
+        robot.clickOn("#aLongitudeInput").write("1");
         robot.clickOn(".button");
 
         //then

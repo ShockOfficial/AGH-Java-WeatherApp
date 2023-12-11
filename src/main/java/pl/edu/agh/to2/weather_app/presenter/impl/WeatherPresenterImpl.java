@@ -7,6 +7,7 @@ import pl.edu.agh.to2.weather_app.model.weatherData.WeatherData;
 import pl.edu.agh.to2.weather_app.model.WeatherModel;
 import pl.edu.agh.to2.weather_app.model.weatherData.WeatherDataMerger;
 import pl.edu.agh.to2.weather_app.presenter.WeatherPresenter;
+import pl.edu.agh.to2.weather_app.utils.TempCalculator;
 import pl.edu.agh.to2.weather_app.view.WeatherView;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ import java.util.concurrent.CompletableFuture;
 public class WeatherPresenterImpl implements WeatherPresenter {
     private final WeatherModel model;
     private final WeatherView view;
-
+    private static String maskURL = "https://cdn-icons-png.flaticon.com/512/3579/3579773.png";
     private static final String DEFAULT_ERROR_MSG = "Error fetching weather data";
 
     @Inject
@@ -74,8 +75,17 @@ public class WeatherPresenterImpl implements WeatherPresenter {
             if (iconCodeList == null) {
                 String iconUrl = DataProvider.getIconUrl(weatherData.getWeather().get(0).getIcon());
                 newIconList.add(iconUrl);
+                if (weatherData.getAirPollutionData()!=null){
+                    String poll = weatherData.getAirPollutionData().getPollutionListElement().getMainInfo().getAqi();
+                    if (Float.parseFloat(poll) >= 2){
+                        newIconList.add(maskURL);
+                    }
+                }
             } else {
                 for (String iconCode : iconCodeList) {
+                    if (Objects.equals(iconCode, "mask")){
+                        newIconList.add(maskURL);
+                    }
                     String iconUrl = DataProvider.getIconUrl(iconCode);
                     newIconList.add(iconUrl);
                 }
@@ -92,7 +102,7 @@ public class WeatherPresenterImpl implements WeatherPresenter {
             weatherData.setName(city);
             weatherData.getSys().setCountry(country);
             weatherData.getWind().setSpeed(round(weatherData.getWind().getSpeed(), 2));
-            weatherData.getMain().setFeelsLike(round(weatherData.getMain().getFeelsLike(), 2));
+            weatherData.getMain().setFeelsLike(round(calcFeelsLike(weatherData), 2));
             weatherData.getMain().setTemp(round(weatherData.getMain().getTemp(), 2));
             weatherData.getMain().setFeelsLike(round(weatherData.getMain().getFeelsLike(), 2));
             weatherData.getMain().setTempMin(round(weatherData.getMain().getTempMin(), 2));
@@ -105,6 +115,11 @@ public class WeatherPresenterImpl implements WeatherPresenter {
     private float round(double value, int places) {
         double scale = Math.pow(10, places);
         return (float) (Math.round(value * scale) / scale);
+    }
+
+    private double calcFeelsLike(WeatherData data){
+        return TempCalculator.calculatePerceivedTemp(
+                data.getMain().getTemp(), data.getWind().getSpeed()) + 273; //+273 is temporary only so that the unit matches the rest of the temperatures, remove after proper conversion is done
     }
 
 
