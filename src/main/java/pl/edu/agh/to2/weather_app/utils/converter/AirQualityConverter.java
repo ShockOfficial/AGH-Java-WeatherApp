@@ -5,6 +5,8 @@ import pl.edu.agh.to2.weather_app.model.airPollutionData.AirPollutionData;
 import java.util.Map;
 
 public class AirQualityConverter {
+    private AirQualityConverter(){}
+
     private static final Map<String, String> pollutionMap = Map.of(
             "1", "Very good",
             "2", "Good",
