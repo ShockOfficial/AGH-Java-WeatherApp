@@ -12,7 +12,7 @@ class TempCalculatorTest {
         float windSpeed = 3.4f;
 
         // when
-        double result = TempCalculator.CalculatePerceivedTemp(temp, windSpeed);
+        double result = TempCalculator.calculatePerceivedTemp(temp, windSpeed);
 
         // then
         assertEquals(8.27, result, 0.1);
@@ -24,7 +24,7 @@ class TempCalculatorTest {
         float windSpeed = 9;
 
         // when
-        double result = TempCalculator.CalculatePerceivedTemp(temp, windSpeed);
+        double result = TempCalculator.calculatePerceivedTemp(temp, windSpeed);
 
         // then
         assertEquals(-0.15, result, 0.1);

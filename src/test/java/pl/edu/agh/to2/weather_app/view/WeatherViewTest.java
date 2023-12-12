@@ -42,9 +42,9 @@ class WeatherViewTest extends ApplicationTest {
         //then
         Platform.runLater(() -> {
             WaitForAsyncUtils.waitForFxEvents();
-            verifyThat("#pressureValue", LabeledMatchers.hasText("1"));
-            verifyThat("#windValue", LabeledMatchers.hasText("1.0"));
-            verifyThat("#sensedTemperatureValue", LabeledMatchers.hasText("1.0"));
+            verifyThat("#pressureValue", LabeledMatchers.hasText("1 hPa"));
+            verifyThat("#windValue", LabeledMatchers.hasText("1.0 m/s"));
+            verifyThat("#sensedTemperatureValue", LabeledMatchers.hasText("1.0ºC"));
         });
     }
     @Test
@@ -57,9 +57,9 @@ class WeatherViewTest extends ApplicationTest {
         //then
         Platform.runLater(() -> {
             WaitForAsyncUtils.waitForFxEvents();
-            verifyThat("#pressureValue", LabeledMatchers.hasText("1"));
-            verifyThat("#windValue", LabeledMatchers.hasText("1.0"));
-            verifyThat("#sensedTemperatureValue", LabeledMatchers.hasText("1.0"));
+            verifyThat("#pressureValue", LabeledMatchers.hasText("1 hPa"));
+            verifyThat("#windValue", LabeledMatchers.hasText("1.0 m/s"));
+            verifyThat("#sensedTemperatureValue", LabeledMatchers.hasText("1.0ºC"));
         });
     }
     @Test
@@ -73,9 +73,9 @@ class WeatherViewTest extends ApplicationTest {
         robot.clickOn("#bLongitudeInput").write("2");
         robot.clickOn(".button");
         //then
-        verifyThat("#pressureValue", LabeledMatchers.hasText("1"));
-        verifyThat("#windValue", LabeledMatchers.hasText("1.0"));
-        verifyThat("#sensedTemperatureValue", LabeledMatchers.hasText("1.0"));
+        verifyThat("#pressureValue", LabeledMatchers.hasText("1 hPa"));
+        verifyThat("#windValue", LabeledMatchers.hasText("1.0 m/s"));
+        verifyThat("#sensedTemperatureValue", LabeledMatchers.hasText("1.0ºC"));
     }
 
     private record MockPresenter(WeatherView view) implements WeatherPresenter {
