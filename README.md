@@ -129,7 +129,7 @@ Klasy:
 Zawiera elementy modelu, konwertuje na obiektu klasy WeatherData za pomocą biblioteki GSon.
 
 Klasy:
-1. **WeatherModule**: definuje dostawców dla interfejsów, zapewniając im konkretne implementacje, z pomocą Guice
+1. **WeatherModule**: definiuje dostawców dla interfejsów, zapewniając im konkretne implementacje, z pomocą Guice
 2. **WeatherModel**: interfejs zawierający metody pozwalające na pobranie informacji o pogodzie
 3. **weatherData/WeatherData**: klasa zawierająca informacje o pogodzie przygotowana z myślą o API OpenWeatherMap
 4. **weatherData/JsonData/...**: w tym katalogu znajdują się klasy poszczególnych elementów modelu takie jak:
@@ -177,10 +177,10 @@ Poniższy diagram przedstawia zależności między klasami w naszym projekcie.
 
 ![Tutaj jest zdjęcie diagramu](./Screens/mainWeatherApp.png)
 
-Jak widać w naszym projekcie występuje dużo zależności.
+Jak widać, w naszym projekcie występuje dużo zależności.
 Przede wszystkim możemy zauważyć zależność wynikającą z zastosowania wzorca MVP.
 Widzimy, że WeatherPresenter jest pośrednikiem w porozumiewaniu się między widokiem WeatherView a modelem WeatherModel.
-Nie może także dziwić iż koniec końców wszystko sprowadza się do naszej App, które obsługuje naszą aplikację.
+Nie może także dziwić, iż koniec końców wszystko sprowadza się do naszej App, które obsługuje naszą aplikację.
 
 ### Przykład działania
 
@@ -199,7 +199,7 @@ Widzimy, że aplikacja działa poprawnie i wyświetla nam informacje o pogodzie 
 
 W tym Milestone'ie udało nam się stworzyć szkielet aplikacji, który pozwala na pobieranie informacji o pogodzie z zewnętrznego API.
 Dzięki zastosowaniu wzorca MVP możemy łatwo zmieniać widok aplikacji bez konieczności zmiany logiki biznesowej.
-Naszym zdaniem, dzięki zastosowaniu Guice, MVP itp, nasz projekt jest skalowalny i łatwy w rozbudowie.
+Naszym zdaniem, dzięki zastosowaniu Guice, MVP itp., nasz projekt jest skalowalny i łatwy w rozbudowie.
 
 
 ## Milestone 2
@@ -260,17 +260,17 @@ Nie uległ zmianie w stosunku do poprzedniego Milestone'a.
 
 #### Pakiet model
 
-Zawiera elementy modelu, konwertuje na obiektu klasy WeatherData za pomocą biblioteki GSon. Od teraz posiada także elementy związane z AirPolutionData oraz GeocodingData.
+Zawiera elementy modelu, konwertuje na obiekty klasy WeatherData za pomocą biblioteki GSon. Od teraz posiada także elementy związane z AirPolutionData oraz GeocodingData.
 
 Klasy:
 1. **airPollutionData/json/AirPollutionData**: klasa zawierająca informacje o zanieczyszczeniu powietrza przygotowana z myślą o API OpenWeatherMap.
 2. **airPollutionData/json/ComponentsDTO**: klasa zawierająca informacje o zanieczyszczeniu powietrza (np. dwutlenek siarki, dwutlenek azotu, ozon)
-3. **airPollutionData/json/AirMainInfoDTO**: klasa posiada dokładną informację o poziomie zaniczyszczenia w skali 1-5
+3. **airPollutionData/json/AirMainInfoDTO**: klasa posiada dokładną informację o poziomie zanieczyszczenia w skali 1-5
 4. **airPollutionData/AirListElementDTO**: klasa trzymająca MainInfoDTO oraz ComponentsDTO
-5. **geoCodingData/GeocodingData**: klasa zawierająca informacje o geokodowaninu przygotowana z myślą o API OpenWeatherMap.
+5. **geoCodingData/GeocodingData**: klasa zawierająca informacje o geokodowaniu przygotowana z myślą o API OpenWeatherMap.
 6. **impl/WeatherModelImpl**: klasa implementująca interfejs WeatherModel, zawiera metody pozwalające na asynchroniczne pobranie informacji o pogodzie, zanieczyszczeniu powietrza oraz geokodowaniu.
 7. **responseConverter/GsonConverter**: klasa odpowiedzialna za konwersję danych z formatu JSON na obiekt klasy WeatherData i AirPollutionData.
-8. **weatherData/WeatherData**: klasa zawierająca informacje o pogodzie przygotowana z myślą o API OpenWeatherMap, teraz także zawiera inforamcje o zanieczyszczeniu powietrza.
+8. **weatherData/WeatherData**: klasa zawierająca informacje o pogodzie przygotowana z myślą o API OpenWeatherMap, teraz także zawiera informacje o zanieczyszczeniu powietrza.
 9. **weatherData/WeatherDataMerger**: klasa odpowiedzialna za scalanie danych o pogodzie i zanieczyszczeniu powietrza z dwóch różnych miejsc.
 
 #### Pakiet presenter
