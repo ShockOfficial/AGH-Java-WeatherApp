@@ -7,57 +7,57 @@ class AirListElementDTOTest {
 
     @Test
     void getMainInfo_ShouldReturnCorrectValue() {
-        // Arrange
+        // given
         AirMainInfoDTO expectedMainInfo = new AirMainInfoDTO();
         AirListElementDTO airListElementDTO = new AirListElementDTO();
         airListElementDTO.setMainInfo(expectedMainInfo);
 
-        // Act
+        // when
         AirMainInfoDTO actualMainInfo = airListElementDTO.getMainInfo();
 
-        // Assert
+        // then
         assertEquals(expectedMainInfo, actualMainInfo);
     }
 
     @Test
     void setMainInfo_ShouldSetCorrectValue() {
-        // Arrange
+        // given
         AirMainInfoDTO expectedMainInfo = new AirMainInfoDTO();
         AirListElementDTO airListElementDTO = new AirListElementDTO();
 
-        // Act
+        // when
         airListElementDTO.setMainInfo(expectedMainInfo);
         AirMainInfoDTO actualMainInfo = airListElementDTO.getMainInfo();
 
-        // Assert
+        // then
         assertEquals(expectedMainInfo, actualMainInfo);
     }
 
     @Test
     void getComponents_ShouldReturnCorrectValue() {
-        // Arrange
+        // given
         ComponentsDTO expectedComponents = new ComponentsDTO();
         AirListElementDTO airListElementDTO = new AirListElementDTO();
         airListElementDTO.setComponents(expectedComponents);
 
-        // Act
+        // when
         ComponentsDTO actualComponents = airListElementDTO.getComponents();
 
-        // Assert
+        // then
         assertEquals(expectedComponents, actualComponents);
     }
 
     @Test
     void setComponents_ShouldSetCorrectValue() {
-        // Arrange
+        // given
         ComponentsDTO expectedComponents = new ComponentsDTO();
         AirListElementDTO airListElementDTO = new AirListElementDTO();
 
-        // Act
+        // when
         airListElementDTO.setComponents(expectedComponents);
         ComponentsDTO actualComponents = airListElementDTO.getComponents();
 
-        // Assert
+        // then
         assertEquals(expectedComponents, actualComponents);
     }
 }

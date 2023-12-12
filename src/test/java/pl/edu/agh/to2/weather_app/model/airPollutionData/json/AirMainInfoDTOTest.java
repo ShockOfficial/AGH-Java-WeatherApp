@@ -7,42 +7,42 @@ class AirMainInfoDTOTest {
 
     @Test
     void getAqi_ShouldReturnCorrectValue() {
-        // Arrange
+        // given
         String expectedAqi = "2";
         AirMainInfoDTO airMainInfoDTO = new AirMainInfoDTO();
         airMainInfoDTO.setAqi(expectedAqi);
 
-        // Act
+        // when
         String actualAqi = airMainInfoDTO.getAqi();
 
-        // Assert
+        // then
         assertEquals(expectedAqi, actualAqi);
     }
 
     @Test
     void setAqi_ShouldSetCorrectValue() {
-        // Arrange
+        // given
         String expectedAqi = "3";
         AirMainInfoDTO airMainInfoDTO = new AirMainInfoDTO();
 
-        // Act
+        // when
         airMainInfoDTO.setAqi(expectedAqi);
         String actualAqi = airMainInfoDTO.getAqi();
 
-        // Assert
+        // then
         assertEquals(expectedAqi, actualAqi);
     }
 
     @Test
     void setAqi_WithNull_ShouldSetNullValue() {
-        // Arrange
+        // given
         AirMainInfoDTO airMainInfoDTO = new AirMainInfoDTO();
 
-        // Act
+        // when
         airMainInfoDTO.setAqi(null);
         String actualAqi = airMainInfoDTO.getAqi();
 
-        // Assert
+        // then
         assertNull(actualAqi);
     }
 }

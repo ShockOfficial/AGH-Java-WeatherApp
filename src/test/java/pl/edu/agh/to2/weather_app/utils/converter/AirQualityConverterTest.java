@@ -10,6 +10,7 @@ import pl.edu.agh.to2.weather_app.model.airPollutionData.json.AirListElementDTO;
 import pl.edu.agh.to2.weather_app.model.airPollutionData.json.AirMainInfoDTO;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.when;
 
 class AirQualityConverterTest {
@@ -54,6 +55,6 @@ class AirQualityConverterTest {
         String result = AirQualityConverter.getAirQualityString(mockAirPollutionData);
 
         // then
-        assertEquals(null, result);
+        assertNull(result);
     }
 }

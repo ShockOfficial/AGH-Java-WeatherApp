@@ -8,226 +8,226 @@ class ComponentsDTOTest {
 
     @Test
     void getPm10_ShouldReturnCorrectValue() {
-        // Arrange
+        // given
         String expectedPm10 = "0.5";
         ComponentsDTO componentsDTO = new ComponentsDTO();
         componentsDTO.setPm10(expectedPm10);
 
-        // Act
+        // when
         String actualPm10 = componentsDTO.getPm10();
 
-        // Assert
+        // then
         assertEquals(expectedPm10, actualPm10);
     }
 
     @Test
     void setPm10_ShouldSetCorrectValue() {
-        // Arrange
+        // given
         String expectedPm10 = "1.0";
         ComponentsDTO componentsDTO = new ComponentsDTO();
 
-        // Act
+        // when
         componentsDTO.setPm10(expectedPm10);
         String actualPm10 = componentsDTO.getPm10();
 
-        // Assert
+        // then
         assertEquals(expectedPm10, actualPm10);
     }
 
     @Test
 
     void getPm25_ShouldReturnCorrectValue() {
-        // Arrange
+        // given
         String expectedPm25 = "0.5";
         ComponentsDTO componentsDTO = new ComponentsDTO();
         componentsDTO.setPm2_5(expectedPm25);
 
-        // Act
+        // when
         String actualPm25 = componentsDTO.getPm2_5();
 
-        // Assert
+        // then
         assertEquals(expectedPm25, actualPm25);
     }
 
     @Test
     void setPm25_ShouldSetCorrectValue() {
-        // Arrange
+        // given
         String expectedPm25 = "1.0";
         ComponentsDTO componentsDTO = new ComponentsDTO();
 
-        // Act
+        // when
         componentsDTO.setPm2_5(expectedPm25);
         String actualPm25 = componentsDTO.getPm2_5();
 
-        // Assert
+        // then
         assertEquals(expectedPm25, actualPm25);
     }
 
     @Test
     void getO3_ShouldReturnCorrectValue() {
-        // Arrange
+        // given
         String expectedO3 = "0.5";
         ComponentsDTO componentsDTO = new ComponentsDTO();
         componentsDTO.setO3(expectedO3);
 
-        // Act
+        // when
         String actualO3 = componentsDTO.getO3();
 
-        // Assert
+        // then
         assertEquals(expectedO3, actualO3);
     }
 
     @Test
     void setO3_ShouldSetCorrectValue() {
-        // Arrange
+        // given
         String expectedO3 = "1.0";
         ComponentsDTO componentsDTO = new ComponentsDTO();
 
-        // Act
+        // when
         componentsDTO.setO3(expectedO3);
         String actualO3 = componentsDTO.getO3();
 
-        // Assert
+        // then
         assertEquals(expectedO3, actualO3);
     }
 
     @Test
     void getSo2_ShouldReturnCorrectValue() {
-        // Arrange
+        // given
         String expectedSo2 = "0.5";
         ComponentsDTO componentsDTO = new ComponentsDTO();
         componentsDTO.setSo2(expectedSo2);
 
-        // Act
+        // when
         String actualSo2 = componentsDTO.getSo2();
 
-        // Assert
+        // then
         assertEquals(expectedSo2, actualSo2);
     }
 
     @Test
     void setSo2_ShouldSetCorrectValue() {
-        // Arrange
+        // given
         String expectedSo2 = "1.0";
         ComponentsDTO componentsDTO = new ComponentsDTO();
 
-        // Act
+        // when
         componentsDTO.setSo2(expectedSo2);
         String actualSo2 = componentsDTO.getSo2();
 
-        // Assert
+        // then
         assertEquals(expectedSo2, actualSo2);
     }
 
     @Test
     void getNh3_ShouldReturnCorrectValue() {
-        // Arrange
+        // given
         String expectedNh3 = "0.5";
         ComponentsDTO componentsDTO = new ComponentsDTO();
         componentsDTO.setNh3(expectedNh3);
 
-        // Act
+        // when
         String actualNh3 = componentsDTO.getNh3();
 
-        // Assert
+        // then
         assertEquals(expectedNh3, actualNh3);
     }
 
     @Test
     void setNh3_ShouldSetCorrectValue() {
-        // Arrange
+        // given
         String expectedNh3 = "1.0";
         ComponentsDTO componentsDTO = new ComponentsDTO();
 
-        // Act
+        // when
         componentsDTO.setNh3(expectedNh3);
         String actualNh3 = componentsDTO.getNh3();
 
-        // Assert
+        // then
         assertEquals(expectedNh3, actualNh3);
     }
 
     @Test
     void getNo2_ShouldReturnCorrectValue() {
-        // Arrange
+        // given
         String expectedNo2 = "0.5";
         ComponentsDTO componentsDTO = new ComponentsDTO();
         componentsDTO.setNo2(expectedNo2);
 
-        // Act
+        // when
         String actualNo2 = componentsDTO.getNo2();
 
-        // Assert
+        // then
         assertEquals(expectedNo2, actualNo2);
     }
 
     @Test
     void setNo2_ShouldSetCorrectValue() {
-        // Arrange
+        // given
         String expectedNo2 = "1.0";
         ComponentsDTO componentsDTO = new ComponentsDTO();
 
-        // Act
+        // when
         componentsDTO.setNo2(expectedNo2);
         String actualNo2 = componentsDTO.getNo2();
 
-        // Assert
+        // then
         assertEquals(expectedNo2, actualNo2);
     }
 
     @Test
     void getCo_ShouldReturnCorrectValue() {
-        // Arrange
+        // given
         String expectedCo = "0.5";
         ComponentsDTO componentsDTO = new ComponentsDTO();
         componentsDTO.setCo(expectedCo);
 
-        // Act
+        // when
         String actualCo = componentsDTO.getCo();
 
-        // Assert
+        // then
         assertEquals(expectedCo, actualCo);
     }
 
     @Test
     void setCo_ShouldSetCorrectValue() {
-        // Arrange
+        // given
         String expectedCo = "1.0";
         ComponentsDTO componentsDTO = new ComponentsDTO();
 
-        // Act
+        // when
         componentsDTO.setCo(expectedCo);
         String actualCo = componentsDTO.getCo();
 
-        // Assert
+        // then
         assertEquals(expectedCo, actualCo);
     }
 
     @Test
     void getNo_ShouldReturnCorrectValue() {
-        // Arrange
+        // given
         String expectedNo = "0.2";
         ComponentsDTO componentsDTO = new ComponentsDTO();
         componentsDTO.setNo(expectedNo);
 
-        // Act
+        // when
         String actualNo = componentsDTO.getNo();
 
-        // Assert
+        // then
         assertEquals(expectedNo, actualNo);
     }
 
     @Test
     void setNo_ShouldSetCorrectValue() {
-        // Arrange
+        // given
         String expectedNo = "0.7";
         ComponentsDTO componentsDTO = new ComponentsDTO();
 
-        // Act
+        // when
         componentsDTO.setNo(expectedNo);
         String actualNo = componentsDTO.getNo();
 
-        // Assert
+        // then
         assertEquals(expectedNo, actualNo);
     }
 
@@ -235,27 +235,27 @@ class ComponentsDTOTest {
 
     @Test
     void setNh3_WithNull_ShouldSetNullValue() {
-        // Arrange
+        // given
         ComponentsDTO componentsDTO = new ComponentsDTO();
 
-        // Act
+        // when
         componentsDTO.setNh3(null);
         String actualNh3 = componentsDTO.getNh3();
 
-        // Assert
+        // then
         assertNull(actualNh3);
     }
 
     @Test
     void setNh3_WithNonEmptyString() {
-        // Arrange
+        // given
         ComponentsDTO componentsDTO = new ComponentsDTO();
 
-        // Act
+        // when
         componentsDTO.setNh3("test");
         String actualNh3 = componentsDTO.getNh3();
 
-        // Assert
+        // then
         assertEquals("test", actualNh3);
     }
 }

@@ -17,8 +17,9 @@ import pl.edu.agh.to2.weather_app.view.WeatherView;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
 class WeatherPresenterImplTest {
 
@@ -29,25 +30,30 @@ class WeatherPresenterImplTest {
     }
 
     @Test
-    void testGetWeatherByCity() throws InterruptedException, ExecutionException {
+    void testGetWeatherByCity() {
         // given
         WeatherModel mockModel = mock(WeatherModel.class);
         WeatherView mockView = mock(WeatherView.class);
         WeatherPresenterImpl presenter = new WeatherPresenterImpl(mockModel, mockView);
         String city = "TestCity";
         WeatherData mockWeatherData = mock(WeatherData.class);
-        when(mockModel.getWeatherDataByCity(city)).thenReturn(CompletableFuture.completedFuture(mockWeatherData));
+        CompletableFuture<WeatherData> weatherDataFuture = CompletableFuture.completedFuture(mockWeatherData);
+        when(mockModel.getWeatherDataByCity(city)).thenReturn(weatherDataFuture);
 
         // when
         presenter.getWeatherByCity(city);
-        Thread.sleep(1000); // Consider using CompletableFuture.join or other non-blocking methods
 
         // then
-        verify(mockView).updateWeatherDisplay(mockWeatherData);
+        assertTimeoutPreemptively(
+                Duration.ofDays(TimeUnit.SECONDS.toMillis(5)),
+                () -> assertDoesNotThrow(() -> verify(mockView).updateWeatherDisplay(mockWeatherData))
+        );
     }
 
+
+
     @Test
-    void testGetWeatherByCoordinates() throws InterruptedException {
+    void testGetWeatherByCoordinates(){
         // given
         WeatherModel mockModel = mock(WeatherModel.class);
         WeatherView mockView = mock(WeatherView.class);
@@ -59,9 +65,10 @@ class WeatherPresenterImplTest {
 
         // when
         presenter.getWeatherByCoordinates(lat, lon);
-        Thread.sleep(1000);
+        CompletableFuture<Void> joinFuture = CompletableFuture.runAsync(() -> presenter.getWeatherByCoordinates(lat, lon));
 
         // then
+        joinFuture.join();
         verify(mockView).updateWeatherDisplay(mockWeatherData);
     }
 

@@ -3,12 +3,11 @@ package pl.edu.agh.to2.weather_app.api;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-
 import static org.junit.jupiter.api.Assertions.*;
+
 
 class DataProviderTest {
 
-    // Testing the API call and the response
     @Test
     void testGetWeatherByCoordinates() throws IOException {
         // given
@@ -78,5 +77,50 @@ class DataProviderTest {
 
         // then
         assertTrue(response.contains("city not found"));
+    }
+
+    @Test
+    void testGetIconUrl() {
+        // given
+        String iconCode = "01d";
+
+        // when
+        String iconUrl = DataProvider.getIconUrl(iconCode);
+
+        // then
+        assertEquals("https://openweathermap.org/img/wn/01d@4x.png", iconUrl);
+    }
+
+    @Test
+    void testGetCoords() throws IOException {
+        // given
+        String city = "London";
+
+        // when
+        String response = DataProvider.getCoords(city);
+
+        // then
+        assertNotNull(response);
+        assertTrue(response.contains("London"));
+        assertTrue(response.contains("lat"));
+        assertTrue(response.contains("lon"));
+    }
+
+    @Test
+    void testGetAirPollution() throws IOException {
+        // given
+        String lat = "12";
+        String lon = "12";
+
+        // when
+        String response = DataProvider.getAirPollution(lat, lon);
+
+        // then
+        assertNotNull(response);
+        assertTrue(response.contains("\"lat\":12"));
+        assertTrue(response.contains("\"lon\":12"));
+        assertTrue(response.contains("list"));
+        assertTrue(response.contains("components"));
+        assertTrue(response.contains("aqi"));
     }
 }

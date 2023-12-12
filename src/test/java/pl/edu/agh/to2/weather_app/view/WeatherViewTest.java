@@ -5,8 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.jetbrains.annotations.NotNull;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationTest;
@@ -22,15 +20,13 @@ import static org.testfx.api.FxAssert.verifyThat;
 
 class WeatherViewTest extends ApplicationTest {
 
-    private WeatherView weatherView;
-
-    private static String URL = "http://api.openweathermap.org/data/2.5/weather?q=test&appid=1&units=metric";
+    private static final String URL = "https://api.openweathermap.org/data/2.5/weather?q=test&appid=1&units=metric";
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/weatherApp/weatherApp.fxml"));
         Parent root = loader.load();
-        this.weatherView = loader.getController();
-        MockPresenter presenter = new MockPresenter(this.weatherView);
+        WeatherView weatherView = loader.getController();
+        MockPresenter presenter = new MockPresenter(weatherView);
         weatherView.setPresenter(presenter);
         stage.setScene(new Scene(root));
         stage.show();
@@ -52,13 +48,12 @@ class WeatherViewTest extends ApplicationTest {
         });
     }
     @Test
-    void displayWeatherFromCity() throws InterruptedException {
+    void displayWeatherFromCity() {
         //when
         FxRobot robot = new FxRobot();
         robot.clickOn("#aInputCity").write("test");
         robot.clickOn(".button");
 
-        Thread.sleep(1000);
         //then
         Platform.runLater(() -> {
             WaitForAsyncUtils.waitForFxEvents();
@@ -83,35 +78,30 @@ class WeatherViewTest extends ApplicationTest {
         verifyThat("#sensedTemperatureValue", LabeledMatchers.hasText("1.0"));
     }
 
-    private static class MockPresenter implements WeatherPresenter {
-        private final WeatherView view;
-
-        public MockPresenter(WeatherView view) {
-            this.view = view;
-        }
+    private record MockPresenter(WeatherView view) implements WeatherPresenter {
 
         @Override
-        public void getWeatherByCity(String city) {
-            Platform.runLater(() -> insertMockData());
-        }
+            public void getWeatherByCity(String city) {
+                Platform.runLater(this::insertMockData);
+            }
 
-        @Override
-        public void getWeatherByCoordinates(String lon, String lat) {
-            Platform.runLater(() -> insertMockData());
-        }
+            @Override
+            public void getWeatherByCoordinates(String lon, String lat) {
+                Platform.runLater(this::insertMockData);
+            }
 
-        @Override
-        public void getWeatherByCities(String cityA, String cityB) {
-        }
+            @Override
+            public void getWeatherByCities(String cityA, String cityB) {
+            }
 
-        @Override
-        public void getWeatherByCoordinates(String latA, String lonA, String latB, String lonB) {
-        }
+            @Override
+            public void getWeatherByCoordinates(String latA, String lonA, String latB, String lonB) {
+            }
 
-        private void insertMockData() {
-            view.updateWeatherDisplay(getExampleWeatherData());
+            private void insertMockData() {
+                view.updateWeatherDisplay(getExampleWeatherData());
+            }
         }
-    }
 
     private static WeatherData getExampleWeatherData() {
         WeatherData weatherData = new WeatherData();
