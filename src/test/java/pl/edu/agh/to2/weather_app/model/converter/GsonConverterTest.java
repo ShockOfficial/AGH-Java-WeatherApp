@@ -1,10 +1,10 @@
 package pl.edu.agh.to2.weather_app.model.converter;
 
 import org.junit.jupiter.api.Test;
-import pl.edu.agh.to2.weather_app.model.airPollutionData.AirPollutionData;
-import pl.edu.agh.to2.weather_app.model.geocodingData.GeocodingData;
-import pl.edu.agh.to2.weather_app.model.responseConverter.GsonConverter;
-import pl.edu.agh.to2.weather_app.model.weatherData.WeatherData;
+import pl.edu.agh.to2.weather_app.model.air_pollution_data.AirPollutionData;
+import pl.edu.agh.to2.weather_app.model.geocoding_data.GeocodingData;
+import pl.edu.agh.to2.weather_app.model.response_converter.GsonConverter;
+import pl.edu.agh.to2.weather_app.model.weather_data.WeatherData;
 
 import static org.junit.jupiter.api.Assertions.*;
 

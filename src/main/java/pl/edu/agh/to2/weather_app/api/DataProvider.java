@@ -10,30 +10,31 @@ import java.util.Map;
 
 public class DataProvider {
     //API key has a limit of 100 calls a day if the limit is reached replace this one
-    private static final String apiKey = "09fe2451db15d2b60a0a52041ee82126";
-    private static final String url = "https://api.openweathermap.org";
-    private static final String apiKeyParamName = "appid";
-    private static final String cityParamName = "q";
-    private static final String limitParamName = "limit";
-    private static final String limit = "1";
-    private static final String latitudeParamName = "lat";
-    private static final String longitudeParamName = "lon";
-    private static final String unitsParamName = "units";
-    private static final String unit = "metric";
+    private static final String API_KEY = "09fe2451db15d2b60a0a52041ee82126";
+    private static final String URL = "https://api.openweathermap.org";
+    private static final String API_KEY_PARAM_NAME = "appid";
+    private static final String CITY_PARAM_NAME = "q";
+    private static final String LIMIT_PARAM_NAME = "limit";
+    private static final String LIMIT = "1";
+    private static final String LATITUDE_PARAM_NAME = "lat";
+    private static final String LONGITUDE_PARAM_NAME = "lon";
+    private static final String UNITS_PARAM_NAME = "units";
+    private static final String UNIT = "metric";
+    private static final String WEATHER_MAP_KEY = "weather";
     private static final Map<String, String> apiUrls = Map.of(
             "geo", "geo/1.0/direct",
             "air", "data/2.5/air_pollution",
-            "weather", "data/2.5/weather" );
+            WEATHER_MAP_KEY, "data/2.5/weather" );
     private static final OkHttpClient client = new OkHttpClient();
     private DataProvider(){}
 
     protected static Response makeApiCall(Map<String, String> params, String apiUrl) throws IOException {
-        HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(URL).newBuilder();
         urlBuilder.addPathSegment(apiUrl);
         for (Map.Entry<String, String> entry : params.entrySet()) {
             urlBuilder.addQueryParameter(entry.getKey(), entry.getValue());
         }
-        urlBuilder.addQueryParameter(apiKeyParamName, apiKey);      //api key is always required
+        urlBuilder.addQueryParameter(API_KEY_PARAM_NAME, API_KEY);      //api key is always required
         String url = urlBuilder.build().toString();
 
         Request request = new Request.Builder().url(url).build();
@@ -45,25 +46,23 @@ public class DataProvider {
     }
 
     public static String getWeather(String lon, String lat) throws IOException {
-        Response response = makeApiCall(Map.of(latitudeParamName, lat, longitudeParamName, lon,unitsParamName,unit), apiUrls.get("weather"));
+        Response response = makeApiCall(Map.of(LATITUDE_PARAM_NAME, lat, LONGITUDE_PARAM_NAME, lon,UNITS_PARAM_NAME,UNIT), apiUrls.get(WEATHER_MAP_KEY));
         return response.body().string();                            //returning the text in the body response
     }
 
     //This way is technically deprecated but works fine
     public static String getWeather(String city) throws IOException {
-        Response response = makeApiCall(Map.of(cityParamName, city,unitsParamName,unit), apiUrls.get("weather"));
+        Response response = makeApiCall(Map.of(CITY_PARAM_NAME, city,UNITS_PARAM_NAME,UNIT), apiUrls.get(WEATHER_MAP_KEY));
         return response.body().string();                            //returning the text in the body response
     }
 
     public static String getCoords(String city) throws IOException {
-        Response response = makeApiCall(Map.of(cityParamName, city, limitParamName, limit), apiUrls.get("geo"));
+        Response response = makeApiCall(Map.of(CITY_PARAM_NAME, city, LIMIT_PARAM_NAME, LIMIT), apiUrls.get("geo"));
         return response.body().string();                          //returning the text in the body response
     }
 
     public static String getAirPollution(String lon, String lat) throws IOException {
-        Response response = makeApiCall(Map.of(latitudeParamName, lat, longitudeParamName, lon, unitsParamName,unit), apiUrls.get("air"));
+        Response response = makeApiCall(Map.of(LATITUDE_PARAM_NAME, lat, LONGITUDE_PARAM_NAME, lon, UNITS_PARAM_NAME,UNIT), apiUrls.get("air"));
         return response.body().string();                          //returning the text in the body response
     }
-
-
 }

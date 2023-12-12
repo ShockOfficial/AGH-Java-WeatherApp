@@ -8,10 +8,10 @@ import javafx.embed.swing.JFXPanel;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import pl.edu.agh.to2.weather_app.model.weatherData.json.MainInfoDTO;
-import pl.edu.agh.to2.weather_app.model.weatherData.json.SysDTO;
-import pl.edu.agh.to2.weather_app.model.weatherData.json.WindDTO;
-import pl.edu.agh.to2.weather_app.model.weatherData.WeatherData;
+import pl.edu.agh.to2.weather_app.model.weather_data.json.MainInfoDTO;
+import pl.edu.agh.to2.weather_app.model.weather_data.json.SysDTO;
+import pl.edu.agh.to2.weather_app.model.weather_data.json.WindDTO;
+import pl.edu.agh.to2.weather_app.model.weather_data.WeatherData;
 import pl.edu.agh.to2.weather_app.model.WeatherModel;
 import pl.edu.agh.to2.weather_app.view.WeatherView;
 
@@ -64,12 +64,15 @@ class WeatherPresenterImplTest {
         when(mockModel.getWeatherDataByCoordinates(lat, lon)).thenReturn(CompletableFuture.completedFuture(mockWeatherData));
 
         // when
-        presenter.getWeatherByCoordinates(lat, lon);
-        CompletableFuture<Void> joinFuture = CompletableFuture.runAsync(() -> presenter.getWeatherByCoordinates(lat, lon));
+        CompletableFuture.runAsync(() -> presenter.getWeatherByCoordinates(lat, lon)).thenAccept(aVoid -> {
+            try {
+                // then
+                verify(mockView).updateWeatherDisplay(mockWeatherData);
+            } catch (Throwable t) {
+                throw new RuntimeException(t);
+            }
+        });
 
-        // then
-        joinFuture.join();
-        verify(mockView).updateWeatherDisplay(mockWeatherData);
     }
 
     @Test

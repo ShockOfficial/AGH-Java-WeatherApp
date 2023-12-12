@@ -5,9 +5,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import pl.edu.agh.to2.weather_app.model.airPollutionData.AirPollutionData;
-import pl.edu.agh.to2.weather_app.model.airPollutionData.json.AirListElementDTO;
-import pl.edu.agh.to2.weather_app.model.airPollutionData.json.AirMainInfoDTO;
+import pl.edu.agh.to2.weather_app.model.air_pollution_data.AirPollutionData;
+import pl.edu.agh.to2.weather_app.model.air_pollution_data.json.AirListElementDTO;
+import pl.edu.agh.to2.weather_app.model.air_pollution_data.json.AirMainInfoDTO;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;

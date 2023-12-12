@@ -5,8 +5,8 @@ import com.google.inject.Injector;
 import org.junit.jupiter.api.Test;
 import pl.edu.agh.to2.weather_app.logger.ConsoleSerializer;
 import pl.edu.agh.to2.weather_app.logger.IMessageSerializer;
-import pl.edu.agh.to2.weather_app.model.responseConverter.GsonConverter;
-import pl.edu.agh.to2.weather_app.model.responseConverter.IResponseToModelConverter;
+import pl.edu.agh.to2.weather_app.model.response_converter.GsonConverter;
+import pl.edu.agh.to2.weather_app.model.response_converter.IResponseToModelConverter;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;

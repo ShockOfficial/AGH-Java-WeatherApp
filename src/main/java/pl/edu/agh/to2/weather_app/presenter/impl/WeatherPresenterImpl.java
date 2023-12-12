@@ -3,9 +3,9 @@ package pl.edu.agh.to2.weather_app.presenter.impl;
 import com.google.inject.Inject;
 import javafx.application.Platform;
 import pl.edu.agh.to2.weather_app.api.DataProvider;
-import pl.edu.agh.to2.weather_app.model.weatherData.WeatherData;
+import pl.edu.agh.to2.weather_app.model.weather_data.WeatherData;
 import pl.edu.agh.to2.weather_app.model.WeatherModel;
-import pl.edu.agh.to2.weather_app.model.weatherData.WeatherDataMerger;
+import pl.edu.agh.to2.weather_app.model.weather_data.WeatherDataMerger;
 import pl.edu.agh.to2.weather_app.presenter.WeatherPresenter;
 import pl.edu.agh.to2.weather_app.utils.Constants;
 import pl.edu.agh.to2.weather_app.utils.TempCalculator;
@@ -82,6 +82,19 @@ public class WeatherPresenterImpl implements WeatherPresenter {
                 }
             }
 
+            weatherData.getWeather().get(0).setIconList(newIconList);
+        }
+    }
+
+    private void addConditionalIcons(WeatherData weatherData) {
+        if (weatherData.getWeather() != null && !weatherData.getWeather().isEmpty()) {
+            List<String> newIconList = new ArrayList<>();
+            List<String> iconCodeList = weatherData.getWeather().get(0).getIconList();
+
+            if (iconCodeList != null) {
+                   newIconList.addAll(iconCodeList);
+            }
+
             if (shouldMaskIconBeAdded(weatherData)) {
                 newIconList.add(Constants.MASK_URL);
             }
@@ -107,6 +120,7 @@ public class WeatherPresenterImpl implements WeatherPresenter {
             weatherData.getMain().setTempMax(round(weatherData.getMain().getTempMax(), 2));
         }
         updateIconUrl(weatherData);
+        addConditionalIcons(weatherData);
         view.updateWeatherDisplay(weatherData);
     }
 
