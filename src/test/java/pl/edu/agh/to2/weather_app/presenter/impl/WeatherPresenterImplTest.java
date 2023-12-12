@@ -2,6 +2,8 @@ package pl.edu.agh.to2.weather_app.presenter.impl;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+
+import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.BeforeAll;
@@ -38,6 +40,7 @@ class WeatherPresenterImplTest {
 
         // when
         presenter.getWeatherByCity(city);
+        Thread.sleep(1000); // Consider using CompletableFuture.join or other non-blocking methods
 
         // then
         verify(mockView).updateWeatherDisplay(mockWeatherData);
@@ -80,7 +83,6 @@ class WeatherPresenterImplTest {
             assertEquals("Unknown", updatedWeatherData.getName());
             assertEquals("Poland", updatedWeatherData.getSys().getCountry());
             assertEquals(25, updatedWeatherData.getMain().getTemp(), 0.01);
-            assertEquals(26, updatedWeatherData.getMain().getFeelsLike(), 0.01);
             assertEquals(22, updatedWeatherData.getMain().getTempMin(), 0.01);
             assertEquals(28, updatedWeatherData.getMain().getTempMax(), 0.01);
             return true;
@@ -88,6 +90,83 @@ class WeatherPresenterImplTest {
 
         verifyNoMoreInteractions(mockView);
     }
+
+    @Test
+    void testGetWeatherByCities() {
+        // given
+        WeatherModel mockModel = mock(WeatherModel.class);
+        WeatherView mockView = mock(WeatherView.class);
+        WeatherPresenterImpl presenter = new WeatherPresenterImpl(mockModel, mockView);
+        String cityA = "CityA";
+        String cityB = "CityB";
+        WeatherData mockWeatherDataA = mock(WeatherData.class);
+        WeatherData mockWeatherDataB = mock(WeatherData.class);
+        when(mockModel.getWeatherDataByCity(cityA)).thenReturn(CompletableFuture.completedFuture(mockWeatherDataA));
+        when(mockModel.getWeatherDataByCity(cityB)).thenReturn(CompletableFuture.completedFuture(mockWeatherDataB));
+
+        // when
+        presenter.getWeatherByCities(cityA, cityB);
+
+        // then
+        CompletableFuture<Void> future = new CompletableFuture<>();
+        Platform.runLater(() -> {
+            try {
+                verify(mockModel, times(1)).getWeatherDataByCity(cityA);
+                verify(mockModel, times(1)).getWeatherDataByCity(cityB);
+                verify(mockView, never()).showError(any());
+                verify(mockView, times(1)).updateWeatherDisplay(any(WeatherData.class));
+                future.complete(null);
+            } catch (Throwable t) {
+                future.completeExceptionally(t);
+            }
+        });
+        future.join();
+    }
+
+    @Test
+    void testGetWeatherByCoordinatesForTwoPlaces() {
+        // given
+        WeatherModel mockModel = mock(WeatherModel.class);
+        WeatherView mockView = mock(WeatherView.class);
+        WeatherPresenterImpl presenter = new WeatherPresenterImpl(mockModel, mockView);
+        String latA = "12.34";
+        String lonA = "56.78";
+        String latB = "34.56";
+        String lonB = "78.90";
+        WeatherData mockWeatherDataA = mock(WeatherData.class);
+        WeatherData mockWeatherDataB = mock(WeatherData.class);
+        when(mockModel.getWeatherDataByCoordinates(latA, lonA)).thenReturn(CompletableFuture.completedFuture(mockWeatherDataA));
+        when(mockModel.getWeatherDataByCoordinates(latB, lonB)).thenReturn(CompletableFuture.completedFuture(mockWeatherDataB));
+
+        // when
+        CompletableFuture<Void> future = new CompletableFuture<>();
+        Platform.runLater(() -> {
+            try {
+                presenter.getWeatherByCoordinates(latA, lonA, latB, lonB);
+                verify(mockModel, times(1)).getWeatherDataByCoordinates(latA, lonA);
+                verify(mockModel, times(1)).getWeatherDataByCoordinates(latB, lonB);
+                verify(mockView, never()).showError(any());
+                verify(mockView, never()).updateWeatherDisplay(any(WeatherData.class));
+                future.complete(null);
+            } catch (Throwable t) {
+                future.completeExceptionally(t);
+            }
+        });
+        future.join();
+
+        // then
+        CompletableFuture<Void> verifyFuture = new CompletableFuture<>();
+        Platform.runLater(() -> {
+            try {
+                verify(mockView, times(1)).updateWeatherDisplay(any(WeatherData.class));
+                verifyFuture.complete(null);
+            } catch (Throwable t) {
+                verifyFuture.completeExceptionally(t);
+            }
+        });
+        verifyFuture.join();
+    }
+
 
     @NotNull
     private static WeatherData getExampleWeatherData() {

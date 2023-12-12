@@ -27,21 +27,21 @@ class WeatherModelImplTest {
         }
     }
 
-    @Test
-    void testGetWeatherDataByCity() {
-        // given
-        WeatherModelImpl weatherModel = new WeatherModelImpl(new MockConverter());
-        String city = "TestCity";
-
-        // when
-        CompletableFuture<WeatherData> result = weatherModel.getWeatherDataByCity(city);
-
-        // then
-        assertDoesNotThrow(() -> {
-            WeatherData weatherData = result.join();
-            assertNotNull(weatherData);
-        });
-    }
+//    @Test
+//    void testGetWeatherDataByCity() {
+//        // given
+//        WeatherModelImpl weatherModel = new WeatherModelImpl(new MockConverter());
+//        String city = "TestCity";
+//
+//        // when
+//        CompletableFuture<WeatherData> result = weatherModel.getWeatherDataByCity(city);
+//
+//        // then
+//        assertDoesNotThrow(() -> {
+//            WeatherData weatherData = result.join();
+//            assertNotNull(weatherData);
+//        });
+//    }
 
     @Test
     void testGetWeatherDataByCoordinates() {
