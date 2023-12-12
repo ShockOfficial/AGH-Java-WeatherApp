@@ -75,25 +75,21 @@ public class WeatherPresenterImpl implements WeatherPresenter {
             if (iconCodeList == null) {
                 String iconUrl = DataProvider.getIconUrl(weatherData.getWeather().get(0).getIcon());
                 newIconList.add(iconUrl);
-                if (weatherData.getAirPollutionData()!=null){
-                    String poll = weatherData.getAirPollutionData().getPollutionListElement().getMainInfo().getAqi();
-                    if (Float.parseFloat(poll) >= 4){
-                        newIconList.add(Constans.MASK_URL);
-                    }
-                }
             } else {
                 for (String iconCode : iconCodeList) {
-                    if (Objects.equals(iconCode, "mask")){
-                        newIconList.add(Constans.MASK_URL);
-                    }
                     String iconUrl = DataProvider.getIconUrl(iconCode);
                     newIconList.add(iconUrl);
                 }
             }
 
+            if (shouldMaskIconBeAdded(weatherData)) {
+                newIconList.add(Constans.MASK_URL);
+            }
+
             weatherData.getWeather().get(0).setIconList(newIconList);
         }
     }
+
     private void updateWeatherDisplay(WeatherData weatherData) {
         if (weatherData.getSys() != null) {
             String city = weatherData.getName() == null || Objects.equals(weatherData.getName(), "") ? "Unknown" : weatherData.getName();
@@ -120,4 +116,10 @@ public class WeatherPresenterImpl implements WeatherPresenter {
                 data.getMain().getTemp(), data.getWind().getSpeed());
     }
 
+    private boolean shouldMaskIconBeAdded(WeatherData weatherData) {
+        if (weatherData.getAirPollutionData() != null) {
+            return Float.parseFloat(weatherData.getAirPollutionData().getPollutionListElement().getMainInfo().getAqi()) >= 4;
+        }
+        return false;
+    }
 }

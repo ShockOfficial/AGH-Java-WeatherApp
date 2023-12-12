@@ -46,7 +46,6 @@ public class WeatherView {
     private ImageView weatherIconLeft;
     @FXML
     private ImageView weatherIconRight;
-
     @FXML
     private ImageView maskIcon;
     private WeatherPresenter presenter;
@@ -134,36 +133,29 @@ public class WeatherView {
             List<String> icons = weatherData.getWeather().get(0).getIconList();
 
             if (!icons.isEmpty()) {
-                Image image0 = new Image(icons.get(0));
-                Image imageView0 = new ImageView(image0).getImage();
-                imageView0 = new Image(imageView0.getUrl(), 145, 100, false, true);
-                weatherIconLeft.setImage(imageView0);
-                weatherIconLeft.setVisible(true);
-                if (icons.size() > 1) {
-                    Image image = new Image(icons.get(1));
-                    Image imageView = new ImageView(image).getImage();
-                    imageView = new Image(imageView.getUrl(), 145, 100, false, true);
-                    weatherIconRight.setImage(imageView);
-                    weatherIconRight.setVisible(true);
-                }
-                else {
-                    weatherIconRight.setVisible(false);
-                }
-                if (icons.size() > 2) {
-                    Image image = new Image(icons.get(2));
-                    Image imageView = new ImageView(image).getImage();
-                    imageView = new Image(imageView.getUrl(), 145, 100, false, true);
-                    maskIcon.setImage(imageView);
-                    maskIcon.setVisible(true);
-                }
-                else {
-                    maskIcon.setVisible(false);
-                }
+                updateIcons(icons);
             } else {
                 hideIcons();
             }
         } else {
             showError("City not found");
+        }
+    }
+
+    private void updateIcons(List<String> icons) {
+        List<ImageView> iconsImageViews = List.of(weatherIconLeft, weatherIconRight, maskIcon);
+        int counter = 0;
+        for (String icon : icons) {
+            Image image = new Image(icon);
+            Image imageView = new ImageView(image).getImage();
+            imageView = new Image(imageView.getUrl(), 145, 100, false, true);
+            iconsImageViews.get(counter).setImage(imageView);
+            iconsImageViews.get(counter).setVisible(true);
+            counter++;
+        }
+        for (int i = counter; i < 3; i++) {
+            iconsImageViews.get(i).setImage(null);
+            iconsImageViews.get(i).setVisible(false);
         }
     }
 
