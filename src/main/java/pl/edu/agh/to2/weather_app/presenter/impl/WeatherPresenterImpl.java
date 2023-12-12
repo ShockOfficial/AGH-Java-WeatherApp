@@ -82,6 +82,19 @@ public class WeatherPresenterImpl implements WeatherPresenter {
                 }
             }
 
+            weatherData.getWeather().get(0).setIconList(newIconList);
+        }
+    }
+
+    private void addConditionalIcons(WeatherData weatherData) {
+        if (weatherData.getWeather() != null && !weatherData.getWeather().isEmpty()) {
+            List<String> newIconList = new ArrayList<>();
+            List<String> iconCodeList = weatherData.getWeather().get(0).getIconList();
+
+            if (iconCodeList != null) {
+                   newIconList.addAll(iconCodeList);
+            }
+
             if (shouldMaskIconBeAdded(weatherData)) {
                 newIconList.add(Constants.MASK_URL);
             }
@@ -107,6 +120,7 @@ public class WeatherPresenterImpl implements WeatherPresenter {
             weatherData.getMain().setTempMax(round(weatherData.getMain().getTempMax(), 2));
         }
         updateIconUrl(weatherData);
+        addConditionalIcons(weatherData);
         view.updateWeatherDisplay(weatherData);
     }
 

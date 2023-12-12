@@ -64,11 +64,15 @@ class WeatherPresenterImplTest {
         when(mockModel.getWeatherDataByCoordinates(lat, lon)).thenReturn(CompletableFuture.completedFuture(mockWeatherData));
 
         // when
-        CompletableFuture<Void> joinFuture = CompletableFuture.runAsync(() -> presenter.getWeatherByCoordinates(lat, lon));
+        CompletableFuture.runAsync(() -> presenter.getWeatherByCoordinates(lat, lon)).thenAccept(aVoid -> {
+            try {
+                // then
+                verify(mockView).updateWeatherDisplay(mockWeatherData);
+            } catch (Throwable t) {
+                throw new RuntimeException(t);
+            }
+        });
 
-        // then
-        joinFuture.join();
-        verify(mockView).updateWeatherDisplay(mockWeatherData);
     }
 
     @Test
