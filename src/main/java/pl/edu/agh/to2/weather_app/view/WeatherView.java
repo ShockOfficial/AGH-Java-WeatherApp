@@ -113,10 +113,10 @@ public class WeatherView {
         if (weatherData.getSys() != null) {
             setWeatherOutputInformer("Weather in " + weatherData.getName() + " (" + weatherData.getSys().getCountry() + "): " + weatherData.getWeather().get(0).getMain() + "\n");
 
-            setPressureValue(Integer.toString(weatherData.getMain().getPressure()));
-            setHumidityValue(Integer.toString(weatherData.getMain().getHumidity()));
-            setWindValue(Float.toString(weatherData.getWind().getSpeed()));
-            setSensedTemperatureValue(Float.toString(weatherData.getMain().getFeelsLike()));
+            setPressureValue(weatherData.getMain().getPressure() + " hPa");
+            setHumidityValue(weatherData.getMain().getHumidity() + "%");
+            setWindValue(weatherData.getWind().getSpeed() + " m/s");
+            setSensedTemperatureValue(weatherData.getMain().getFeelsLike() + "" + (char)186 + "C");
 
             if (weatherData.getAirPollutionData() != null) {
                 setAirQuality(AirQualityConverter.getAirQualityString(weatherData.getAirPollutionData()));
