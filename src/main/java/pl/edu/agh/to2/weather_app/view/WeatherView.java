@@ -58,15 +58,16 @@ public class WeatherView {
 
     private void updateFieldsState() {
         boolean cityFieldsFilled = !aInputCity.getText().isEmpty() || !bInputCity.getText().isEmpty();
-        boolean coordFieldsFilled = !aLatitudeInput.getText().isEmpty() || !aLongitudeInput.getText().isEmpty() || !bLatitudeInput.getText().isEmpty() || !bLongitudeInput.getText().isEmpty();
+        boolean cordFieldsFilled = !aLatitudeInput.getText().isEmpty() || !aLongitudeInput.getText().isEmpty()
+                || !bLatitudeInput.getText().isEmpty() || !bLongitudeInput.getText().isEmpty();
 
         aLatitudeInput.setDisable(cityFieldsFilled);
         aLongitudeInput.setDisable(cityFieldsFilled);
         bLatitudeInput.setDisable(cityFieldsFilled);
         bLongitudeInput.setDisable(cityFieldsFilled);
 
-        aInputCity.setDisable(coordFieldsFilled);
-        bInputCity.setDisable(coordFieldsFilled);
+        aInputCity.setDisable(cordFieldsFilled);
+        bInputCity.setDisable(cordFieldsFilled);
     }
 
     private void setupInputListeners() {

@@ -116,7 +116,7 @@ public class WeatherPresenterImpl implements WeatherPresenter {
     }
 
     private double getFeelsLike(WeatherData data){
-        return TempCalculator.CalculatePerceivedTemp(
+        return TempCalculator.calculatePerceivedTemp(
                 data.getMain().getTemp(), data.getWind().getSpeed());
     }
 
