@@ -47,7 +47,9 @@ public class WeatherView {
     @FXML
     private ImageView weatherIconRight;
     @FXML
-    private ImageView maskIcon;
+    private ImageView informationIcon1;
+    @FXML
+    private ImageView informationIcon2;
     private WeatherPresenter presenter;
 
     @FXML
@@ -143,7 +145,7 @@ public class WeatherView {
     }
 
     private void updateIcons(List<String> icons) {
-        List<ImageView> iconsImageViews = List.of(weatherIconLeft, weatherIconRight, maskIcon);
+        List<ImageView> iconsImageViews = List.of(weatherIconLeft, weatherIconRight, informationIcon1, informationIcon2);
         int counter = 0;
         for (String icon : icons) {
             Image image = new Image(icon);
@@ -153,7 +155,7 @@ public class WeatherView {
             iconsImageViews.get(counter).setVisible(true);
             counter++;
         }
-        for (int i = counter; i < 3; i++) {
+        for (int i = counter; i < iconsImageViews.size(); i++) {
             iconsImageViews.get(i).setImage(null);
             iconsImageViews.get(i).setVisible(false);
         }
@@ -164,8 +166,10 @@ public class WeatherView {
         weatherIconLeft.setVisible(false);
         weatherIconRight.setImage(null);
         weatherIconRight.setVisible(false);
-        maskIcon.setImage(null);
-        maskIcon.setVisible(false);
+        informationIcon1.setImage(null);
+        informationIcon1.setVisible(false);
+        informationIcon2.setImage(null);
+        informationIcon2.setVisible(false);
     }
 
     public void setWeatherError(String weatherError) {

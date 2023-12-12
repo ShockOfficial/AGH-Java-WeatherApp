@@ -86,6 +86,10 @@ public class WeatherPresenterImpl implements WeatherPresenter {
                 newIconList.add(Constans.MASK_URL);
             }
 
+            if (shouldUmbrellaIconBeAdded(weatherData)) {
+                newIconList.add(Constans.UMBRELLA_URL);
+            }
+
             weatherData.getWeather().get(0).setIconList(newIconList);
         }
     }
@@ -119,6 +123,16 @@ public class WeatherPresenterImpl implements WeatherPresenter {
     private boolean shouldMaskIconBeAdded(WeatherData weatherData) {
         if (weatherData.getAirPollutionData() != null) {
             return Float.parseFloat(weatherData.getAirPollutionData().getPollutionListElement().getMainInfo().getAqi()) >= 4;
+        }
+        return false;
+    }
+
+    private boolean shouldUmbrellaIconBeAdded(WeatherData weatherData) {
+        if (weatherData.getRain() != null) {
+            return weatherData.getRain().getOneH() > 0.0;
+        }
+        if (weatherData.getSnow() != null) {
+            return weatherData.getSnow().getOneH() > 0.0;
         }
         return false;
     }
