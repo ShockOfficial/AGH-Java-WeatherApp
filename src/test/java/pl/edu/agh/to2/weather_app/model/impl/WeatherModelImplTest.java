@@ -1,13 +1,10 @@
 package pl.edu.agh.to2.weather_app.model.impl;
 
-import com.google.inject.Inject;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import pl.edu.agh.to2.weather_app.logger.Logger;
-import pl.edu.agh.to2.weather_app.model.airPollutionData.AirPollutionData;
-import pl.edu.agh.to2.weather_app.model.responseConverter.IResponseToModelConverter;
-import pl.edu.agh.to2.weather_app.model.geocodingData.GeocodingData;
-import pl.edu.agh.to2.weather_app.model.weatherData.WeatherData;
+import pl.edu.agh.to2.weather_app.model.air_pollution_data.AirPollutionData;
+import pl.edu.agh.to2.weather_app.model.response_converter.IResponseToModelConverter;
+import pl.edu.agh.to2.weather_app.model.geocoding_data.GeocodingData;
+import pl.edu.agh.to2.weather_app.model.weather_data.WeatherData;
 
 import java.util.concurrent.CompletableFuture;
 

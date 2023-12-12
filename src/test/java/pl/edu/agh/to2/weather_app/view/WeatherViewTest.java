@@ -10,8 +10,8 @@ import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.matcher.control.LabeledMatchers;
 import org.testfx.util.WaitForAsyncUtils;
-import pl.edu.agh.to2.weather_app.model.weatherData.WeatherData;
-import pl.edu.agh.to2.weather_app.model.weatherData.json.*;
+import pl.edu.agh.to2.weather_app.model.weather_data.WeatherData;
+import pl.edu.agh.to2.weather_app.model.weather_data.json.*;
 import pl.edu.agh.to2.weather_app.presenter.WeatherPresenter;
 
 import java.util.List;

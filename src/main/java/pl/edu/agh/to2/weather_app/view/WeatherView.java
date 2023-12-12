@@ -7,7 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import pl.edu.agh.to2.weather_app.model.weatherData.WeatherData;
+import pl.edu.agh.to2.weather_app.model.weather_data.WeatherData;
 import pl.edu.agh.to2.weather_app.presenter.WeatherPresenter;
 import pl.edu.agh.to2.weather_app.utils.converter.AirQualityConverter;
 
@@ -59,7 +59,7 @@ public class WeatherView {
 
     private void updateFieldsState() {
         boolean cityFieldsFilled = !aInputCity.getText().isEmpty() || !bInputCity.getText().isEmpty();
-        boolean cordFieldsFilled = !aLatitudeInput.getText().isEmpty() || !aLongitudeInput.getText().isEmpty()
+        boolean coordFieldsFilled = !aLatitudeInput.getText().isEmpty() || !aLongitudeInput.getText().isEmpty()
                 || !bLatitudeInput.getText().isEmpty() || !bLongitudeInput.getText().isEmpty();
 
         aLatitudeInput.setDisable(cityFieldsFilled);
@@ -67,8 +67,8 @@ public class WeatherView {
         bLatitudeInput.setDisable(cityFieldsFilled);
         bLongitudeInput.setDisable(cityFieldsFilled);
 
-        aInputCity.setDisable(cordFieldsFilled);
-        bInputCity.setDisable(cordFieldsFilled);
+        aInputCity.setDisable(coordFieldsFilled);
+        bInputCity.setDisable(coordFieldsFilled);
     }
 
     private void setupInputListeners() {
