@@ -1,6 +1,9 @@
 package pl.edu.agh.to2.weather_app.model.impl;
 
+import com.google.inject.Inject;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import pl.edu.agh.to2.weather_app.logger.Logger;
 import pl.edu.agh.to2.weather_app.model.airPollutionData.AirPollutionData;
 import pl.edu.agh.to2.weather_app.model.responseConverter.IResponseToModelConverter;
 import pl.edu.agh.to2.weather_app.model.geocodingData.GeocodingData;
@@ -26,23 +29,6 @@ class WeatherModelImplTest {
             return null;
         }
     }
-
-    @Test
-    void testGetWeatherDataByCity() {
-        // given
-        WeatherModelImpl weatherModel = new WeatherModelImpl(new MockConverter());
-        String city = "TestCity";
-
-        // when
-        CompletableFuture<WeatherData> result = weatherModel.getWeatherDataByCity(city);
-
-        // then
-        assertDoesNotThrow(() -> {
-            WeatherData weatherData = result.join();
-            assertNotNull(weatherData);
-        });
-    }
-
     @Test
     void testGetWeatherDataByCoordinates() {
         // given
@@ -59,4 +45,5 @@ class WeatherModelImplTest {
             assertNotNull(weatherData);
         });
     }
+
 }

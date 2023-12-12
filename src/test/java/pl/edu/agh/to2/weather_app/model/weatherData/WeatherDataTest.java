@@ -1,7 +1,13 @@
 package pl.edu.agh.to2.weather_app.model.weatherData;
 
 import org.junit.jupiter.api.Test;
+import pl.edu.agh.to2.weather_app.model.airPollutionData.AirPollutionData;
+import pl.edu.agh.to2.weather_app.model.airPollutionData.json.AirListElementDTO;
+import pl.edu.agh.to2.weather_app.model.airPollutionData.json.AirMainInfoDTO;
+import pl.edu.agh.to2.weather_app.model.geocodingData.GeocodingData;
 import pl.edu.agh.to2.weather_app.model.weatherData.json.*;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -217,4 +223,20 @@ class WeatherDataTest {
         assertEquals(snow, weatherData.getSnow());
         assertEquals(10.1F, weatherData.getSnow().getOneH());
     }
+
+    @Test
+    void testSetAndGetGeocodingData() {
+        // given
+        WeatherData weatherData = new WeatherData();
+        GeocodingData geocodingData = new GeocodingData();
+        geocodingData.setName("Krakow");
+
+        // when
+        weatherData.setGeocodingData(geocodingData);
+
+        // then
+        assertEquals(geocodingData, weatherData.getGeocodingData());
+        assertEquals("Krakow", weatherData.getGeocodingData().getName());
+    }
+
 }

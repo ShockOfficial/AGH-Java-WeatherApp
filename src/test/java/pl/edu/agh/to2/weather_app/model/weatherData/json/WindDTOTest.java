@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class WindDTOTest {
 
     @Test
-    void testSetAndGetSpeed() {
+     void testSetAndGetSpeed() {
         // given
         WindDTO windDTO = new WindDTO();
         float speed = 10;
@@ -19,7 +19,7 @@ class WindDTOTest {
         assertEquals(speed, windDTO.getSpeed());
     }
     @Test
-    void testSetAndGetDeg() {
+     void testSetAndGetDeg() {
         // given
         WindDTO windDTO = new WindDTO();
         int deg = 10;
@@ -31,7 +31,7 @@ class WindDTOTest {
         assertEquals(deg, windDTO.getDeg());
     }
     @Test
-    void testSetAndGetGust() {
+     void testSetAndGetGust() {
         // given
         WindDTO windDTO = new WindDTO();
         float gust = 10;
