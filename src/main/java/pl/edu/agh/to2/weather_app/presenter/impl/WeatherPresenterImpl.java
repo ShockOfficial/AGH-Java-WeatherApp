@@ -7,7 +7,7 @@ import pl.edu.agh.to2.weather_app.model.weatherData.WeatherData;
 import pl.edu.agh.to2.weather_app.model.WeatherModel;
 import pl.edu.agh.to2.weather_app.model.weatherData.WeatherDataMerger;
 import pl.edu.agh.to2.weather_app.presenter.WeatherPresenter;
-import pl.edu.agh.to2.weather_app.utils.Constans;
+import pl.edu.agh.to2.weather_app.utils.Constants;
 import pl.edu.agh.to2.weather_app.utils.TempCalculator;
 import pl.edu.agh.to2.weather_app.view.WeatherView;
 
@@ -83,11 +83,11 @@ public class WeatherPresenterImpl implements WeatherPresenter {
             }
 
             if (shouldMaskIconBeAdded(weatherData)) {
-                newIconList.add(Constans.MASK_URL);
+                newIconList.add(Constants.MASK_URL);
             }
 
             if (shouldUmbrellaIconBeAdded(weatherData)) {
-                newIconList.add(Constans.UMBRELLA_URL);
+                newIconList.add(Constants.UMBRELLA_URL);
             }
 
             weatherData.getWeather().get(0).setIconList(newIconList);

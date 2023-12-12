@@ -287,7 +287,7 @@ Zawiera dodatkowe pomocnicze metody i klasy.
 
 Klasy:
 1. **FXMLLoaderUtility**: pomocnicza klasa do ładowania widoków fxml
-2. **Constans**: pomocnicza klasa zawierająca stałe
+2. **Constants**: pomocnicza klasa zawierająca stałe
 3. **TempCalculator**: pomocnicza klasa do obliczania temperatury odczuwalnej na podstawie wzoru
 4. **converter/AirQualityConverter**: klasa odpowiedzialna za obrobienie danych o zanieczyszczeniu powietrza, aby były bardziej czytelne dla użytkownika
 
