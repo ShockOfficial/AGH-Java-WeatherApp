@@ -64,7 +64,6 @@ class WeatherPresenterImplTest {
         when(mockModel.getWeatherDataByCoordinates(lat, lon)).thenReturn(CompletableFuture.completedFuture(mockWeatherData));
 
         // when
-        presenter.getWeatherByCoordinates(lat, lon);
         CompletableFuture<Void> joinFuture = CompletableFuture.runAsync(() -> presenter.getWeatherByCoordinates(lat, lon));
 
         // then
