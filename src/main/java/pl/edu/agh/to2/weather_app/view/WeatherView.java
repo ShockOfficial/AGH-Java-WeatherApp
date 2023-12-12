@@ -47,6 +47,8 @@ public class WeatherView {
     @FXML
     private ImageView weatherIconRight;
 
+    @FXML
+    private ImageView maskIcon;
     private WeatherPresenter presenter;
 
     @FXML
@@ -56,8 +58,7 @@ public class WeatherView {
 
     private void updateFieldsState() {
         boolean cityFieldsFilled = !aInputCity.getText().isEmpty() || !bInputCity.getText().isEmpty();
-        boolean coordFieldsFilled = !aLatitudeInput.getText().isEmpty() || !aLongitudeInput.getText().isEmpty()
-                || !bLatitudeInput.getText().isEmpty() || !bLongitudeInput.getText().isEmpty();
+        boolean coordFieldsFilled = !aLatitudeInput.getText().isEmpty() || !aLongitudeInput.getText().isEmpty() || !bLatitudeInput.getText().isEmpty() || !bLongitudeInput.getText().isEmpty();
 
         aLatitudeInput.setDisable(cityFieldsFilled);
         aLongitudeInput.setDisable(cityFieldsFilled);
@@ -98,8 +99,7 @@ public class WeatherView {
             }
         } else if (aCoordsProvided) {
             if (bCoordsProvided) {
-                presenter.getWeatherByCoordinates(aLatitudeInput.getText(), aLongitudeInput.getText(),
-                        bLatitudeInput.getText(), bLongitudeInput.getText());
+                presenter.getWeatherByCoordinates(aLatitudeInput.getText(), aLongitudeInput.getText(), bLatitudeInput.getText(), bLongitudeInput.getText());
             } else {
                 presenter.getWeatherByCoordinates(aLatitudeInput.getText(), aLongitudeInput.getText());
             }
@@ -128,15 +128,32 @@ public class WeatherView {
 
             // Set weather icons
             List<String> icons = weatherData.getWeather().get(0).getIconList();
-            if (!icons.isEmpty()) {
-                weatherIconLeft.setImage(new Image(icons.get(0)));
-                weatherIconLeft.setVisible(true);
 
+            if (!icons.isEmpty()) {
+                Image image0 = new Image(icons.get(0));
+                Image imageView0 = new ImageView(image0).getImage();
+                imageView0 = new Image(imageView0.getUrl(), 145, 100, false, true);
+                weatherIconLeft.setImage(imageView0);
+                weatherIconLeft.setVisible(true);
                 if (icons.size() > 1) {
-                    weatherIconRight.setImage(new Image(icons.get(1)));
+                    Image image = new Image(icons.get(1));
+                    Image imageView = new ImageView(image).getImage();
+                    imageView = new Image(imageView.getUrl(), 145, 100, false, true);
+                    weatherIconRight.setImage(imageView);
                     weatherIconRight.setVisible(true);
-                } else {
+                }
+                else {
                     weatherIconRight.setVisible(false);
+                }
+                if (icons.size() > 2) {
+                    Image image = new Image(icons.get(2));
+                    Image imageView = new ImageView(image).getImage();
+                    imageView = new Image(imageView.getUrl(), 145, 100, false, true);
+                    maskIcon.setImage(imageView);
+                    maskIcon.setVisible(true);
+                }
+                else {
+                    maskIcon.setVisible(false);
                 }
             } else {
                 hideIcons();
@@ -151,6 +168,8 @@ public class WeatherView {
         weatherIconLeft.setVisible(false);
         weatherIconRight.setImage(null);
         weatherIconRight.setVisible(false);
+        maskIcon.setImage(null);
+        maskIcon.setVisible(false);
     }
 
     public void setWeatherError(String weatherError) {

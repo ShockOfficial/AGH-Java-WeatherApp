@@ -7,6 +7,7 @@ import pl.edu.agh.to2.weather_app.model.weatherData.WeatherData;
 import pl.edu.agh.to2.weather_app.model.WeatherModel;
 import pl.edu.agh.to2.weather_app.model.weatherData.WeatherDataMerger;
 import pl.edu.agh.to2.weather_app.presenter.WeatherPresenter;
+import pl.edu.agh.to2.weather_app.utils.Constans;
 import pl.edu.agh.to2.weather_app.utils.TempCalculator;
 import pl.edu.agh.to2.weather_app.view.WeatherView;
 
@@ -18,7 +19,6 @@ import java.util.concurrent.CompletableFuture;
 public class WeatherPresenterImpl implements WeatherPresenter {
     private final WeatherModel model;
     private final WeatherView view;
-
     private static final String DEFAULT_ERROR_MSG = "Error fetching weather data";
 
     @Inject
@@ -75,8 +75,17 @@ public class WeatherPresenterImpl implements WeatherPresenter {
             if (iconCodeList == null) {
                 String iconUrl = DataProvider.getIconUrl(weatherData.getWeather().get(0).getIcon());
                 newIconList.add(iconUrl);
+                if (weatherData.getAirPollutionData()!=null){
+                    String poll = weatherData.getAirPollutionData().getPollutionListElement().getMainInfo().getAqi();
+                    if (Float.parseFloat(poll) >= 4){
+                        newIconList.add(Constans.MASK_URL);
+                    }
+                }
             } else {
                 for (String iconCode : iconCodeList) {
+                    if (Objects.equals(iconCode, "mask")){
+                        newIconList.add(Constans.MASK_URL);
+                    }
                     String iconUrl = DataProvider.getIconUrl(iconCode);
                     newIconList.add(iconUrl);
                 }
@@ -85,7 +94,6 @@ public class WeatherPresenterImpl implements WeatherPresenter {
             weatherData.getWeather().get(0).setIconList(newIconList);
         }
     }
-
     private void updateWeatherDisplay(WeatherData weatherData) {
         if (weatherData.getSys() != null) {
             String city = weatherData.getName() == null || Objects.equals(weatherData.getName(), "") ? "Unknown" : weatherData.getName();
@@ -111,4 +119,5 @@ public class WeatherPresenterImpl implements WeatherPresenter {
         return TempCalculator.CalculatePerceivedTemp(
                 data.getMain().getTemp(), data.getWind().getSpeed());
     }
+
 }

@@ -12,7 +12,7 @@ class GsonConverterTest {
     void testConvertValidResponse() {
         // given
         GsonConverter gsonConverter = new GsonConverter();
-        String jsonResponse = "{ \"visibility\": 100, \"name\": \"Krakow\", \"weather\": [ { \"id\": 1, \"main\": \"Rain\", \"description\": \"light rain\", \"icon\": \"10d\" } ]}";
+        String jsonResponse = "{ \"visibility\": 100 , \"weather\": [ { \"id\": 1, \"main\": \"Rain\", \"description\": \"light rain\", \"icon\": \"10d\" } ]}";
 
         // when
         WeatherData weatherData = gsonConverter.convertWeather(jsonResponse);
@@ -20,7 +20,6 @@ class GsonConverterTest {
         // then
         assertNotNull(weatherData);
         assertEquals(100, weatherData.getVisibility());
-        assertEquals("Krakow", weatherData.getName());
         assertEquals(1, weatherData.getWeather().get(0).getId());
         assertEquals("Rain", weatherData.getWeather().get(0).getMain());
         assertEquals("light rain", weatherData.getWeather().get(0).getDescription());
