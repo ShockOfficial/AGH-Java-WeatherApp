@@ -8,14 +8,16 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 class WeatherDataMergerTest {
 
+    private final WeatherDataMerger weatherMerger = new WeatherDataMerger();
+
     @Test
     void mergeWorseWeatherData_OneNull_ReturnsNonNullOriginal() {
         WeatherData dataA = new WeatherData();
-        WeatherData result = WeatherDataMerger.mergeWorseWeatherData(dataA, null);
+        WeatherData result = weatherMerger.mergeWorseWeatherData(dataA, null);
 
         assertEquals(dataA, result);
 
-        result = WeatherDataMerger.mergeWorseWeatherData(null, dataA);
+        result = weatherMerger.mergeWorseWeatherData(null, dataA);
         assertEquals(dataA, result);
     }
 
@@ -24,7 +26,7 @@ class WeatherDataMergerTest {
         WeatherData dataA = createSampleWeatherData("CityA", "CountryA", "Clear", 25.0f, 1010, 70, 5.0f, 0.0f, "01d");
         WeatherData dataB = createSampleWeatherData("CityB", "CountryB", "Clouds", 22.0f, 1015, 75, 4.0f, 0.5f, "02d");
 
-        WeatherData result = WeatherDataMerger.mergeWorseWeatherData(dataA, dataB);
+        WeatherData result = weatherMerger.mergeWorseWeatherData(dataA, dataB);
 
         assertEquals("CityA & CityB", result.getName());
         assertEquals("CountryA & CountryB", result.getSys().getCountry());
@@ -40,11 +42,11 @@ class WeatherDataMergerTest {
     void mergeWorseWeatherData_OnlyOneWeatherData_ReturnsSameData() {
         WeatherData dataA = createSampleWeatherData("CityA", "CountryA", "Clear", 25.0f, 1010, 70, 5.0f, 0.0f, "01d");
 
-        WeatherData result = WeatherDataMerger.mergeWorseWeatherData(dataA, null);
+        WeatherData result = weatherMerger.mergeWorseWeatherData(dataA, null);
 
         assertEquals(dataA, result);
 
-        result = WeatherDataMerger.mergeWorseWeatherData(null, dataA);
+        result = weatherMerger.mergeWorseWeatherData(null, dataA);
         assertEquals(dataA, result);
     }
 
@@ -53,7 +55,7 @@ class WeatherDataMergerTest {
         WeatherData dataA = createSampleWeatherData("", "", "", 0.0f, 0, 0, 0.0f, 0.0f, "");
         WeatherData dataB = createSampleWeatherData("", "", "", 0.0f, 0, 0, 0.0f, 0.0f, "");
 
-        WeatherData result = WeatherDataMerger.mergeWorseWeatherData(dataA, dataB);
+        WeatherData result = weatherMerger.mergeWorseWeatherData(dataA, dataB);
 
         assertEquals("", result.getName());
         assertEquals("", result.getSys().getCountry());

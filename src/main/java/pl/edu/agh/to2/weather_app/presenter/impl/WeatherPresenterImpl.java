@@ -20,11 +20,14 @@ public class WeatherPresenterImpl implements WeatherPresenter {
     private final WeatherModel model;
     private final WeatherView view;
     private static final String DEFAULT_ERROR_MSG = "Error fetching weather data";
+    private final WeatherDataMerger weatherMerger;
 
     @Inject
-    public WeatherPresenterImpl(WeatherModel model, WeatherView view) {
+    public WeatherPresenterImpl(WeatherModel model, WeatherView view, WeatherDataMerger merger) {
         this.model = model;
         this.view = view;
+        this.weatherMerger = merger;
+
     }
 
     @Override
@@ -40,7 +43,7 @@ public class WeatherPresenterImpl implements WeatherPresenter {
         CompletableFuture<WeatherData> weatherDataA = model.getWeatherDataByCity(cityA);
         CompletableFuture<WeatherData> weatherDataB = model.getWeatherDataByCity(cityB);
 
-        weatherDataA.thenCombine(weatherDataB, WeatherDataMerger::mergeWorseWeatherData).thenAccept(worstWeatherData -> Platform.runLater(() -> updateWeatherDisplay(worstWeatherData)))
+        weatherDataA.thenCombine(weatherDataB, weatherMerger::mergeWorseWeatherData).thenAccept(worstWeatherData -> Platform.runLater(() -> updateWeatherDisplay(worstWeatherData)))
                 .exceptionally(e -> {
                     Platform.runLater(() -> view.showError(DEFAULT_ERROR_MSG));
                     return null;
@@ -60,7 +63,7 @@ public class WeatherPresenterImpl implements WeatherPresenter {
         CompletableFuture<WeatherData> weatherDataA = model.getWeatherDataByCoordinates(latA, lonA);
         CompletableFuture<WeatherData> weatherDataB = model.getWeatherDataByCoordinates(latB, lonB);
 
-        weatherDataA.thenCombine(weatherDataB, WeatherDataMerger::mergeWorseWeatherData).thenAccept(worstWeatherData -> Platform.runLater(() -> updateWeatherDisplay(worstWeatherData)))
+        weatherDataA.thenCombine(weatherDataB, weatherMerger::mergeWorseWeatherData).thenAccept(worstWeatherData -> Platform.runLater(() -> updateWeatherDisplay(worstWeatherData)))
                 .exceptionally(e -> {
                     Platform.runLater(() -> view.showError(DEFAULT_ERROR_MSG));
                     return null;

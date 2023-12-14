@@ -3,6 +3,7 @@ package pl.edu.agh.to2.weather_app.utils;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import pl.edu.agh.to2.weather_app.model.WeatherModel;
+import pl.edu.agh.to2.weather_app.model.weather_data.WeatherDataMerger;
 import pl.edu.agh.to2.weather_app.presenter.impl.WeatherPresenterImpl;
 import pl.edu.agh.to2.weather_app.view.WeatherView;
 
@@ -23,7 +24,7 @@ public class FXMLLoaderUtility {
         Parent root = loader.load();
 
         WeatherView viewController = loader.getController();
-        WeatherPresenterImpl presenter = new WeatherPresenterImpl(weatherModel, viewController);
+        WeatherPresenterImpl presenter = new WeatherPresenterImpl(weatherModel, viewController, new WeatherDataMerger());
         viewController.setPresenter(presenter);
 
         return root;
