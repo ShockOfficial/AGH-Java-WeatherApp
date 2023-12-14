@@ -18,9 +18,9 @@ public class WeatherModelImpl implements WeatherModel {
 
     @Inject
     private Logger logger;
+    @Inject
     private final IResponseToModelConverter converter;
 
-    @Inject
     public WeatherModelImpl(IResponseToModelConverter converter) {
         this.converter = converter;
     }
