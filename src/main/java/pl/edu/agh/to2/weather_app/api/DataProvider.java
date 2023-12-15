@@ -1,5 +1,6 @@
 package pl.edu.agh.to2.weather_app.api;
 
+import com.google.inject.Singleton;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -8,6 +9,7 @@ import okhttp3.Response;
 import java.io.IOException;
 import java.util.Map;
 
+@Singleton
 public class DataProvider {
     //API key has a limit of 100 calls a day if the limit is reached replace this one
     private static final String API_KEY = "09fe2451db15d2b60a0a52041ee82126";
@@ -32,10 +34,10 @@ public class DataProvider {
             GEO_MAP_KEY, "geo/1.0/direct",
             AIR_MAP_KEY, "data/2.5/air_pollution",
             WEATHER_MAP_KEY, "data/2.5/weather");
-    private static final OkHttpClient client = new OkHttpClient();
-    private DataProvider(){}
+    private final OkHttpClient client = new OkHttpClient();
+    public DataProvider(){}
 
-    private static Response makeApiCall(Map<String, String> params, String urlKey) throws IOException {
+    private Response makeApiCall(Map<String, String> params, String urlKey) throws IOException {
         HttpUrl.Builder urlBuilder = HttpUrl.parse(URL).newBuilder();
         urlBuilder.addPathSegment(apiUrls.get(urlKey));
         for (Map.Entry<String, String> entry : params.entrySet()) {
@@ -48,29 +50,29 @@ public class DataProvider {
         return client.newCall(request).execute();
     }
 
-    public static String getIconUrl(String iconCode) {
+    public String getIconUrl(String iconCode) {
         HttpUrl.Builder builder = HttpUrl.parse(ICON_URL).newBuilder();
         builder.addPathSegment(iconCode + IMAGE_FORMAT);
         return builder.build().toString();
     }
 
-    public static String getWeather(String lon, String lat) throws IOException {
+    public String getWeather(String lon, String lat) throws IOException {
         Response response = makeApiCall(Map.of(LATITUDE_PARAM_NAME, lat, LONGITUDE_PARAM_NAME, lon,UNITS_PARAM_NAME,UNIT), WEATHER_MAP_KEY);
         return response.body().string();
     }
 
     //This way is technically deprecated but works fine
-    public static String getWeather(String city) throws IOException {
+    public String getWeather(String city) throws IOException {
         Response response = makeApiCall(Map.of(CITY_PARAM_NAME, city,UNITS_PARAM_NAME,UNIT), WEATHER_MAP_KEY);
         return response.body().string();
     }
 
-    public static String getCoords(String city) throws IOException {
+    public String getCoords(String city) throws IOException {
         Response response = makeApiCall(Map.of(CITY_PARAM_NAME, city, LIMIT_PARAM_NAME, LIMIT), GEO_MAP_KEY);
         return response.body().string();
     }
 
-    public static String getAirPollution(String lon, String lat) throws IOException {
+    public String getAirPollution(String lon, String lat) throws IOException {
         Response response = makeApiCall(Map.of(LATITUDE_PARAM_NAME, lat, LONGITUDE_PARAM_NAME, lon, UNITS_PARAM_NAME,UNIT), AIR_MAP_KEY);
         return response.body().string();
     }

@@ -19,14 +19,18 @@ public class WeatherModelImpl implements WeatherModel {
     private Logger logger;
 
     private final IResponseToModelConverter converter;
+    private final DataProvider provider;
 
     @Inject
-    public WeatherModelImpl(IResponseToModelConverter converter, Logger log) {
+    public WeatherModelImpl(IResponseToModelConverter converter, Logger log, DataProvider provider) {
         this.converter = converter;
         this.logger = log;
+        this.provider = provider;
     }
-    public WeatherModelImpl(IResponseToModelConverter converter) {
+    public WeatherModelImpl(IResponseToModelConverter converter, DataProvider provider) {
+
         this.converter = converter;
+        this.provider = provider;
     }
 
     @Override
@@ -67,18 +71,18 @@ public class WeatherModelImpl implements WeatherModel {
         });
     }
     private WeatherData getWeather(String lon, String lat) throws IOException{
-        String jsonResponse = DataProvider.getWeather(lon, lat);
+        String jsonResponse = provider.getWeather(lon, lat);
         return converter.convertWeather(jsonResponse);
     }
 
     private GeocodingData getCoords(String city) throws IOException{
-        String jsonResponse = DataProvider.getCoords(city);
+        String jsonResponse = provider.getCoords(city);
         return converter.convertCoords(jsonResponse.
                 substring(1, jsonResponse.length()-1));
     }
 
     private AirPollutionData getAirPollution(String lon, String lat) throws IOException{
-        String jsonResponse = DataProvider.getAirPollution(lon, lat);
+        String jsonResponse = provider.getAirPollution(lon, lat);
         return converter.convertAirPollution(jsonResponse);
     }
 }

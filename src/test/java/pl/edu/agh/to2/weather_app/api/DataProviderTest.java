@@ -8,6 +8,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DataProviderTest {
 
+    DataProvider provider = new DataProvider();
+
     @Test
     void testGetWeatherByCoordinates() throws IOException {
         // given
@@ -15,7 +17,7 @@ class DataProviderTest {
         String lon = "12";
 
         // when
-        String response = DataProvider.getWeather(lat, lon);
+        String response = provider.getWeather(lat, lon);
 
         // then
         assertNotNull(response);
@@ -33,7 +35,7 @@ class DataProviderTest {
         String city = "London";
 
         // when
-        String response = DataProvider.getWeather(city);
+        String response = provider.getWeather(city);
 
         // then
         assertNotNull(response);
@@ -49,7 +51,7 @@ class DataProviderTest {
         String invalidLon = "invalidLon";
 
         // when
-        String response = DataProvider.getWeather(invalidLon, "12");
+        String response = provider.getWeather(invalidLon, "12");
 
         // then
         assertTrue(response.contains("wrong longitude"));
@@ -61,7 +63,7 @@ class DataProviderTest {
         String invalidLat = "invalidLat";
 
         // when
-        String response = DataProvider.getWeather("12", invalidLat);
+        String response = provider.getWeather("12", invalidLat);
 
         // then
         assertTrue(response.contains("wrong latitude"));
@@ -73,7 +75,7 @@ class DataProviderTest {
         String invalidCity = "invalidCity";
 
         // when
-        String response = DataProvider.getWeather(invalidCity);
+        String response = provider.getWeather(invalidCity);
 
         // then
         assertTrue(response.contains("city not found"));
@@ -85,7 +87,7 @@ class DataProviderTest {
         String iconCode = "01d";
 
         // when
-        String iconUrl = DataProvider.getIconUrl(iconCode);
+        String iconUrl = provider.getIconUrl(iconCode);
 
         // then
         assertEquals("https://openweathermap.org/img/wn/01d@4x.png", iconUrl);
@@ -97,7 +99,7 @@ class DataProviderTest {
         String city = "London";
 
         // when
-        String response = DataProvider.getCoords(city);
+        String response = provider.getCoords(city);
 
         // then
         assertNotNull(response);
@@ -113,7 +115,7 @@ class DataProviderTest {
         String lon = "12";
 
         // when
-        String response = DataProvider.getAirPollution(lat, lon);
+        String response = provider.getAirPollution(lat, lon);
 
         // then
         assertNotNull(response);

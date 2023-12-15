@@ -21,19 +21,22 @@ public class WeatherPresenterImpl implements WeatherPresenter {
     private WeatherView view;
     private static final String DEFAULT_ERROR_MSG = "Error fetching weather data";
     private final WeatherDataMerger weatherMerger;
+    private final DataProvider provider;
 
 
 
     @Inject
-    public WeatherPresenterImpl(WeatherModel model, WeatherDataMerger merger) {
+    public WeatherPresenterImpl(WeatherModel model, WeatherDataMerger merger, DataProvider prov) {
         this.model = model;
         this.weatherMerger = merger;
+        this.provider = prov;
     }
 
-    public WeatherPresenterImpl(WeatherModel model, WeatherView view, WeatherDataMerger merger) {
+    public WeatherPresenterImpl(WeatherModel model, WeatherView view, WeatherDataMerger merger, DataProvider prov) {
         this.model = model;
         this.view = view;
         this.weatherMerger = merger;
+        this.provider = prov;
     }
 
     @Override
@@ -82,11 +85,11 @@ public class WeatherPresenterImpl implements WeatherPresenter {
             List<String> newIconList = new ArrayList<>();
 
             if (iconCodeList == null) {
-                String iconUrl = DataProvider.getIconUrl(weatherData.getWeather().get(0).getIcon());
+                String iconUrl = provider.getIconUrl(weatherData.getWeather().get(0).getIcon());
                 newIconList.add(iconUrl);
             } else {
                 for (String iconCode : iconCodeList) {
-                    String iconUrl = DataProvider.getIconUrl(iconCode);
+                    String iconUrl = provider.getIconUrl(iconCode);
                     newIconList.add(iconUrl);
                 }
             }
