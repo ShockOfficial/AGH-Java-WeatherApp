@@ -17,10 +17,7 @@ public class App extends Application {
     private WeatherModel weatherModel;
 
     @Override
-    public void init() {
-        Injector injector = Guice.createInjector(new WeatherModule());
-        weatherModel = injector.getInstance(WeatherModelImpl.class);
-    }
+    public void init() {}
 
     @Override
     public void start(Stage primaryStage) {
