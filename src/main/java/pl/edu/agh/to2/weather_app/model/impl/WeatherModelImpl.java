@@ -16,11 +16,15 @@ import java.util.concurrent.CompletableFuture;
 
 public class WeatherModelImpl implements WeatherModel {
 
-    @Inject
     private Logger logger;
-    @Inject
+
     private final IResponseToModelConverter converter;
 
+    @Inject
+    public WeatherModelImpl(IResponseToModelConverter converter, Logger log) {
+        this.converter = converter;
+        this.logger = log;
+    }
     public WeatherModelImpl(IResponseToModelConverter converter) {
         this.converter = converter;
     }

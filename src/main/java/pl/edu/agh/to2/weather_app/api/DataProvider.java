@@ -12,6 +12,7 @@ public class DataProvider {
     //API key has a limit of 100 calls a day if the limit is reached replace this one
     private static final String API_KEY = "09fe2451db15d2b60a0a52041ee82126";
     private static final String URL = "https://api.openweathermap.org";
+    private static final String ICON_URL = "https://openweathermap.org";
     private static final String API_KEY_PARAM_NAME = "appid";
     private static final String CITY_PARAM_NAME = "q";
     private static final String LIMIT_PARAM_NAME = "limit";
@@ -25,20 +26,18 @@ public class DataProvider {
     private static final String GEO_MAP_KEY = "geo";
 
     private static final String AIR_MAP_KEY = "air";
-    private static final String ICON_MAP_KEY = "icon";
 
-    private static final String IMAGE_FORMAT = "@4.png";
+    private static final String IMAGE_FORMAT = "@x4.png";
     private static final Map<String, String> apiUrls = Map.of(
             GEO_MAP_KEY, "geo/1.0/direct",
             AIR_MAP_KEY, "data/2.5/air_pollution",
-            WEATHER_MAP_KEY, "data/2.5/weather",
-            ICON_MAP_KEY, "img/wn");
+            WEATHER_MAP_KEY, "data/2.5/weather");
     private static final OkHttpClient client = new OkHttpClient();
     private DataProvider(){}
 
-    private static Response makeApiCall(Map<String, String> params, String urlPath) throws IOException {
+    private static Response makeApiCall(Map<String, String> params, String urlKey) throws IOException {
         HttpUrl.Builder urlBuilder = HttpUrl.parse(URL).newBuilder();
-        urlBuilder.addPathSegment(apiUrls.get(urlPath));
+        urlBuilder.addPathSegment(apiUrls.get(urlKey));
         for (Map.Entry<String, String> entry : params.entrySet()) {
             urlBuilder.addQueryParameter(entry.getKey(), entry.getValue());
         }
@@ -50,20 +49,19 @@ public class DataProvider {
     }
 
     public static String getIconUrl(String iconCode) {
-        HttpUrl.Builder builder = HttpUrl.parse(URL).newBuilder();
-        builder.addPathSegment(apiUrls.get(ICON_MAP_KEY));
+        HttpUrl.Builder builder = HttpUrl.parse(ICON_URL).newBuilder();
         builder.addPathSegment(iconCode + IMAGE_FORMAT);
         return builder.build().toString();
     }
 
     public static String getWeather(String lon, String lat) throws IOException {
-        Response response = makeApiCall(Map.of(LATITUDE_PARAM_NAME, lat, LONGITUDE_PARAM_NAME, lon,UNITS_PARAM_NAME,UNIT), apiUrls.get(WEATHER_MAP_KEY));
+        Response response = makeApiCall(Map.of(LATITUDE_PARAM_NAME, lat, LONGITUDE_PARAM_NAME, lon,UNITS_PARAM_NAME,UNIT), WEATHER_MAP_KEY);
         return response.body().string();
     }
 
     //This way is technically deprecated but works fine
     public static String getWeather(String city) throws IOException {
-        Response response = makeApiCall(Map.of(CITY_PARAM_NAME, city,UNITS_PARAM_NAME,UNIT), apiUrls.get(WEATHER_MAP_KEY));
+        Response response = makeApiCall(Map.of(CITY_PARAM_NAME, city,UNITS_PARAM_NAME,UNIT), WEATHER_MAP_KEY);
         return response.body().string();
     }
 
