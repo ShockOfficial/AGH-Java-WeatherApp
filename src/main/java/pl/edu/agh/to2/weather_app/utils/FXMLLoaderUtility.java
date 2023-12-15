@@ -1,8 +1,12 @@
 package pl.edu.agh.to2.weather_app.utils;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import pl.edu.agh.to2.weather_app.model.WeatherModel;
+import pl.edu.agh.to2.weather_app.model.WeatherModule;
+import pl.edu.agh.to2.weather_app.model.impl.WeatherModelImpl;
 import pl.edu.agh.to2.weather_app.model.weather_data.WeatherDataMerger;
 import pl.edu.agh.to2.weather_app.presenter.impl.WeatherPresenterImpl;
 import pl.edu.agh.to2.weather_app.view.WeatherView;
@@ -23,8 +27,13 @@ public class FXMLLoaderUtility {
         FXMLLoader loader = new FXMLLoader(fxmlResource);
         Parent root = loader.load();
 
+
+        Injector injector = Guice.createInjector(new WeatherModule());
+        WeatherPresenterImpl presenter = injector.getInstance(WeatherPresenterImpl.class);
+
         WeatherView viewController = loader.getController();
-        WeatherPresenterImpl presenter = new WeatherPresenterImpl(weatherModel, viewController, new WeatherDataMerger());
+
+        presenter.setView(viewController);
         viewController.setPresenter(presenter);
 
         return root;

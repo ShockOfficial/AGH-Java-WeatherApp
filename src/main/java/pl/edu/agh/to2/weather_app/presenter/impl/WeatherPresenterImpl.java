@@ -18,16 +18,22 @@ import java.util.concurrent.CompletableFuture;
 
 public class WeatherPresenterImpl implements WeatherPresenter {
     private final WeatherModel model;
-    private final WeatherView view;
+    private WeatherView view;
     private static final String DEFAULT_ERROR_MSG = "Error fetching weather data";
     private final WeatherDataMerger weatherMerger;
 
+
+
     @Inject
+    public WeatherPresenterImpl(WeatherModel model, WeatherDataMerger merger) {
+        this.model = model;
+        this.weatherMerger = merger;
+    }
+
     public WeatherPresenterImpl(WeatherModel model, WeatherView view, WeatherDataMerger merger) {
         this.model = model;
         this.view = view;
         this.weatherMerger = merger;
-
     }
 
     @Override
@@ -152,5 +158,9 @@ public class WeatherPresenterImpl implements WeatherPresenter {
             return weatherData.getSnow().getOneH() > 0.0;
         }
         return false;
+    }
+
+    public void setView(WeatherView view){
+        this.view = view;
     }
 }

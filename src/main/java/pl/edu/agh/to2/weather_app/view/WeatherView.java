@@ -81,7 +81,6 @@ public class WeatherView {
         bLongitudeInput.textProperty().addListener((observable, oldValue, newValue) -> updateFieldsState());
     }
 
-    @Inject
     public void setPresenter(WeatherPresenter presenter) {
         this.presenter = presenter;
     }
