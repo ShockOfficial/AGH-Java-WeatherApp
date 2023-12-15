@@ -6,8 +6,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import pl.edu.agh.to2.weather_app.model.WeatherModel;
 import pl.edu.agh.to2.weather_app.model.WeatherModule;
-import pl.edu.agh.to2.weather_app.model.impl.WeatherModelImpl;
-import pl.edu.agh.to2.weather_app.model.weather_data.WeatherDataMerger;
 import pl.edu.agh.to2.weather_app.presenter.impl.WeatherPresenterImpl;
 import pl.edu.agh.to2.weather_app.view.WeatherView;
 
@@ -18,7 +16,7 @@ public class FXMLLoaderUtility {
 
     private FXMLLoaderUtility(){}
 
-    public static Parent loadMainView(WeatherModel weatherModel) throws IOException {
+    public static Parent loadMainView() throws IOException {
         URL fxmlResource = FXMLLoaderUtility.class.getResource("/weatherApp/weatherApp.fxml");
         if (fxmlResource == null) {
             throw new IOException("FXML file not found");
