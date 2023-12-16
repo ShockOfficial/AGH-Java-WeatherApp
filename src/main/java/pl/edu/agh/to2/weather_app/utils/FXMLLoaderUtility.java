@@ -4,7 +4,6 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import pl.edu.agh.to2.weather_app.model.WeatherModel;
 import pl.edu.agh.to2.weather_app.model.WeatherModule;
 import pl.edu.agh.to2.weather_app.presenter.impl.WeatherPresenterImpl;
 import pl.edu.agh.to2.weather_app.view.WeatherView;

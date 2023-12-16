@@ -1,6 +1,5 @@
 package pl.edu.agh.to2.weather_app.view;
 
-import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;

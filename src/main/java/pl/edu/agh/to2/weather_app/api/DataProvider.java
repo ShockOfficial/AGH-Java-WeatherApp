@@ -14,7 +14,7 @@ public class DataProvider {
     //API key has a limit of 100 calls a day if the limit is reached replace this one
     private static final String API_KEY = "09fe2451db15d2b60a0a52041ee82126";
     private static final String URL = "https://api.openweathermap.org";
-    private static final String ICON_URL = "https://openweathermap.org";
+    private static final String ICON_URL = "https://openweathermap.org/img/wn";
     private static final String API_KEY_PARAM_NAME = "appid";
     private static final String CITY_PARAM_NAME = "q";
     private static final String LIMIT_PARAM_NAME = "limit";
@@ -29,13 +29,12 @@ public class DataProvider {
 
     private static final String AIR_MAP_KEY = "air";
 
-    private static final String IMAGE_FORMAT = "@x4.png";
+    private static final String IMAGE_FORMAT = "@4x.png";
     private static final Map<String, String> apiUrls = Map.of(
             GEO_MAP_KEY, "geo/1.0/direct",
             AIR_MAP_KEY, "data/2.5/air_pollution",
             WEATHER_MAP_KEY, "data/2.5/weather");
     private final OkHttpClient client = new OkHttpClient();
-    public DataProvider(){}
 
     private Response makeApiCall(Map<String, String> params, String urlKey) throws IOException {
         HttpUrl.Builder urlBuilder = HttpUrl.parse(URL).newBuilder();
