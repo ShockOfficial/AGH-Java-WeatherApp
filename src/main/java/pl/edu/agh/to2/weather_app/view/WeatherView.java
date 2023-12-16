@@ -1,6 +1,5 @@
 package pl.edu.agh.to2.weather_app.view;
 
-import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -81,7 +80,6 @@ public class WeatherView {
         bLongitudeInput.textProperty().addListener((observable, oldValue, newValue) -> updateFieldsState());
     }
 
-    @Inject
     public void setPresenter(WeatherPresenter presenter) {
         this.presenter = presenter;
     }

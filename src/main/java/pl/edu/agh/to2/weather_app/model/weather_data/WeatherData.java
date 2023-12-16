@@ -1,5 +1,6 @@
     package pl.edu.agh.to2.weather_app.model.weather_data;
 
+    import com.google.gson.annotations.SerializedName;
     import pl.edu.agh.to2.weather_app.model.air_pollution_data.AirPollutionData;
     import pl.edu.agh.to2.weather_app.model.geocoding_data.GeocodingData;
     import pl.edu.agh.to2.weather_app.model.weather_data.json.*;
@@ -17,8 +18,9 @@
         //name of the city
         private GeocodingData geocodingData = new GeocodingData();
         private AirPollutionData airPollutionData;
-        //Coordinates of the place
-        private CoordDTO coord;
+
+        @SerializedName("coord")
+        private CoordDTO coordinates;
         //Group of weather parameters (Rain, Snow, Clouds etc.) and detailed i.e "heavy rain"
         private final List<WeatherDTO> weather = new ArrayList<>();
 
@@ -50,12 +52,12 @@
 
     //***************GETTERS AND SETTERS************************
 
-        public CoordDTO getCoord() {
-            return coord;
+        public CoordDTO getCoordinates() {
+            return coordinates;
         }
 
-        public void setCoord(CoordDTO coord) {
-            this.coord = coord;
+        public void setCoordinates(CoordDTO coordinates) {
+            this.coordinates = coordinates;
         }
 
         public List<WeatherDTO> getWeather() {

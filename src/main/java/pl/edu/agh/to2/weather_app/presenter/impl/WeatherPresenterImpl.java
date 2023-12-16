@@ -18,13 +18,25 @@ import java.util.concurrent.CompletableFuture;
 
 public class WeatherPresenterImpl implements WeatherPresenter {
     private final WeatherModel model;
-    private final WeatherView view;
+    private WeatherView view;
     private static final String DEFAULT_ERROR_MSG = "Error fetching weather data";
+    private final WeatherDataMerger weatherMerger;
+    private final DataProvider provider;
+
+
 
     @Inject
-    public WeatherPresenterImpl(WeatherModel model, WeatherView view) {
+    public WeatherPresenterImpl(WeatherModel model, WeatherDataMerger merger, DataProvider prov) {
+        this.model = model;
+        this.weatherMerger = merger;
+        this.provider = prov;
+    }
+
+    public WeatherPresenterImpl(WeatherModel model, WeatherView view, WeatherDataMerger merger, DataProvider prov) {
         this.model = model;
         this.view = view;
+        this.weatherMerger = merger;
+        this.provider = prov;
     }
 
     @Override
@@ -40,7 +52,7 @@ public class WeatherPresenterImpl implements WeatherPresenter {
         CompletableFuture<WeatherData> weatherDataA = model.getWeatherDataByCity(cityA);
         CompletableFuture<WeatherData> weatherDataB = model.getWeatherDataByCity(cityB);
 
-        weatherDataA.thenCombine(weatherDataB, WeatherDataMerger::mergeWorseWeatherData).thenAccept(worstWeatherData -> Platform.runLater(() -> updateWeatherDisplay(worstWeatherData)))
+        weatherDataA.thenCombine(weatherDataB, weatherMerger::mergeWorseWeatherData).thenAccept(worstWeatherData -> Platform.runLater(() -> updateWeatherDisplay(worstWeatherData)))
                 .exceptionally(e -> {
                     Platform.runLater(() -> view.showError(DEFAULT_ERROR_MSG));
                     return null;
@@ -60,7 +72,7 @@ public class WeatherPresenterImpl implements WeatherPresenter {
         CompletableFuture<WeatherData> weatherDataA = model.getWeatherDataByCoordinates(latA, lonA);
         CompletableFuture<WeatherData> weatherDataB = model.getWeatherDataByCoordinates(latB, lonB);
 
-        weatherDataA.thenCombine(weatherDataB, WeatherDataMerger::mergeWorseWeatherData).thenAccept(worstWeatherData -> Platform.runLater(() -> updateWeatherDisplay(worstWeatherData)))
+        weatherDataA.thenCombine(weatherDataB, weatherMerger::mergeWorseWeatherData).thenAccept(worstWeatherData -> Platform.runLater(() -> updateWeatherDisplay(worstWeatherData)))
                 .exceptionally(e -> {
                     Platform.runLater(() -> view.showError(DEFAULT_ERROR_MSG));
                     return null;
@@ -73,11 +85,11 @@ public class WeatherPresenterImpl implements WeatherPresenter {
             List<String> newIconList = new ArrayList<>();
 
             if (iconCodeList == null) {
-                String iconUrl = DataProvider.getIconUrl(weatherData.getWeather().get(0).getIcon());
+                String iconUrl = provider.getIconUrl(weatherData.getWeather().get(0).getIcon());
                 newIconList.add(iconUrl);
             } else {
                 for (String iconCode : iconCodeList) {
-                    String iconUrl = DataProvider.getIconUrl(iconCode);
+                    String iconUrl = provider.getIconUrl(iconCode);
                     newIconList.add(iconUrl);
                 }
             }
@@ -149,5 +161,9 @@ public class WeatherPresenterImpl implements WeatherPresenter {
             return weatherData.getSnow().getOneH() > 0.0;
         }
         return false;
+    }
+
+    public void setView(WeatherView view){
+        this.view = view;
     }
 }

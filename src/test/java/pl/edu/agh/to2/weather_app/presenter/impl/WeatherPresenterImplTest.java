@@ -8,6 +8,8 @@ import javafx.embed.swing.JFXPanel;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import pl.edu.agh.to2.weather_app.api.DataProvider;
+import pl.edu.agh.to2.weather_app.model.weather_data.WeatherDataMerger;
 import pl.edu.agh.to2.weather_app.model.weather_data.json.MainInfoDTO;
 import pl.edu.agh.to2.weather_app.model.weather_data.json.SysDTO;
 import pl.edu.agh.to2.weather_app.model.weather_data.json.WindDTO;

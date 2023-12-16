@@ -19,7 +19,7 @@ class FXMLLoaderUtilityTest extends ApplicationTest {
         WeatherModel mockWeatherModel = mock(WeatherModel.class);
 
         // when
-        Parent root = FXMLLoaderUtility.loadMainView(mockWeatherModel);
+        Parent root = FXMLLoaderUtility.loadMainView();
 
         // then
         assertNotNull(root);

@@ -17,10 +17,10 @@ class WeatherDataTest {
         coordDTO.setLon(20);
 
         // when
-        weatherData.setCoord(coordDTO);
+        weatherData.setCoordinates(coordDTO);
 
         // then
-        assertEquals(coordDTO, weatherData.getCoord());
+        assertEquals(coordDTO, weatherData.getCoordinates());
     }
 
     @Test
