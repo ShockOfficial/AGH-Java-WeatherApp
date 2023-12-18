@@ -1,20 +1,32 @@
 package pl.edu.agh.to2.weather_app.api;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
 
 
 class DataProviderTest {
 
-    DataProvider provider = new DataProvider();
+    @Mock
+    DataProvider provider;
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
 
     @Test
     void testGetWeatherByCoordinates() throws IOException {
         // given
         String lat = "12";
         String lon = "12";
+        when(provider.getWeather(anyString(), anyString())).thenReturn("{\"lat\":12,\"lon\":12,\"name\":\"Damaturu\",\"weather\":[],\"main\":{\"feels_like\":0}}");
 
         // when
         String response = provider.getWeather(lat, lon);
@@ -33,6 +45,7 @@ class DataProviderTest {
     void testGetWeatherByCity() throws IOException {
         // given
         String city = "London";
+        when(provider.getWeather(anyString())).thenReturn("{\"name\":\"London\",\"weather\":[],\"main\":{\"feels_like\":0}}");
 
         // when
         String response = provider.getWeather(city);
@@ -49,6 +62,7 @@ class DataProviderTest {
     void testGetWeatherInvalidLongitude() throws IOException {
         // given
         String invalidLon = "invalidLon";
+        when(provider.getWeather(anyString(), anyString())).thenReturn("wrong longitude");
 
         // when
         String response = provider.getWeather(invalidLon, "12");
@@ -61,6 +75,7 @@ class DataProviderTest {
     void testGetWeatherInvalidLatitude() throws IOException {
         // given
         String invalidLat = "invalidLat";
+        when(provider.getWeather(anyString(), anyString())).thenReturn("wrong latitude");
 
         // when
         String response = provider.getWeather("12", invalidLat);
@@ -73,6 +88,7 @@ class DataProviderTest {
     void testGetWeatherInvalidCity() throws IOException {
         // given
         String invalidCity = "invalidCity";
+        when(provider.getWeather(anyString())).thenReturn("city not found");
 
         // when
         String response = provider.getWeather(invalidCity);
@@ -85,6 +101,7 @@ class DataProviderTest {
     void testGetIconUrl() {
         // given
         String iconCode = "01d";
+        when(provider.getIconUrl(anyString())).thenReturn("https://openweathermap.org/img/wn/01d@4x.png");
 
         // when
         String iconUrl = provider.getIconUrl(iconCode);
@@ -97,6 +114,7 @@ class DataProviderTest {
     void testGetCoords() throws IOException {
         // given
         String city = "London";
+        when(provider.getCoords(anyString())).thenReturn("{\"name\":\"London\",\"lat\":0,\"lon\":0}");
 
         // when
         String response = provider.getCoords(city);
@@ -113,6 +131,7 @@ class DataProviderTest {
         // given
         String lat = "12";
         String lon = "12";
+        when(provider.getAirPollution(anyString(), anyString())).thenReturn("{\"lat\":12,\"lon\":12,\"list\":[],\"components\":{},\"aqi\":0}");
 
         // when
         String response = provider.getAirPollution(lat, lon);
