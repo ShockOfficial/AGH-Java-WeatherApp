@@ -10,7 +10,6 @@ import pl.edu.agh.to2.weather_app.presenter.WeatherPresenter;
 import pl.edu.agh.to2.weather_app.utils.Constants;
 import pl.edu.agh.to2.weather_app.utils.TempCalculator;
 import pl.edu.agh.to2.weather_app.view.WeatherView;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -22,8 +21,6 @@ public class WeatherPresenterImpl implements WeatherPresenter {
     private static final String DEFAULT_ERROR_MSG = "Error fetching weather data";
     private final WeatherDataMerger weatherMerger;
     private final DataProvider provider;
-
-
 
     @Inject
     public WeatherPresenterImpl(WeatherModel model, WeatherDataMerger merger, DataProvider prov) {

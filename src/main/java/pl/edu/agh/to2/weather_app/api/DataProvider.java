@@ -5,7 +5,6 @@ import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-
 import java.io.IOException;
 import java.util.Map;
 
@@ -24,11 +23,8 @@ public class DataProvider {
     private static final String UNITS_PARAM_NAME = "units";
     private static final String UNIT = "metric";
     private static final String WEATHER_MAP_KEY = "weather";
-
     private static final String GEO_MAP_KEY = "geo";
-
     private static final String AIR_MAP_KEY = "air";
-
     private static final String IMAGE_FORMAT = "@4x.png";
     private static final Map<String, String> apiUrls = Map.of(
             GEO_MAP_KEY, "geo/1.0/direct",

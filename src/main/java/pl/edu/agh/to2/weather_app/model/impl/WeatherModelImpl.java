@@ -10,14 +10,11 @@ import pl.edu.agh.to2.weather_app.model.air_pollution_data.AirPollutionData;
 import pl.edu.agh.to2.weather_app.model.response_converter.IResponseToModelConverter;
 import pl.edu.agh.to2.weather_app.model.geocoding_data.GeocodingData;
 import pl.edu.agh.to2.weather_app.model.weather_data.WeatherData;
-
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 
 public class WeatherModelImpl implements WeatherModel {
-
     private Logger logger;
-
     private final IResponseToModelConverter converter;
     private final DataProvider provider;
 
@@ -27,6 +24,7 @@ public class WeatherModelImpl implements WeatherModel {
         this.logger = log;
         this.provider = provider;
     }
+
     public WeatherModelImpl(IResponseToModelConverter converter, DataProvider provider) {
 
         this.converter = converter;
@@ -71,6 +69,7 @@ public class WeatherModelImpl implements WeatherModel {
             }
         });
     }
+
     private WeatherData getWeather(String lon, String lat) throws IOException{
         String jsonResponse = provider.getWeather(lon, lat);
         return converter.convertWeather(jsonResponse);

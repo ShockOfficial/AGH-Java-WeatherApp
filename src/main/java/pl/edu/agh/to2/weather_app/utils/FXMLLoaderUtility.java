@@ -7,12 +7,10 @@ import javafx.scene.Parent;
 import pl.edu.agh.to2.weather_app.model.WeatherModule;
 import pl.edu.agh.to2.weather_app.presenter.impl.WeatherPresenterImpl;
 import pl.edu.agh.to2.weather_app.view.WeatherView;
-
 import java.io.IOException;
 import java.net.URL;
 
 public class FXMLLoaderUtility {
-
     private FXMLLoaderUtility(){}
 
     public static Parent loadMainView() throws IOException {

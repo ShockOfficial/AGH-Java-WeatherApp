@@ -8,7 +8,6 @@ import pl.edu.agh.to2.weather_app.model.impl.WeatherModelImpl;
 import pl.edu.agh.to2.weather_app.model.response_converter.GsonConverter;
 import pl.edu.agh.to2.weather_app.model.response_converter.IResponseToModelConverter;
 
-
 public class WeatherModule extends AbstractModule {
     @Provides
     public IResponseToModelConverter provideResponseToModelConverter(GsonConverter conv){
