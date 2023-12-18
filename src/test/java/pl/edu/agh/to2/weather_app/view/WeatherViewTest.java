@@ -21,6 +21,7 @@ import static org.testfx.api.FxAssert.verifyThat;
 class WeatherViewTest extends ApplicationTest {
 
     private static final String URL = "https://api.openweathermap.org/data/2.5/weather?q=test&appid=1&units=metric";
+
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/weatherApp/weatherApp.fxml"));
@@ -31,6 +32,7 @@ class WeatherViewTest extends ApplicationTest {
         stage.setScene(new Scene(root));
         stage.show();
     }
+
     @Test
     void displayWeatherFromCoords() {
         //when
@@ -48,6 +50,7 @@ class WeatherViewTest extends ApplicationTest {
 
         });
     }
+
     @Test
     void displayWeatherFromCity() {
         //when
@@ -63,6 +66,7 @@ class WeatherViewTest extends ApplicationTest {
             verifyThat("#sensedTemperatureValue", LabeledMatchers.hasText("1.0ºC"));
         });
     }
+
     @Test
     void displayWeatherFromCoordsForTwoPlaces() {
         //when
@@ -82,27 +86,27 @@ class WeatherViewTest extends ApplicationTest {
     private record MockPresenter(WeatherView view) implements WeatherPresenter {
 
         @Override
-            public void getWeatherByCity(String city) {
-                Platform.runLater(this::insertMockData);
-            }
-
-            @Override
-            public void getWeatherByCoordinates(String lon, String lat) {
-                Platform.runLater(this::insertMockData);
-            }
-
-            @Override
-            public void getWeatherByCities(String cityA, String cityB) {
-            }
-
-            @Override
-            public void getWeatherByCoordinates(String latA, String lonA, String latB, String lonB) {
-            }
-
-            private void insertMockData() {
-                view.updateWeatherDisplay(getExampleWeatherData());
-            }
+        public void getWeatherByCity(String city) {
+            Platform.runLater(this::insertMockData);
         }
+
+        @Override
+        public void getWeatherByCoordinates(String lon, String lat) {
+            Platform.runLater(this::insertMockData);
+        }
+
+        @Override
+        public void getWeatherByCities(String cityA, String cityB) {
+        }
+
+        @Override
+        public void getWeatherByCoordinates(String latA, String lonA, String latB, String lonB) {
+        }
+
+        private void insertMockData() {
+            view.updateWeatherDisplay(getExampleWeatherData());
+        }
+    }
 
     private static WeatherData getExampleWeatherData() {
         WeatherData weatherData = new WeatherData();

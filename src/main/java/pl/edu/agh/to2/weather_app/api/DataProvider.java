@@ -56,13 +56,13 @@ public class DataProvider {
     }
 
     public String getWeather(String lon, String lat) throws IOException {
-        Response response = makeApiCall(Map.of(LATITUDE_PARAM_NAME, lat, LONGITUDE_PARAM_NAME, lon,UNITS_PARAM_NAME,UNIT), WEATHER_MAP_KEY);
+        Response response = makeApiCall(Map.of(LATITUDE_PARAM_NAME, lat, LONGITUDE_PARAM_NAME, lon, UNITS_PARAM_NAME, UNIT), WEATHER_MAP_KEY);
         return response.body().string();
     }
 
     //This way is technically deprecated but works fine
     public String getWeather(String city) throws IOException {
-        Response response = makeApiCall(Map.of(CITY_PARAM_NAME, city,UNITS_PARAM_NAME,UNIT), WEATHER_MAP_KEY);
+        Response response = makeApiCall(Map.of(CITY_PARAM_NAME, city, UNITS_PARAM_NAME, UNIT), WEATHER_MAP_KEY);
         return response.body().string();
     }
 
@@ -72,7 +72,7 @@ public class DataProvider {
     }
 
     public String getAirPollution(String lon, String lat) throws IOException {
-        Response response = makeApiCall(Map.of(LATITUDE_PARAM_NAME, lat, LONGITUDE_PARAM_NAME, lon, UNITS_PARAM_NAME,UNIT), AIR_MAP_KEY);
+        Response response = makeApiCall(Map.of(LATITUDE_PARAM_NAME, lat, LONGITUDE_PARAM_NAME, lon, UNITS_PARAM_NAME, UNIT), AIR_MAP_KEY);
         return response.body().string();
     }
 
