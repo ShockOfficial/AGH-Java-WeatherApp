@@ -11,10 +11,10 @@ class ComponentsDTOTest {
         // given
         String expectedPm10 = "0.5";
         ComponentsDTO componentsDTO = new ComponentsDTO();
-        componentsDTO.setPm10(expectedPm10);
+        componentsDTO.setConcentrationOfCoarseParticulateMatter(expectedPm10);
 
         // when
-        String actualPm10 = componentsDTO.getPm10();
+        String actualPm10 = componentsDTO.getConcentrationOfCoarseParticulateMatter();
 
         // then
         assertEquals(expectedPm10, actualPm10);
@@ -27,8 +27,8 @@ class ComponentsDTOTest {
         ComponentsDTO componentsDTO = new ComponentsDTO();
 
         // when
-        componentsDTO.setPm10(expectedPm10);
-        String actualPm10 = componentsDTO.getPm10();
+        componentsDTO.setConcentrationOfCoarseParticulateMatter(expectedPm10);
+        String actualPm10 = componentsDTO.getConcentrationOfCoarseParticulateMatter();
 
         // then
         assertEquals(expectedPm10, actualPm10);
@@ -40,10 +40,10 @@ class ComponentsDTOTest {
         // given
         String expectedPm25 = "0.5";
         ComponentsDTO componentsDTO = new ComponentsDTO();
-        componentsDTO.setPm2_5(expectedPm25);
+        componentsDTO.setConcentrationOfFineParticlesMatter(expectedPm25);
 
         // when
-        String actualPm25 = componentsDTO.getPm2_5();
+        String actualPm25 = componentsDTO.getConcentrationOfFineParticlesMatter();
 
         // then
         assertEquals(expectedPm25, actualPm25);
@@ -56,8 +56,8 @@ class ComponentsDTOTest {
         ComponentsDTO componentsDTO = new ComponentsDTO();
 
         // when
-        componentsDTO.setPm2_5(expectedPm25);
-        String actualPm25 = componentsDTO.getPm2_5();
+        componentsDTO.setConcentrationOfFineParticlesMatter(expectedPm25);
+        String actualPm25 = componentsDTO.getConcentrationOfFineParticlesMatter();
 
         // then
         assertEquals(expectedPm25, actualPm25);
@@ -68,10 +68,10 @@ class ComponentsDTOTest {
         // given
         String expectedO3 = "0.5";
         ComponentsDTO componentsDTO = new ComponentsDTO();
-        componentsDTO.setO3(expectedO3);
+        componentsDTO.setConcentrationOfOzone(expectedO3);
 
         // when
-        String actualO3 = componentsDTO.getO3();
+        String actualO3 = componentsDTO.getConcentrationOfOzone();
 
         // then
         assertEquals(expectedO3, actualO3);
@@ -84,8 +84,8 @@ class ComponentsDTOTest {
         ComponentsDTO componentsDTO = new ComponentsDTO();
 
         // when
-        componentsDTO.setO3(expectedO3);
-        String actualO3 = componentsDTO.getO3();
+        componentsDTO.setConcentrationOfOzone(expectedO3);
+        String actualO3 = componentsDTO.getConcentrationOfOzone();
 
         // then
         assertEquals(expectedO3, actualO3);
@@ -96,10 +96,10 @@ class ComponentsDTOTest {
         // given
         String expectedSo2 = "0.5";
         ComponentsDTO componentsDTO = new ComponentsDTO();
-        componentsDTO.setSo2(expectedSo2);
+        componentsDTO.setConcentrationOfSulphurDioxide(expectedSo2);
 
         // when
-        String actualSo2 = componentsDTO.getSo2();
+        String actualSo2 = componentsDTO.getConcentrationOfSulphurDioxide();
 
         // then
         assertEquals(expectedSo2, actualSo2);
@@ -112,8 +112,8 @@ class ComponentsDTOTest {
         ComponentsDTO componentsDTO = new ComponentsDTO();
 
         // when
-        componentsDTO.setSo2(expectedSo2);
-        String actualSo2 = componentsDTO.getSo2();
+        componentsDTO.setConcentrationOfSulphurDioxide(expectedSo2);
+        String actualSo2 = componentsDTO.getConcentrationOfSulphurDioxide();
 
         // then
         assertEquals(expectedSo2, actualSo2);
@@ -124,10 +124,10 @@ class ComponentsDTOTest {
         // given
         String expectedNh3 = "0.5";
         ComponentsDTO componentsDTO = new ComponentsDTO();
-        componentsDTO.setNh3(expectedNh3);
+        componentsDTO.setConcentrationOfAmmonia(expectedNh3);
 
         // when
-        String actualNh3 = componentsDTO.getNh3();
+        String actualNh3 = componentsDTO.getConcentrationOfAmmonia();
 
         // then
         assertEquals(expectedNh3, actualNh3);
@@ -140,8 +140,8 @@ class ComponentsDTOTest {
         ComponentsDTO componentsDTO = new ComponentsDTO();
 
         // when
-        componentsDTO.setNh3(expectedNh3);
-        String actualNh3 = componentsDTO.getNh3();
+        componentsDTO.setConcentrationOfAmmonia(expectedNh3);
+        String actualNh3 = componentsDTO.getConcentrationOfAmmonia();
 
         // then
         assertEquals(expectedNh3, actualNh3);
@@ -152,10 +152,10 @@ class ComponentsDTOTest {
         // given
         String expectedNo2 = "0.5";
         ComponentsDTO componentsDTO = new ComponentsDTO();
-        componentsDTO.setNo2(expectedNo2);
+        componentsDTO.setConcentrationOfNitrogenDioxide(expectedNo2);
 
         // when
-        String actualNo2 = componentsDTO.getNo2();
+        String actualNo2 = componentsDTO.getConcentrationOfNitrogenDioxide();
 
         // then
         assertEquals(expectedNo2, actualNo2);
@@ -168,8 +168,8 @@ class ComponentsDTOTest {
         ComponentsDTO componentsDTO = new ComponentsDTO();
 
         // when
-        componentsDTO.setNo2(expectedNo2);
-        String actualNo2 = componentsDTO.getNo2();
+        componentsDTO.setConcentrationOfNitrogenDioxide(expectedNo2);
+        String actualNo2 = componentsDTO.getConcentrationOfNitrogenDioxide();
 
         // then
         assertEquals(expectedNo2, actualNo2);
@@ -180,10 +180,10 @@ class ComponentsDTOTest {
         // given
         String expectedCo = "0.5";
         ComponentsDTO componentsDTO = new ComponentsDTO();
-        componentsDTO.setCo(expectedCo);
+        componentsDTO.setConcentrationOfCarbonMonoxide(expectedCo);
 
         // when
-        String actualCo = componentsDTO.getCo();
+        String actualCo = componentsDTO.getConcentrationOfCarbonMonoxide();
 
         // then
         assertEquals(expectedCo, actualCo);
@@ -196,8 +196,8 @@ class ComponentsDTOTest {
         ComponentsDTO componentsDTO = new ComponentsDTO();
 
         // when
-        componentsDTO.setCo(expectedCo);
-        String actualCo = componentsDTO.getCo();
+        componentsDTO.setConcentrationOfCarbonMonoxide(expectedCo);
+        String actualCo = componentsDTO.getConcentrationOfCarbonMonoxide();
 
         // then
         assertEquals(expectedCo, actualCo);
@@ -211,7 +211,7 @@ class ComponentsDTOTest {
         componentsDTO.setNo(expectedNo);
 
         // when
-        String actualNo = componentsDTO.getNo();
+        String actualNo = componentsDTO.getConcentrationOfNitrogenMonoxide();
 
         // then
         assertEquals(expectedNo, actualNo);
@@ -225,7 +225,7 @@ class ComponentsDTOTest {
 
         // when
         componentsDTO.setNo(expectedNo);
-        String actualNo = componentsDTO.getNo();
+        String actualNo = componentsDTO.getConcentrationOfNitrogenMonoxide();
 
         // then
         assertEquals(expectedNo, actualNo);
@@ -239,8 +239,8 @@ class ComponentsDTOTest {
         ComponentsDTO componentsDTO = new ComponentsDTO();
 
         // when
-        componentsDTO.setNh3(null);
-        String actualNh3 = componentsDTO.getNh3();
+        componentsDTO.setConcentrationOfAmmonia(null);
+        String actualNh3 = componentsDTO.getConcentrationOfAmmonia();
 
         // then
         assertNull(actualNh3);
@@ -252,8 +252,8 @@ class ComponentsDTOTest {
         ComponentsDTO componentsDTO = new ComponentsDTO();
 
         // when
-        componentsDTO.setNh3("test");
-        String actualNh3 = componentsDTO.getNh3();
+        componentsDTO.setConcentrationOfAmmonia("test");
+        String actualNh3 = componentsDTO.getConcentrationOfAmmonia();
 
         // then
         assertEquals("test", actualNh3);
