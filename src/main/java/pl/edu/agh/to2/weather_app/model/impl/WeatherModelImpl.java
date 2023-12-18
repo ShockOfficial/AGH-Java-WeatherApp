@@ -37,8 +37,12 @@ public class WeatherModelImpl implements WeatherModel {
     public CompletableFuture<WeatherData> getWeatherDataByCity(String city) {
         return CompletableFuture.supplyAsync(() -> {
             try {
-
                 GeocodingData geocoding = this.getCoords(city);
+                if (geocoding == null) {
+                    logger.log("Geocoding API error: " + city + " not found");
+                    throw new GeocodingException(city + " not found");
+                }
+
                 WeatherData weather = this.getWeather(geocoding.getLon(), geocoding.getLat());
                 AirPollutionData airPollution = this.getAirPollution(geocoding.getLon(), geocoding.getLat());
 
@@ -46,9 +50,6 @@ public class WeatherModelImpl implements WeatherModel {
                 weather.setAirPollutionData(airPollution);
 
                 return weather;
-            } catch (NullPointerException e){
-                logger.log("Geocoding API error:" + city + "not found");
-                throw new GeocodingException(city + " not found");
             } catch (IOException e) {
                 logger.log("Failed to fetch data from API for " + city);
                 throw new DataFetchException("Error fetching weather data");
