@@ -45,6 +45,7 @@ class WeatherViewTest extends ApplicationTest {
             verifyThat("#pressureValue", LabeledMatchers.hasText("1 hPa"));
             verifyThat("#windValue", LabeledMatchers.hasText("1.0 m/s"));
             verifyThat("#sensedTemperatureValue", LabeledMatchers.hasText("1.0ºC"));
+
         });
     }
     @Test
