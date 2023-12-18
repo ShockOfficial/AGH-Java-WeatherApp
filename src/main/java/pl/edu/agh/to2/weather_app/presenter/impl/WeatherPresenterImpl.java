@@ -120,6 +120,9 @@ public class WeatherPresenterImpl implements WeatherPresenter {
     }
 
     private void updateWeatherDisplay(WeatherData weatherData) {
+        if (weatherData == null) {
+            return;
+        }
         if (weatherData.getSys() != null) {
             String city = weatherData.getName() == null || Objects.equals(weatherData.getName(), "") ? "Unknown" : weatherData.getName();
             String country = weatherData.getSys().getCountry() == null ? "Unknown" : weatherData.getSys().getCountry();

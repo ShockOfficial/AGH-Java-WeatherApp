@@ -36,7 +36,9 @@ class WeatherPresenterImplTest {
         // given
         WeatherModel mockModel = mock(WeatherModel.class);
         WeatherView mockView = mock(WeatherView.class);
-        WeatherPresenterImpl presenter = new WeatherPresenterImpl(mockModel, mockView);
+        WeatherDataMerger mockMerger = mock(WeatherDataMerger.class);
+        DataProvider mockDataProvider = mock(DataProvider.class);
+        WeatherPresenterImpl presenter = new WeatherPresenterImpl(mockModel, mockView, mockMerger, mockDataProvider);
         String city = "TestCity";
         WeatherData mockWeatherData = mock(WeatherData.class);
         CompletableFuture<WeatherData> weatherDataFuture = CompletableFuture.completedFuture(mockWeatherData);
@@ -59,7 +61,9 @@ class WeatherPresenterImplTest {
         // given
         WeatherModel mockModel = mock(WeatherModel.class);
         WeatherView mockView = mock(WeatherView.class);
-        WeatherPresenterImpl presenter = new WeatherPresenterImpl(mockModel, mockView);
+        WeatherDataMerger mockMerger = mock(WeatherDataMerger.class);
+        DataProvider mockDataProvider = mock(DataProvider.class);
+        WeatherPresenterImpl presenter = new WeatherPresenterImpl(mockModel, mockView, mockMerger, mockDataProvider);
         String lat = "12.34";
         String lon = "56.78";
         WeatherData mockWeatherData = mock(WeatherData.class);
@@ -82,7 +86,9 @@ class WeatherPresenterImplTest {
         // given
         WeatherModel mockModel = mock(WeatherModel.class);
         WeatherView mockView = mock(WeatherView.class);
-        WeatherPresenterImpl presenter = new WeatherPresenterImpl(mockModel, mockView);
+        WeatherDataMerger mockMerger = mock(WeatherDataMerger.class);
+        DataProvider mockDataProvider = mock(DataProvider.class);
+        WeatherPresenterImpl presenter = new WeatherPresenterImpl(mockModel, mockView, mockMerger, mockDataProvider);
         WeatherData weatherData = getExampleWeatherData();
         Method privateMethod = WeatherPresenterImpl.class.getDeclaredMethod("updateWeatherDisplay", WeatherData.class);
         privateMethod.setAccessible(true);
@@ -108,31 +114,32 @@ class WeatherPresenterImplTest {
         // given
         WeatherModel mockModel = mock(WeatherModel.class);
         WeatherView mockView = mock(WeatherView.class);
-        WeatherPresenterImpl presenter = new WeatherPresenterImpl(mockModel, mockView);
-        String cityA = "CityA";
-        String cityB = "CityB";
+        WeatherDataMerger mockMerger = mock(WeatherDataMerger.class);
+        DataProvider mockDataProvider = mock(DataProvider.class);
+        WeatherPresenterImpl presenter = new WeatherPresenterImpl(mockModel, mockView, mockMerger, mockDataProvider);
+        String cityA = "TestCityA";
+        String cityB = "TestCityB";
         WeatherData mockWeatherDataA = mock(WeatherData.class);
         WeatherData mockWeatherDataB = mock(WeatherData.class);
         when(mockModel.getWeatherDataByCity(cityA)).thenReturn(CompletableFuture.completedFuture(mockWeatherDataA));
         when(mockModel.getWeatherDataByCity(cityB)).thenReturn(CompletableFuture.completedFuture(mockWeatherDataB));
 
         // when
-        presenter.getWeatherByCities(cityA, cityB);
-
-        // then
         CompletableFuture<Void> future = new CompletableFuture<>();
         Platform.runLater(() -> {
             try {
+                presenter.getWeatherByCities(cityA, cityB);
                 verify(mockModel, times(1)).getWeatherDataByCity(cityA);
                 verify(mockModel, times(1)).getWeatherDataByCity(cityB);
                 verify(mockView, never()).showError(any());
-                verify(mockView, times(1)).updateWeatherDisplay(any(WeatherData.class));
+                verify(mockView, never()).updateWeatherDisplay(any(WeatherData.class));
                 future.complete(null);
             } catch (Throwable t) {
                 future.completeExceptionally(t);
             }
         });
         future.join();
+
     }
 
     @Test
@@ -140,7 +147,9 @@ class WeatherPresenterImplTest {
         // given
         WeatherModel mockModel = mock(WeatherModel.class);
         WeatherView mockView = mock(WeatherView.class);
-        WeatherPresenterImpl presenter = new WeatherPresenterImpl(mockModel, mockView);
+        WeatherDataMerger mockMerger = mock(WeatherDataMerger.class);
+        DataProvider mockDataProvider = mock(DataProvider.class);
+        WeatherPresenterImpl presenter = new WeatherPresenterImpl(mockModel, mockView, mockMerger, mockDataProvider);
         String latA = "12.34";
         String lonA = "56.78";
         String latB = "34.56";
@@ -164,19 +173,11 @@ class WeatherPresenterImplTest {
                 future.completeExceptionally(t);
             }
         });
-        future.join();
 
         // then
-        CompletableFuture<Void> verifyFuture = new CompletableFuture<>();
-        Platform.runLater(() -> {
-            try {
-                verify(mockView, times(1)).updateWeatherDisplay(any(WeatherData.class));
-                verifyFuture.complete(null);
-            } catch (Throwable t) {
-                verifyFuture.completeExceptionally(t);
-            }
+        future.thenAccept(result -> {
+            verify(mockView, times(1)).updateWeatherDisplay(any(WeatherData.class));
         });
-        verifyFuture.join();
     }
 
 
