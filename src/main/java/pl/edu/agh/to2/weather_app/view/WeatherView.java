@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import pl.edu.agh.to2.weather_app.model.weather_data.WeatherData;
-import pl.edu.agh.to2.weather_app.presenter.WeatherPresenter;
+import pl.edu.agh.to2.weather_app.presenter.IWeatherPresenter;
 import pl.edu.agh.to2.weather_app.utils.converter.AirQualityConverter;
 
 import java.util.List;
@@ -49,7 +49,7 @@ public class WeatherView {
     private ImageView informationIcon1;
     @FXML
     private ImageView informationIcon2;
-    private WeatherPresenter presenter;
+    private IWeatherPresenter presenter;
 
     @FXML
     public void initialize() {
@@ -80,7 +80,7 @@ public class WeatherView {
         bLongitudeInput.textProperty().addListener((observable, oldValue, newValue) -> updateFieldsState());
     }
 
-    public void setPresenter(WeatherPresenter presenter) {
+    public void setPresenter(IWeatherPresenter presenter) {
         this.presenter = presenter;
     }
 

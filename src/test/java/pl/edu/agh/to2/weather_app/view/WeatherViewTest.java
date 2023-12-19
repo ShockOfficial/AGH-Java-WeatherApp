@@ -12,7 +12,7 @@ import org.testfx.matcher.control.LabeledMatchers;
 import org.testfx.util.WaitForAsyncUtils;
 import pl.edu.agh.to2.weather_app.model.weather_data.WeatherData;
 import pl.edu.agh.to2.weather_app.model.weather_data.json.*;
-import pl.edu.agh.to2.weather_app.presenter.WeatherPresenter;
+import pl.edu.agh.to2.weather_app.presenter.IWeatherPresenter;
 
 import java.util.List;
 
@@ -83,7 +83,7 @@ class WeatherViewTest extends ApplicationTest {
         verifyThat("#sensedTemperatureValue", LabeledMatchers.hasText("1.0ºC"));
     }
 
-    private record MockPresenter(WeatherView view) implements WeatherPresenter {
+    private record MockPresenter(WeatherView view) implements IWeatherPresenter {
 
         @Override
         public void getWeatherByCity(String city) {

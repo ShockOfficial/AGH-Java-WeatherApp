@@ -8,13 +8,14 @@ import javafx.embed.swing.JFXPanel;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.mockito.InOrder;
 import pl.edu.agh.to2.weather_app.api.DataProvider;
 import pl.edu.agh.to2.weather_app.model.weather_data.WeatherDataMerger;
 import pl.edu.agh.to2.weather_app.model.weather_data.json.MainInfoDTO;
 import pl.edu.agh.to2.weather_app.model.weather_data.json.SysDTO;
 import pl.edu.agh.to2.weather_app.model.weather_data.json.WindDTO;
 import pl.edu.agh.to2.weather_app.model.weather_data.WeatherData;
-import pl.edu.agh.to2.weather_app.model.WeatherModel;
+import pl.edu.agh.to2.weather_app.model.IWeatherModel;
 import pl.edu.agh.to2.weather_app.view.WeatherView;
 
 import java.lang.reflect.InvocationTargetException;
@@ -34,7 +35,7 @@ class WeatherPresenterImplTest {
     @Test
     void testGetWeatherByCity() {
         // given
-        WeatherModel mockModel = mock(WeatherModel.class);
+        IWeatherModel mockModel = mock(IWeatherModel.class);
         WeatherView mockView = mock(WeatherView.class);
         WeatherDataMerger mockMerger = mock(WeatherDataMerger.class);
         DataProvider mockDataProvider = mock(DataProvider.class);
@@ -59,7 +60,7 @@ class WeatherPresenterImplTest {
     @Test
     void testGetWeatherByCoordinates(){
         // given
-        WeatherModel mockModel = mock(WeatherModel.class);
+        IWeatherModel mockModel = mock(IWeatherModel.class);
         WeatherView mockView = mock(WeatherView.class);
         WeatherDataMerger mockMerger = mock(WeatherDataMerger.class);
         DataProvider mockDataProvider = mock(DataProvider.class);
@@ -84,7 +85,7 @@ class WeatherPresenterImplTest {
     @Test
     void testUpdateWeatherDisplay() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         // given
-        WeatherModel mockModel = mock(WeatherModel.class);
+        IWeatherModel mockModel = mock(IWeatherModel.class);
         WeatherView mockView = mock(WeatherView.class);
         WeatherDataMerger mockMerger = mock(WeatherDataMerger.class);
         DataProvider mockDataProvider = mock(DataProvider.class);
@@ -97,7 +98,9 @@ class WeatherPresenterImplTest {
         privateMethod.invoke(presenter, weatherData);
 
         // then
-        verify(mockView).updateWeatherDisplay(argThat(updatedWeatherData -> {
+        InOrder inOrder = inOrder(mockView);
+
+        inOrder.verify(mockView).updateWeatherDisplay(argThat(updatedWeatherData -> {
             assertEquals("Unknown", updatedWeatherData.getName());
             assertEquals("Poland", updatedWeatherData.getSys().getCountry());
             assertEquals(25, updatedWeatherData.getMain().getTemp(), 0.01);
@@ -106,13 +109,13 @@ class WeatherPresenterImplTest {
             return true;
         }));
 
-        verifyNoMoreInteractions(mockView);
+        inOrder.verifyNoMoreInteractions();
     }
 
     @Test
     void testGetWeatherByCities() {
         // given
-        WeatherModel mockModel = mock(WeatherModel.class);
+        IWeatherModel mockModel = mock(IWeatherModel.class);
         WeatherView mockView = mock(WeatherView.class);
         WeatherDataMerger mockMerger = mock(WeatherDataMerger.class);
         DataProvider mockDataProvider = mock(DataProvider.class);
@@ -145,7 +148,7 @@ class WeatherPresenterImplTest {
     @Test
     void testGetWeatherByCoordinatesForTwoPlaces() {
         // given
-        WeatherModel mockModel = mock(WeatherModel.class);
+        IWeatherModel mockModel = mock(IWeatherModel.class);
         WeatherView mockView = mock(WeatherView.class);
         WeatherDataMerger mockMerger = mock(WeatherDataMerger.class);
         DataProvider mockDataProvider = mock(DataProvider.class);
