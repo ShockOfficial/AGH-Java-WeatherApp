@@ -77,6 +77,9 @@ public class WeatherModelImpl implements IWeatherModel {
 
     private GeocodingData getCoords(String city) throws IOException{
         String jsonResponse = provider.getCoords(city);
+        if (jsonResponse == null) {
+            return null;
+        }
         return converter.convertCoords(jsonResponse.
                 substring(1, jsonResponse.length()-1));
     }
