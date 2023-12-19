@@ -49,9 +49,9 @@ class AirQualityConverterTest {
 
         AirListElementDTO listElement = new AirListElementDTO();
         listElement.setMainInfo(mainInfo);
+        when(mockAirPollutionData.getPollutionListElement()).thenReturn(listElement);
 
         // when
-        when(mockAirPollutionData.getPollutionListElement()).thenReturn(listElement);
         String result = AirQualityConverter.getAirQualityString(mockAirPollutionData);
 
         // then
