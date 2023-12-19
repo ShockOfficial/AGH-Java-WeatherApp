@@ -5,7 +5,7 @@ import pl.edu.agh.to2.weather_app.api.DataProvider;
 import pl.edu.agh.to2.weather_app.exceptions.DataFetchException;
 import pl.edu.agh.to2.weather_app.exceptions.GeocodingException;
 import pl.edu.agh.to2.weather_app.logger.Logger;
-import pl.edu.agh.to2.weather_app.model.WeatherModel;
+import pl.edu.agh.to2.weather_app.model.IWeatherModel;
 import pl.edu.agh.to2.weather_app.model.air_pollution_data.AirPollutionData;
 import pl.edu.agh.to2.weather_app.model.response_converter.IResponseToModelConverter;
 import pl.edu.agh.to2.weather_app.model.geocoding_data.GeocodingData;
@@ -13,7 +13,7 @@ import pl.edu.agh.to2.weather_app.model.weather_data.WeatherData;
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 
-public class WeatherModelImpl implements WeatherModel {
+public class WeatherModelImpl implements IWeatherModel {
     private Logger logger;
     private final IResponseToModelConverter converter;
     private final DataProvider provider;

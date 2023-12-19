@@ -3,7 +3,7 @@ package pl.edu.agh.to2.weather_app.utils;
 import javafx.scene.Parent;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
-import pl.edu.agh.to2.weather_app.model.WeatherModel;
+import pl.edu.agh.to2.weather_app.model.IWeatherModel;
 
 
 import java.io.IOException;
@@ -16,7 +16,7 @@ class FXMLLoaderUtilityTest extends ApplicationTest {
     @Test
     void testLoadMainView() throws IOException {
         // given
-        WeatherModel mockWeatherModel = mock(WeatherModel.class);
+        IWeatherModel mockWeatherModel = mock(IWeatherModel.class);
 
         // when
         Parent root = FXMLLoaderUtility.loadMainView();

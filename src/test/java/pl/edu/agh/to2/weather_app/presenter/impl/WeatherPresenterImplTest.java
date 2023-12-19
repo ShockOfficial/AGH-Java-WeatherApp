@@ -14,7 +14,7 @@ import pl.edu.agh.to2.weather_app.model.weather_data.json.MainInfoDTO;
 import pl.edu.agh.to2.weather_app.model.weather_data.json.SysDTO;
 import pl.edu.agh.to2.weather_app.model.weather_data.json.WindDTO;
 import pl.edu.agh.to2.weather_app.model.weather_data.WeatherData;
-import pl.edu.agh.to2.weather_app.model.WeatherModel;
+import pl.edu.agh.to2.weather_app.model.IWeatherModel;
 import pl.edu.agh.to2.weather_app.view.WeatherView;
 
 import java.lang.reflect.InvocationTargetException;
@@ -34,7 +34,7 @@ class WeatherPresenterImplTest {
     @Test
     void testGetWeatherByCity() {
         // given
-        WeatherModel mockModel = mock(WeatherModel.class);
+        IWeatherModel mockModel = mock(IWeatherModel.class);
         WeatherView mockView = mock(WeatherView.class);
         WeatherDataMerger mockMerger = mock(WeatherDataMerger.class);
         DataProvider mockDataProvider = mock(DataProvider.class);
@@ -59,7 +59,7 @@ class WeatherPresenterImplTest {
     @Test
     void testGetWeatherByCoordinates(){
         // given
-        WeatherModel mockModel = mock(WeatherModel.class);
+        IWeatherModel mockModel = mock(IWeatherModel.class);
         WeatherView mockView = mock(WeatherView.class);
         WeatherDataMerger mockMerger = mock(WeatherDataMerger.class);
         DataProvider mockDataProvider = mock(DataProvider.class);
@@ -84,7 +84,7 @@ class WeatherPresenterImplTest {
     @Test
     void testUpdateWeatherDisplay() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         // given
-        WeatherModel mockModel = mock(WeatherModel.class);
+        IWeatherModel mockModel = mock(IWeatherModel.class);
         WeatherView mockView = mock(WeatherView.class);
         WeatherDataMerger mockMerger = mock(WeatherDataMerger.class);
         DataProvider mockDataProvider = mock(DataProvider.class);
@@ -112,7 +112,7 @@ class WeatherPresenterImplTest {
     @Test
     void testGetWeatherByCities() {
         // given
-        WeatherModel mockModel = mock(WeatherModel.class);
+        IWeatherModel mockModel = mock(IWeatherModel.class);
         WeatherView mockView = mock(WeatherView.class);
         WeatherDataMerger mockMerger = mock(WeatherDataMerger.class);
         DataProvider mockDataProvider = mock(DataProvider.class);
@@ -145,7 +145,7 @@ class WeatherPresenterImplTest {
     @Test
     void testGetWeatherByCoordinatesForTwoPlaces() {
         // given
-        WeatherModel mockModel = mock(WeatherModel.class);
+        IWeatherModel mockModel = mock(IWeatherModel.class);
         WeatherView mockView = mock(WeatherView.class);
         WeatherDataMerger mockMerger = mock(WeatherDataMerger.class);
         DataProvider mockDataProvider = mock(DataProvider.class);

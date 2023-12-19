@@ -20,5 +20,5 @@ public class WeatherModule extends AbstractModule {
     }
 
     @Provides
-    public WeatherModel provideModel(WeatherModelImpl model){ return model;}
+    public IWeatherModel provideModel(WeatherModelImpl model){ return model;}
 }

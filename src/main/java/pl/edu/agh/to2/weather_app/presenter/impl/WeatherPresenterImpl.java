@@ -4,9 +4,9 @@ import com.google.inject.Inject;
 import javafx.application.Platform;
 import pl.edu.agh.to2.weather_app.api.DataProvider;
 import pl.edu.agh.to2.weather_app.model.weather_data.WeatherData;
-import pl.edu.agh.to2.weather_app.model.WeatherModel;
+import pl.edu.agh.to2.weather_app.model.IWeatherModel;
 import pl.edu.agh.to2.weather_app.model.weather_data.WeatherDataMerger;
-import pl.edu.agh.to2.weather_app.presenter.WeatherPresenter;
+import pl.edu.agh.to2.weather_app.presenter.IWeatherPresenter;
 import pl.edu.agh.to2.weather_app.utils.Constants;
 import pl.edu.agh.to2.weather_app.utils.TempCalculator;
 import pl.edu.agh.to2.weather_app.view.WeatherView;
@@ -15,21 +15,21 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
-public class WeatherPresenterImpl implements WeatherPresenter {
-    private final WeatherModel model;
+public class WeatherPresenterImpl implements IWeatherPresenter {
+    private final IWeatherModel model;
     private WeatherView view;
     private static final String DEFAULT_ERROR_MSG = "Error fetching weather data";
     private final WeatherDataMerger weatherMerger;
     private final DataProvider provider;
 
     @Inject
-    public WeatherPresenterImpl(WeatherModel model, WeatherDataMerger merger, DataProvider prov) {
+    public WeatherPresenterImpl(IWeatherModel model, WeatherDataMerger merger, DataProvider prov) {
         this.model = model;
         this.weatherMerger = merger;
         this.provider = prov;
     }
 
-    public WeatherPresenterImpl(WeatherModel model, WeatherView view, WeatherDataMerger merger, DataProvider prov) {
+    public WeatherPresenterImpl(IWeatherModel model, WeatherView view, WeatherDataMerger merger, DataProvider prov) {
         this.model = model;
         this.view = view;
         this.weatherMerger = merger;
