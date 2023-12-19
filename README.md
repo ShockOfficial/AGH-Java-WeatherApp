@@ -209,8 +209,8 @@ Może to być przydatatne, np. możemy sprawdzić pogodę w miejscu pracy i w mi
 
 ### Pomysł
 
-Naszym głównym zamysłem było to, aby zbytnio nie komplikować i nie zmieniać struktury projektu. Dlatego też postanowiliśmy rozszerzyć nasz model o nowe klasy i funkconalności.
-Korzystamy z tego samego API, co w poprzednim Milestone'ie, dlatego też nie musieliśmy zmieniać klasy DataProvider, a jedynie ją rozszerzyliśmy.
+Naszym głównym zamysłem było to, aby zbytnio nie komplikować i nie zmieniać struktury projektu. Dlatego też postanowiliśmy rozszerzyć nasz model o nowe klasy i funkcjonalności.
+Dodatkowo postanowiliśmy popracować nad wyglądem aplikacji, aby była bardziej przyjemna dla użytkownika.
 
 #### Dlaczego dodaliśmy ikonki pogody?
 
@@ -222,35 +222,53 @@ W wielkich miastach smog jest poważnym problemem. Dlatego też postanowiliśmy 
 
 #### Jak działa WeatherDataMerger?
 
-WeatherDataMerger pozwala nam na scalenie danych o pogodzie z dwóch różnych miejsc. Scalamy te, które wydają się nam ważniejsze
+WeatherDataMerger pozwala nam na scalenie danych o pogodzie z dwóch różnych miejsc. Scalamy te, które wydają się nam ważniejsze, czyli np. uwzględniamy niższą temperaturę, gdy w jednym z miejsc potrzeba maseczki to uznajemy, że w obydwu itp.
+Ogólniej rzecz biorąc, klasa ta pozwala nam przygotować te dane, które chcemy wyświetlić użytkownikowi, uwzględniając podane miejsca.
 
 ### Opis działania
 
-Aplikacja działa analogicznie jak w poprzednim Milestone'ie. Po uruchomieniu aplikacji, użytkownikowi wyświetla się okno, w którym może wprowadzić nazwę miasta lub jego koordynaty. Jednak od teraz możemy sprawdzać pogodę w dwóch miejscach jednocześnie.
+Aplikacja działa analogicznie jak w poprzednim Milestone'ie. Po uruchomieniu aplikacji, użytkownikowi wyświetla się okno, w którym może wprowadzić nazwę miasta lub jego koordynaty. Jednak od teraz możemy sprawdzać pogodę w dwóch miejscach jednocześnie, podając nazwy miejscowości lub koordynaty obydwu miejsc.
 Po wprowadzeniu danych i kliknięciu przycisku "Get Weather" aplikacja pobiera dane z zewnętrznego API i wyświetla je użytkownikowi wraz z odpowiednimi ikonkami.
 
 ### Zależności
 
-Nie zmieniliśmy zależności w stosunku do poprzedniego Milestone'a.
+Nie zmieniliśmy zależności w stosunku do poprzedniego Milestone'a. Zatem nadal używamy następujących zależności:
+```
+dependencies {
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.1'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.1'
+    implementation("com.squareup.okhttp3:okhttp:4.11.0")
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation group: 'com.google.inject', name: 'guice', version: '5.0.1'
+    testImplementation 'org.mockito:mockito-core:3.12.4'
+    testImplementation "org.testfx:testfx-core:4.0.17"
+    testImplementation group: 'org.hamcrest', name: 'hamcrest', version: '2.1'
+    testImplementation "org.testfx:testfx-junit5:4.0.17"
+}
+
+```
 
 ### Struktura projektu
 
-W tym Milestone'ie nie zmieniliśmy struktury projektu znacznie. Rozbudowały się one jednak o nowe klasy.
+W tym Milestone'ie nie zmieniliśmy struktury projektu znacznie, zatem nadal mamy kluczowy podział stworzony w oparciu o MVP.
+Jednak w tym Milestone'ie dodaliśmy nowe klasy, które rozszerzają nasz model, a także wiele z klas zostało zmodyfikowanych.
 
 ### Opisy pakietów i klas
+
+Z racji tego, że w tym Milestone'ie kontynuujemy pracę nad tym samym projektem, nie będziemy opisywać ponownie wszystkich pakietów i klas, lecz tylko te, które uległy zmianie i zostały dodane.
 
 #### Pakiet api 
 
 Pakiet Api zawiera klasy odpowiedzialne za komunikację z zewnętrznym API pogodowym. W tym celu wykorzystujemy bibliotekę OkHttp3.
 
-Klasy:
-1. **DataProvider**: wykonuje zapytania do api pogodowego i zwraca dane dotyczące pogody. Od teraz także pobiera dane o zanieszyszczeniu powietrza oraz pomaga w uzyskiwaniu ikon.
+Dodane/zmodyfikowane klasy:
+1. **DataProvider**: wykonuje zapytania do api pogodowego i zwraca dane dotyczące pogody. Od teraz także pobiera dane o zanieszyszczeniu powietrza oraz pomaga w uzyskiwaniu ikon. Dodatkowo została ona zrefaktoryzowana, aby była bardziej czytelna.
 
 #### Pakiet exceptions
 
 Pakiet exceptions zawiera klasy odpowiedzialne za obsługę wyjątków.
 
-Klasy:
+Dodane/zmodyfikowane klasy:
 1. **DataFetchException**: klasa odpowiedzialna za obsługę wyjątków związanych z pobieraniem danych
 2. **GeocodingException**: klasa odpowiedzialna za obsługę wyjątków związanych z geokodowaniem
 
@@ -262,7 +280,7 @@ Nie uległ zmianie w stosunku do poprzedniego Milestone'a.
 
 Zawiera elementy modelu, konwertuje na obiekty klasy WeatherData za pomocą biblioteki GSon. Od teraz posiada także elementy związane z AirPolutionData oraz GeocodingData.
 
-Klasy:
+Dodane/zmodyfikowane klasy:
 1. **airPollutionData/json/AirPollutionData**: klasa zawierająca informacje o zanieczyszczeniu powietrza przygotowana z myślą o API OpenWeatherMap.
 2. **airPollutionData/json/ComponentsDTO**: klasa zawierająca informacje o zanieczyszczeniu powietrza (np. dwutlenek siarki, dwutlenek azotu, ozon)
 3. **airPollutionData/json/AirMainInfoDTO**: klasa posiada dokładną informację o poziomie zanieczyszczenia w skali 1-5
@@ -277,34 +295,33 @@ Klasy:
 
 Zawiera implementację prezentera odpowiedzialną za komunikację między widokiem a modelem.
 
-Klasy:
-1. **impl/WeatherPresenterImpl**: obsługuje prezentację danych w widoku WeatherView, jednocześnie komunikując się z modelem WeatherModel. Od teraz obsługuje zapytania dla dwóch miejsc, a także dodaje ikonki.
+Dodane/zmodyfikowane klasy:
+1. **impl/WeatherPresenterImpl**: obsługuje prezentację danych w widoku WeatherView, jednocześnie komunikując się z modelem WeatherModel. Od teraz obsługuje zapytania dla dwóch miejsc, a także dodaje ikonki. Ustala również na podstawie aktualnej pogody, czy należy założyć maseczkę oraz kolor wskazywanej temperatury.
 
 
 #### Pakiet utils
 
 Zawiera dodatkowe pomocnicze metody i klasy.
 
-Klasy:
-1. **FXMLLoaderUtility**: pomocnicza klasa do ładowania widoków fxml
-2. **Constants**: pomocnicza klasa zawierająca stałe
-3. **TempCalculator**: pomocnicza klasa do obliczania temperatury odczuwalnej na podstawie wzoru
-4. **converter/AirQualityConverter**: klasa odpowiedzialna za obrobienie danych o zanieczyszczeniu powietrza, aby były bardziej czytelne dla użytkownika
+Dodane/zmodyfikowane klasy:
+1. **Constants**: pomocnicza klasa zawierająca stałe
+2. **TempCalculator**: pomocnicza klasa do obliczania temperatury odczuwalnej na podstawie wzoru
+3. **converter/AirQualityConverter**: klasa odpowiedzialna za obrobienie danych o zanieczyszczeniu powietrza, aby były bardziej czytelne dla użytkownika
 
 #### Pakiet view
 
 Zawiera implementację widoku.
 
 Klasy:
-1. **WeatherView**: zajmuje się wyświetlaniem widoku aplikacji, komunikuje się z modelem poprzez prezentera. Teraz możemy wprowadzać dwa miejsca, a także wyświetlać ikonki pogody.
+1. **WeatherView**: zajmuje się wyświetlaniem widoku aplikacji, komunikuje się z modelem poprzez prezentera. Teraz możemy wprowadzać dwa miejsca, a także wyświetlać ikonki pogody. Dodatkowo wyświetla temperaturę w kolorach ustalonych w prezenterze.
 
 
 ### Diagram zależności
-Poniższy diagram przedstawia zależności między klasami w naszym projekcie. [Stan na 12:12 2023-12-12]
+Poniższy diagram przedstawia zależności między klasami w naszym projekcie.
 
 ![Tutaj jest zdjęcie diagramu](./Screens/weather_appDiagram.png)
 
-Jak widać, liczba zależności trochę się zwiększyła. Niezachwiany został jednak podział na przyjęty na poczatku zgodny ze wzorcec MVP. 
+Jak widać, liczba zależności trochę się zwiększyła. Niezachwiany został jednak podział na przyjęty na początku zgodny ze wzorcem MVP. 
 
 ### Przykład działania
 
