@@ -1,76 +1,86 @@
 package pl.edu.agh.to2.weather_app.model.air_pollution_data.json;
 
+import com.google.gson.annotations.SerializedName;
+
 public class ComponentsDTO {
-    private String co;
-    private String no;
-    private String no2;
-    private String o3;
-    private String so2;
-    private String pm2_5;
-    private String pm10;
-    private String nh3;
+    @SerializedName("co")
+    private String concentrationOfCarbonMonoxide;
+    @SerializedName("no")
+    private String concentrationOfNitrogenMonoxide;
+    @SerializedName("no2")
+    private String concentrationOfNitrogenDioxide;
+    @SerializedName("o3")
+    private String concentrationOfOzone;
+    @SerializedName("so2")
+    private String concentrationOfSulphurDioxide;
+    @SerializedName("pm2_5")
+    private String concentrationOfFineParticlesMatter;
+    @SerializedName("pm10")
+    private String concentrationOfCoarseParticulateMatter;
+    @SerializedName("nh3")
+    private String concentrationOfAmmonia;
 
-    public String getCo() {
-        return co;
+    public String getConcentrationOfCarbonMonoxide() {
+        return concentrationOfCarbonMonoxide;
     }
 
-    public void setCo(String co) {
-        this.co = co;
+    public void setConcentrationOfCarbonMonoxide(String concentrationOfCarbonMonoxide) {
+        this.concentrationOfCarbonMonoxide = concentrationOfCarbonMonoxide;
     }
 
-    public String getNo() {
-        return no;
+    public String getConcentrationOfNitrogenMonoxide() {
+        return concentrationOfNitrogenMonoxide;
     }
 
-    public void setNo(String no) {
-        this.no = no;
+    public void setNo(String concentrationOfNitrogenMonoxide) {
+        this.concentrationOfNitrogenMonoxide = concentrationOfNitrogenMonoxide;
     }
 
-    public String getNo2() {
-        return no2;
+    public String getConcentrationOfNitrogenDioxide() {
+        return concentrationOfNitrogenDioxide;
     }
 
-    public void setNo2(String no2) {
-        this.no2 = no2;
+    public void setConcentrationOfNitrogenDioxide(String concentrationOfNitrogenDioxide) {
+        this.concentrationOfNitrogenDioxide = concentrationOfNitrogenDioxide;
     }
 
-    public String getO3() {
-        return o3;
+    public String getConcentrationOfOzone() {
+        return concentrationOfOzone;
     }
 
-    public void setO3(String o3) {
-        this.o3 = o3;
+    public void setConcentrationOfOzone(String concentrationOfOzone) {
+        this.concentrationOfOzone = concentrationOfOzone;
     }
 
-    public String getSo2() {
-        return so2;
+    public String getConcentrationOfSulphurDioxide() {
+        return concentrationOfSulphurDioxide;
     }
 
-    public void setSo2(String so2) {
-        this.so2 = so2;
+    public void setConcentrationOfSulphurDioxide(String concentrationOfSulphurDioxide) {
+        this.concentrationOfSulphurDioxide = concentrationOfSulphurDioxide;
     }
 
-    public String getPm2_5() {
-        return pm2_5;
+    public String getConcentrationOfFineParticlesMatter() {
+        return concentrationOfFineParticlesMatter;
     }
 
-    public void setPm2_5(String pm2_5) {
-        this.pm2_5 = pm2_5;
+    public void setConcentrationOfFineParticlesMatter(String concentrationOfFineParticlesMatter) {
+        this.concentrationOfFineParticlesMatter = concentrationOfFineParticlesMatter;
     }
 
-    public String getPm10() {
-        return pm10;
+    public String getConcentrationOfCoarseParticulateMatter() {
+        return concentrationOfCoarseParticulateMatter;
     }
 
-    public void setPm10(String pm10) {
-        this.pm10 = pm10;
+    public void setConcentrationOfCoarseParticulateMatter(String concentrationOfCoarseParticulateMatter) {
+        this.concentrationOfCoarseParticulateMatter = concentrationOfCoarseParticulateMatter;
     }
 
-    public String getNh3() {
-        return nh3;
+    public String getConcentrationOfAmmonia() {
+        return concentrationOfAmmonia;
     }
 
-    public void setNh3(String nh3) {
-        this.nh3 = nh3;
+    public void setConcentrationOfAmmonia(String concentrationOfAmmonia) {
+        this.concentrationOfAmmonia = concentrationOfAmmonia;
     }
 }

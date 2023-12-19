@@ -3,7 +3,6 @@ package pl.edu.agh.to2.weather_app.model.weather_data;
 import pl.edu.agh.to2.weather_app.model.weather_data.json.*;
 
 public class WeatherDataMerger {
-
     public WeatherData mergeWorseWeatherData(WeatherData dataA, WeatherData dataB) {
         if (dataA == null) return dataB;
         if (dataB == null) return dataA;

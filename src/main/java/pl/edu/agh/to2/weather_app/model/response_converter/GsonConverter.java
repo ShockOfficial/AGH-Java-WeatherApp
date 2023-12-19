@@ -8,7 +8,6 @@ import pl.edu.agh.to2.weather_app.model.geocoding_data.GeocodingData;
 import pl.edu.agh.to2.weather_app.model.weather_data.WeatherData;
 
 public class GsonConverter implements IResponseToModelConverter {
-
     private final Gson gson;
 
     public GsonConverter(){
@@ -31,5 +30,4 @@ public class GsonConverter implements IResponseToModelConverter {
     public AirPollutionData convertAirPollution(String response){
         return gson.fromJson(response, AirPollutionData.class);
     }
-
 }

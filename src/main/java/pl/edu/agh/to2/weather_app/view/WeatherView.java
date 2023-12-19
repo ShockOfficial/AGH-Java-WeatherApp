@@ -123,8 +123,6 @@ public class WeatherView {
                 setAirQuality("Unknown");
             }
 
-            updateTemperatureValueColor(weatherData.getMain().getFeelsLike());
-
             if (!isWeatherDisplaying()) {
                 setWeatherDisplaying(true);
             }
@@ -210,23 +208,13 @@ public class WeatherView {
         this.airQuality.setText(airQuality);
     }
 
+    public void setTemperatureValueClass(String temperatureValueClass) {
+        this.sensedTemperatureValue.getStyleClass().removeIf(c -> c.startsWith("temperature"));
+        this.sensedTemperatureValue.getStyleClass().add(temperatureValueClass);
+    }
+
     public void showError(String error) {
         setWeatherError(error);
         setWeatherDisplaying(false);
-    }
-
-    // Update color of label displaying temperature, according to the temperature scale
-    // (cold (-inf;0), medium <0;10), warm <10;20), hot <20;inf))
-    public void updateTemperatureValueColor(float temperature) {
-        sensedTemperatureValue.getStyleClass().removeIf(c -> c.startsWith("temperature"));
-        if (temperature < 0) {
-            sensedTemperatureValue.getStyleClass().add("temperature-cold");
-        } else if (temperature < 10) {
-            sensedTemperatureValue.getStyleClass().add("temperature-medium");
-        } else if (temperature < 20) {
-            sensedTemperatureValue.getStyleClass().add("temperature-warm");
-        } else {
-            sensedTemperatureValue.getStyleClass().add("temperature-hot");
-        }
     }
 }

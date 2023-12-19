@@ -10,7 +10,6 @@ import pl.edu.agh.to2.weather_app.presenter.WeatherPresenter;
 import pl.edu.agh.to2.weather_app.utils.Constants;
 import pl.edu.agh.to2.weather_app.utils.TempCalculator;
 import pl.edu.agh.to2.weather_app.view.WeatherView;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -22,8 +21,6 @@ public class WeatherPresenterImpl implements WeatherPresenter {
     private static final String DEFAULT_ERROR_MSG = "Error fetching weather data";
     private final WeatherDataMerger weatherMerger;
     private final DataProvider provider;
-
-
 
     @Inject
     public WeatherPresenterImpl(WeatherModel model, WeatherDataMerger merger, DataProvider prov) {
@@ -119,6 +116,20 @@ public class WeatherPresenterImpl implements WeatherPresenter {
         }
     }
 
+    // Update color of label displaying temperature, according to the temperature scale
+    // (cold (-inf;0), medium <0;10), warm <10;20), hot <20;inf))
+    private void updateTemperatureValueColor(float temperature) {
+        if (temperature < 0) {
+            view.setTemperatureValueClass("temperature-cold");
+        } else if (temperature < 10) {
+            view.setTemperatureValueClass("temperature-medium");
+        } else if (temperature < 20) {
+            view.setTemperatureValueClass("temperature-warm");
+        } else {
+            view.setTemperatureValueClass("temperature-hot");
+        }
+    }
+
     private void updateWeatherDisplay(WeatherData weatherData) {
         if (weatherData.getSys() != null) {
             String city = weatherData.getName() == null || Objects.equals(weatherData.getName(), "") ? "Unknown" : weatherData.getName();
@@ -130,6 +141,7 @@ public class WeatherPresenterImpl implements WeatherPresenter {
             weatherData.getMain().setTemp(round(weatherData.getMain().getTemp(), 2));
             weatherData.getMain().setTempMin(round(weatherData.getMain().getTempMin(), 2));
             weatherData.getMain().setTempMax(round(weatherData.getMain().getTempMax(), 2));
+            updateTemperatureValueColor(weatherData.getMain().getFeelsLike());
         }
         updateIconUrl(weatherData);
         addConditionalIcons(weatherData);
