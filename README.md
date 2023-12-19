@@ -205,12 +205,12 @@ Naszym zdaniem, dzięki zastosowaniu Guice, MVP itp., nasz projekt jest skalowal
 ## Milestone 2
 
 W tym Milestone'ie naszym celem było rozszerzenie możliwości aplikacji. Od teraz chcemy, aby użytkownik mógł sprawdzić pogodę w dwóch miejscach jednocześnie.
-Może to być przydatatne, np. możemy sprawdzić pogodę w miejscu pracy i w miejscu zamieszkania. Dodatkowo dodaliśmy ikonki pogody oraz maseczki.
+Może to być przydatne, np. możemy sprawdzić pogodę w miejscu pracy i w miejscu zamieszkania. Dodatkowo dodaliśmy ikonki pogody oraz maseczki.
 
 ### Pomysł
 
-Naszym głównym zamysłem było to, aby zbytnio nie komplikować i nie zmieniać struktury projektu. Dlatego też postanowiliśmy rozszerzyć nasz model o nowe klasy i funkconalności.
-Korzystamy z tego samego API, co w poprzednim Milestone'ie, dlatego też nie musieliśmy zmieniać klasy DataProvider, a jedynie ją rozszerzyliśmy.
+Naszym głównym zamysłem było to, aby zbytnio nie komplikować i nie zmieniać struktury projektu. Dlatego też postanowiliśmy rozszerzyć nasz model o nowe klasy i funkcjonalności.
+Dodatkowo postanowiliśmy popracować nad wyglądem aplikacji, aby była bardziej przyjemna dla użytkownika.
 
 #### Dlaczego dodaliśmy ikonki pogody?
 
@@ -222,35 +222,62 @@ W wielkich miastach smog jest poważnym problemem. Dlatego też postanowiliśmy 
 
 #### Jak działa WeatherDataMerger?
 
-WeatherDataMerger pozwala nam na scalenie danych o pogodzie z dwóch różnych miejsc. Scalamy te, które wydają się nam ważniejsze
+WeatherDataMerger pozwala nam na scalenie danych o pogodzie z dwóch różnych miejsc. Scalamy te, które wydają się nam ważniejsze, czyli np. uwzględniamy niższą temperaturę, gdy w jednym z miejsc potrzeba maseczki to uznajemy, że w obydwu itp.
+Ogólniej rzecz biorąc, klasa ta pozwala nam przygotować te dane, które chcemy wyświetlić użytkownikowi, uwzględniając podane miejsca.
+
+#### Dlaczego dodaliśmy drugie miejsce?
+
+Dodaliśmy drugie miejsce, aby użytkownik mógł sprawdzić pogodę w dwóch miejscach jednocześnie. Może to być przydatne, np. możemy sprawdzić pogodę w miejscu pracy i w miejscu zamieszkania.
+
+#### Dlaczego dodaliśmy Geocoding?
+
+Geocoding pozwala nam na pobranie koordynatów geograficznych na podstawie nazwy miejscowości. Dzięki temu możemy łatwo sprawdzić pogodę w danym miejscu, bez konieczności wpisywania koordynatów.
+Było nam to szczególnie potrzebne przy otrzymywaniu informacji o zanieczyszczeniu powietrza, gdyż API OpenWeatherMap nie pozwala na pobranie informacji o zanieczyszczeniu powietrza po nazwie miejscowości.
 
 ### Opis działania
 
-Aplikacja działa analogicznie jak w poprzednim Milestone'ie. Po uruchomieniu aplikacji, użytkownikowi wyświetla się okno, w którym może wprowadzić nazwę miasta lub jego koordynaty. Jednak od teraz możemy sprawdzać pogodę w dwóch miejscach jednocześnie.
+Aplikacja działa analogicznie jak w poprzednim Milestone'ie. Po uruchomieniu aplikacji, użytkownikowi wyświetla się okno, w którym może wprowadzić nazwę miasta lub jego koordynaty. Jednak od teraz możemy sprawdzać pogodę w dwóch miejscach jednocześnie, podając nazwy miejscowości lub koordynaty obydwu miejsc.
 Po wprowadzeniu danych i kliknięciu przycisku "Get Weather" aplikacja pobiera dane z zewnętrznego API i wyświetla je użytkownikowi wraz z odpowiednimi ikonkami.
 
 ### Zależności
 
-Nie zmieniliśmy zależności w stosunku do poprzedniego Milestone'a.
+Nie zmieniliśmy zależności w stosunku do poprzedniego Milestone'a. Zatem nadal używamy następujących zależności:
+```
+dependencies {
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.1'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.1'
+    implementation("com.squareup.okhttp3:okhttp:4.11.0")
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation group: 'com.google.inject', name: 'guice', version: '5.0.1'
+    testImplementation 'org.mockito:mockito-core:3.12.4'
+    testImplementation "org.testfx:testfx-core:4.0.17"
+    testImplementation group: 'org.hamcrest', name: 'hamcrest', version: '2.1'
+    testImplementation "org.testfx:testfx-junit5:4.0.17"
+}
+
+```
 
 ### Struktura projektu
 
-W tym Milestone'ie nie zmieniliśmy struktury projektu znacznie. Rozbudowały się one jednak o nowe klasy.
+W tym Milestone'ie nie zmieniliśmy struktury projektu znacznie, zatem nadal mamy kluczowy podział stworzony w oparciu o MVP.
+Jednak w tym Milestone'ie dodaliśmy nowe klasy, które rozszerzają nasz model, a także wiele z klas zostało zmodyfikowanych.
 
 ### Opisy pakietów i klas
+
+Z racji tego, że w tym Milestone'ie kontynuujemy pracę nad tym samym projektem, nie będziemy opisywać ponownie wszystkich pakietów i klas, lecz tylko te, które uległy zmianie i zostały dodane.
 
 #### Pakiet api 
 
 Pakiet Api zawiera klasy odpowiedzialne za komunikację z zewnętrznym API pogodowym. W tym celu wykorzystujemy bibliotekę OkHttp3.
 
-Klasy:
-1. **DataProvider**: wykonuje zapytania do api pogodowego i zwraca dane dotyczące pogody. Od teraz także pobiera dane o zanieszyszczeniu powietrza oraz pomaga w uzyskiwaniu ikon.
+Dodane/zmodyfikowane klasy:
+1. **DataProvider**: wykonuje zapytania do api pogodowego i zwraca dane dotyczące pogody. Od teraz także pobiera dane o zanieczyszczeniu powietrza oraz pomaga w uzyskiwaniu ikon. Dodatkowo została ona zrefaktoryzowana, aby była bardziej czytelna.
 
 #### Pakiet exceptions
 
 Pakiet exceptions zawiera klasy odpowiedzialne za obsługę wyjątków.
 
-Klasy:
+Dodane/zmodyfikowane klasy:
 1. **DataFetchException**: klasa odpowiedzialna za obsługę wyjątków związanych z pobieraniem danych
 2. **GeocodingException**: klasa odpowiedzialna za obsługę wyjątków związanych z geokodowaniem
 
@@ -262,8 +289,8 @@ Nie uległ zmianie w stosunku do poprzedniego Milestone'a.
 
 Zawiera elementy modelu, konwertuje na obiekty klasy WeatherData za pomocą biblioteki GSon. Od teraz posiada także elementy związane z AirPolutionData oraz GeocodingData.
 
-Klasy:
-1. **airPollutionData/json/AirPollutionData**: klasa zawierająca informacje o zanieczyszczeniu powietrza przygotowana z myślą o API OpenWeatherMap.
+Dodane/zmodyfikowane klasy:
+1. **airPollutionData/json/AirPollutionData**: klasa zawierająca informacje o zanieczyszczeniu powietrza, przygotowana z myślą o API OpenWeatherMap.
 2. **airPollutionData/json/ComponentsDTO**: klasa zawierająca informacje o zanieczyszczeniu powietrza (np. dwutlenek siarki, dwutlenek azotu, ozon)
 3. **airPollutionData/json/AirMainInfoDTO**: klasa posiada dokładną informację o poziomie zanieczyszczenia w skali 1-5
 4. **airPollutionData/AirListElementDTO**: klasa trzymająca MainInfoDTO oraz ComponentsDTO
@@ -277,45 +304,93 @@ Klasy:
 
 Zawiera implementację prezentera odpowiedzialną za komunikację między widokiem a modelem.
 
-Klasy:
-1. **impl/WeatherPresenterImpl**: obsługuje prezentację danych w widoku WeatherView, jednocześnie komunikując się z modelem WeatherModel. Od teraz obsługuje zapytania dla dwóch miejsc, a także dodaje ikonki.
+Dodane/zmodyfikowane klasy:
+1. **impl/WeatherPresenterImpl**: obsługuje prezentację danych w widoku WeatherView, jednocześnie komunikując się z modelem WeatherModel. Od teraz obsługuje zapytania dla dwóch miejsc, a także dodaje ikonki. Ustala również na podstawie aktualnej pogody, czy należy założyć maseczkę oraz kolor wskazywanej temperatury.
 
 
 #### Pakiet utils
 
 Zawiera dodatkowe pomocnicze metody i klasy.
 
-Klasy:
-1. **FXMLLoaderUtility**: pomocnicza klasa do ładowania widoków fxml
-2. **Constants**: pomocnicza klasa zawierająca stałe
-3. **TempCalculator**: pomocnicza klasa do obliczania temperatury odczuwalnej na podstawie wzoru
-4. **converter/AirQualityConverter**: klasa odpowiedzialna za obrobienie danych o zanieczyszczeniu powietrza, aby były bardziej czytelne dla użytkownika
+Dodane/zmodyfikowane klasy:
+1. **Constants**: pomocnicza klasa zawierająca stałe
+2. **TempCalculator**: pomocnicza klasa do obliczania temperatury odczuwalnej na podstawie wzoru
+3. **converter/AirQualityConverter**: klasa odpowiedzialna za obrobienie danych o zanieczyszczeniu powietrza, aby były bardziej czytelne dla użytkownika
 
 #### Pakiet view
 
 Zawiera implementację widoku.
 
 Klasy:
-1. **WeatherView**: zajmuje się wyświetlaniem widoku aplikacji, komunikuje się z modelem poprzez prezentera. Teraz możemy wprowadzać dwa miejsca, a także wyświetlać ikonki pogody.
+1. **WeatherView**: zajmuje się wyświetlaniem widoku aplikacji, komunikuje się z modelem poprzez prezentera. Teraz możemy wprowadzać dwa miejsca, a także wyświetlać ikonki pogody. Dodatkowo wyświetla temperaturę w kolorach ustalonych w prezenterze.
 
 
 ### Diagram zależności
-Poniższy diagram przedstawia zależności między klasami w naszym projekcie. [Stan na 12:12 2023-12-12]
+Poniższy diagram przedstawia zależności między klasami w naszym projekcie.
 
 ![Tutaj jest zdjęcie diagramu](./Screens/weather_appDiagram.png)
 
-Jak widać, liczba zależności trochę się zwiększyła. Niezachwiany został jednak podział na przyjęty na poczatku zgodny ze wzorcec MVP. 
+Jak widać, liczba zależności trochę się zwiększyła. Niezachwiany został jednak podział na przyjęty na początku zgodny ze wzorcem MVP. 
 
 ### Przykład działania
 
-![Tutaj jest zdjęcie aplikacji](./Screens/weather_appHowItWorks.png)
-[Stan na 12:12 2023-12-12]
-Jak widać po wprowadzeniu nazwy miast i kliknięciu przycisku "Get Weather" aplikacja pobiera dane z zewnętrznego API i wyświetla je użytkownikowi.
-Widzimy, że w porównaniu do poprzedniego Milestone'a, aplikacja wyświetla nam informacje o pogodzie w dwóch miejscach jednocześnie.
-Do tego zastosowaliśmy ikonki pogody, aby ułatwić użytkownikowi korzystanie z aplikacji. Co więcej, popracowaliśmy nad wyglądem aplikacji, aby była bardziej przyjemna.
+Poniżej przedstawiamy przykładowe działanie aplikacji. Pokażemy każdy z możliwych wariantów.
+
+#### Jedno miasto
+
+<p align="center">
+  <img src="./Screens/weather_app_one_city.png" alt="Tutaj jest zdjęcie aplikacji" width="600">
+</p>
+
+Jak widać, aplikacja działa analogicznie jak w poprzednim Milestone'ie. Po wprowadzeniu nazwy miasta i kliknięciu przycisku "Get Weather" aplikacja pobiera dane z zewnętrznego API i wyświetla je użytkownikowi, jednak teraz dodatkowo wyświetla ikonki pogody oraz maseczki.
+
+#### Dwa miasta
+
+<p align="center">
+  <img src="./Screens/weather_app_two_cities.png" alt="Tutaj jest zdjęcie aplikacji" width="600">
+</p>
+
+Możemy zauważyć, iż od teraz możemy sprawdzać pogodę w dwóch miejscach naraz. Dane są odpowiednio złączone za pomocą WeatherDataMerger, aby użytkownik znał najistotniejsze szczegóły. 
+
+#### Dwa miasta — parasolka
+
+<p align="center">
+  <img src="./Screens/weather_app_two_cities_with_rain.png" alt="Tutaj jest zdjęcie aplikacji" width="600">
+</p>
+
+Od teraz dodatkowo, jeśli w jednym z miejsc jest deszcz, to aplikacja wyświetla ikonkę parasolki.
+
+#### Nie odnaleziono miasta
+
+<p align="center">
+  <img src="./Screens/weather_app_no_city.png" alt="Tutaj jest zdjęcie aplikacji" width="600">
+</p>
+
+
+W przypadku, gdy nie odnajdziemy miasta, aplikacja wyświetla stosowny komunikat.
+
+#### Koorodynaty geograficzne
+
+<p align="center">
+  <img src="./Screens/weather_app_coordinates.png" alt="Tutaj jest zdjęcie aplikacji" width="600">
+</p>
+
+Możemy także sprawdzać pogodę po koordynatach geograficznych. Działa to analogicznie jak w przypadku nazwy miasta.
+
+### Jakie problemy napotkaliśmy?
+
+Największym problemem, z którym się spotkaliśmy, było dodanie drugiego miejsca. Wymagało to zmiany wielu klas, a także dodania nowych. Dodatkowo musieliśmy zmodyfikować widok, aby wyświetlał dane w odpowiedni sposób.
+Bardzo dużo czasu zajęło nam połączenie informacji z obydwu miejsc, gdyż musieliśmy ustalić, które informacje są najważniejsze.
+Nieco problemów sprawiło nam także dodanie ikonek pogody, gdyż musieliśmy zmodyfikować widok, a także dodać klasy, które pomogły nam w pobieraniu ikonek.
+
+Jeszcze jednym z napotkanych problemów był brak obsługi miast podczas pobierania informacji o zanieczyszczeniu powietrza. Musieliśmy dodać Geocoding, aby móc pobierać informacje o zanieczyszczeniu powietrza po nazwie miasta.
+W testach natomiast najtrudniej było obejść problem z pobieraniem danych z zewnętrznego API. Musieliśmy użyć mockito, aby móc testować aplikację.
+
+Warto także wspomnieć o sporej liczbie zmiany związanych z SolarLint. Wiązało się to ze sporą liczbą warningów, które musieliśmy naprawić.
 
 ### Podsumowanie
 
-W tym Milestone'ie udało nam się rozszerzyć możliwości aplikacji. Udało się poprawić znacząco wygląd aplikacji, a także
+W tym Milestone'ie udało nam się rozszerzyć możliwości aplikacji. Poprawiliśmy znacząco wygląd aplikacji, a także
 wprowadzić nowe funkcjonalności takie jak wyświetlanie ikonek pogody czy maseczek.
-Także aplikacja stała się bardziej przydatna dla użytkowników, gdyż mogą sprawdzać pogodę w dwóch miejscach.
+Aplikacja stała się bardziej przydatna dla użytkowników, gdyż mogą sprawdzać pogodę w dwóch miejscach, co pozwala zaoszczędzić sporo czasu.
+Dzięki zmianom z aplikacji korzysta się o wiele przyjemniej.
