@@ -33,7 +33,7 @@ public class WeatherModelImpl implements IWeatherModel {
     }
 
     @Override
-    public CompletableFuture<WeatherData> getWeatherDataByCity(String city) {
+    public CompletableFuture<ForecastData> getWeatherDataByCity(String city) {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 GeocodingData geocoding = this.getCoords(city);
@@ -43,13 +43,13 @@ public class WeatherModelImpl implements IWeatherModel {
                 }
 
                 ForecastData forecast = this.getForecast(geocoding.getLon(), geocoding.getLat());
-                WeatherData weather = this.getWeather(geocoding.getLon(), geocoding.getLat());
+                //WeatherData weather = this.getWeather(geocoding.getLon(), geocoding.getLat());
                 AirPollutionData airPollution = this.getAirPollution(geocoding.getLon(), geocoding.getLat());
 
-                weather.setGeocodingData(geocoding);
-                weather.setAirPollutionData(airPollution);
+                //weather.setGeocodingData(geocoding);
+                forecast.setAirPollution(airPollution);
 
-                return weather;
+                return forecast;
             } catch (IOException e) {
                 logger.log("Failed to fetch data from API for " + city);
                 throw new DataFetchException("Error fetching weather data");
@@ -58,13 +58,14 @@ public class WeatherModelImpl implements IWeatherModel {
     }
 
     @Override
-    public  CompletableFuture<WeatherData> getWeatherDataByCoordinates(String lon, String lat) {
+    public  CompletableFuture<ForecastData> getWeatherDataByCoordinates(String lon, String lat) {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 AirPollutionData airPollution = this.getAirPollution(lon, lat);
-                WeatherData weather = this.getWeather(lon, lat);
-                weather.setAirPollutionData(airPollution);
-                return weather;
+                ForecastData forecast = this.getForecast(lon, lat);
+                //WeatherData weather = this.getWeather(lon, lat);
+                forecast.setAirPollution(airPollution);
+                return forecast;
             } catch (IOException e) {
                 logger.log(String.format("Failed to fetch data from API for %s, %s", lon, lat));
                 throw new DataFetchException("Error fetching weather data");

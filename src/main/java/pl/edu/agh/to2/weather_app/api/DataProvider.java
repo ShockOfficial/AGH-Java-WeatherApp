@@ -25,16 +25,12 @@ public class DataProvider {
     private static final String LONGITUDE_PARAM_NAME = "lon";
     private static final String UNITS_PARAM_NAME = "units";
     private static final String UNIT = "metric";
-    private static final String WEATHER_MAP_KEY = "weather";
-    private static final String GEO_MAP_KEY = "geo";
-    private static final String FORECAST_MAP_KEY = "forc";
-    private static final String AIR_MAP_KEY = "air";
     private static final String IMAGE_FORMAT = "@4x.png";
-    private static final Map<String, String> apiUrls = Map.of(
-            GEO_MAP_KEY, "geo/1.0/direct",
-            AIR_MAP_KEY, "data/2.5/air_pollution",
-            WEATHER_MAP_KEY, "data/2.5/weather",
-            FORECAST_MAP_KEY, "data/2.5/forecast");
+
+    private static final String WEATHER_URL = "data/2.5/weather";
+    private static final String GEO_URL = "geo/1.0/direct";
+    private static final String FORECAST_URL = "data/2.5/forecast";
+    private static final String AIR_URL = "data/2.5/air_pollution";
 
     private final OkHttpClient client;
     @Inject
@@ -44,7 +40,7 @@ public class DataProvider {
 
     private Response makeApiCall(Map<String, String> params, String urlKey) throws IOException {
         HttpUrl.Builder urlBuilder = HttpUrl.parse(URL).newBuilder();
-        urlBuilder.addPathSegment(apiUrls.get(urlKey));
+        urlBuilder.addPathSegment(urlKey);
         for (Map.Entry<String, String> entry : params.entrySet()) {
             urlBuilder.addQueryParameter(entry.getKey(), entry.getValue());
         }
@@ -65,7 +61,7 @@ public class DataProvider {
         Response response = makeApiCall(Map.of(LATITUDE_PARAM_NAME, lat,
                         LONGITUDE_PARAM_NAME, lon,
                         UNITS_PARAM_NAME, UNIT),
-                WEATHER_MAP_KEY);
+                WEATHER_URL);
         return response.body().string();
     }
 
@@ -73,14 +69,14 @@ public class DataProvider {
     public String getWeather(String city) throws IOException {
         Response response = makeApiCall(Map.of(CITY_PARAM_NAME, city,
                     UNITS_PARAM_NAME, UNIT),
-                WEATHER_MAP_KEY);
+                WEATHER_URL);
         return response.body().string();
     }
 
     public String getCoords(String city) throws IOException {
         Response response = makeApiCall(Map.of(CITY_PARAM_NAME, city,
                         LIMIT_PARAM_NAME, LIMIT),
-                GEO_MAP_KEY);
+                GEO_URL);
         return response.body().string();
     }
 
@@ -88,7 +84,7 @@ public class DataProvider {
         Response response = makeApiCall(Map.of(LATITUDE_PARAM_NAME, lat,
                         LONGITUDE_PARAM_NAME, lon,
                         UNITS_PARAM_NAME, UNIT),
-                AIR_MAP_KEY);
+                AIR_URL);
         return response.body().string();
     }
 
@@ -99,7 +95,7 @@ public class DataProvider {
                         LONGITUDE_PARAM_NAME, lon,
                         UNITS_PARAM_NAME, UNIT,
                         TIMESTAMP_PARAM_NAME, TIMESTAMP),
-                FORECAST_MAP_KEY);
+                FORECAST_URL);
         return response.body().string();
     }
 
