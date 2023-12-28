@@ -2,6 +2,8 @@ package pl.edu.agh.to2.weather_app.persistence.favourite;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
+import com.google.inject.Inject;
+import pl.edu.agh.to2.weather_app.exceptions.ItemAlreadyExistsException;
 import pl.edu.agh.to2.weather_app.persistence.Dao;
 
 import java.io.FileNotFoundException;
@@ -16,6 +18,7 @@ public class FavouritesDao implements Dao<Favourite> {
     private Gson gson;
     private FavouritesList list;
 
+    @Inject
     public FavouritesDao(Gson gson) throws FileNotFoundException{
         this.gson = gson;
         JsonReader reader = new JsonReader(new FileReader(persistencePath));
@@ -33,10 +36,10 @@ public class FavouritesDao implements Dao<Favourite> {
     }
 
     @Override
-    public void save(Favourite favourite) throws RuntimeException{
+    public void save(Favourite favourite) throws ItemAlreadyExistsException{
         for(Favourite el: this.list){
             if(el.getName().equals(favourite.getName())){
-                throw new RuntimeException();
+                throw new ItemAlreadyExistsException("An item with the name already exists in database");
             }
         }
         this.list.add(favourite);

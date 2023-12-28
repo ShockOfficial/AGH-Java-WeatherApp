@@ -6,6 +6,7 @@ import pl.edu.agh.to2.weather_app.api.DataProvider;
 import pl.edu.agh.to2.weather_app.model.weather_data.WeatherData;
 import pl.edu.agh.to2.weather_app.model.IWeatherModel;
 import pl.edu.agh.to2.weather_app.model.weather_data.WeatherDataMerger;
+import pl.edu.agh.to2.weather_app.persistence.favourite.FavouritesDao;
 import pl.edu.agh.to2.weather_app.presenter.IWeatherPresenter;
 import pl.edu.agh.to2.weather_app.utils.Constants;
 import pl.edu.agh.to2.weather_app.utils.TempCalculator;
@@ -22,18 +23,22 @@ public class WeatherPresenterImpl implements IWeatherPresenter {
     private final WeatherDataMerger weatherMerger;
     private final DataProvider provider;
 
+    private final FavouritesDao dao;
+
     @Inject
-    public WeatherPresenterImpl(IWeatherModel model, WeatherDataMerger merger, DataProvider prov) {
+    public WeatherPresenterImpl(IWeatherModel model, WeatherDataMerger merger, DataProvider prov, FavouritesDao dao) {
         this.model = model;
         this.weatherMerger = merger;
         this.provider = prov;
+        this.dao = dao;
     }
 
-    public WeatherPresenterImpl(IWeatherModel model, WeatherView view, WeatherDataMerger merger, DataProvider prov) {
+    public WeatherPresenterImpl(IWeatherModel model, WeatherView view, WeatherDataMerger merger, DataProvider prov, FavouritesDao dao) {
         this.model = model;
         this.view = view;
         this.weatherMerger = merger;
         this.provider = prov;
+        this.dao = dao;
     }
 
     @Override
