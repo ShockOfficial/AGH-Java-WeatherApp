@@ -15,8 +15,8 @@ import java.util.Optional;
 public class FavouritesDao implements Dao<Favourite> {
 
     private static final String persistencePath = "src/persistence/favourites.json";
-    private Gson gson;
-    private FavouritesList list;
+    private final Gson gson;
+    private final FavouritesList list;
 
     @Inject
     public FavouritesDao(Gson gson) throws FileNotFoundException{
