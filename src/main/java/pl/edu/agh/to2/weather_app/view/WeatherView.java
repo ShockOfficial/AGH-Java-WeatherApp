@@ -6,7 +6,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import pl.edu.agh.to2.weather_app.model.forecast_data.ForecastData;
 import pl.edu.agh.to2.weather_app.model.weather_data.WeatherData;
 import pl.edu.agh.to2.weather_app.presenter.IWeatherPresenter;
 import pl.edu.agh.to2.weather_app.utils.converter.AirQualityConverter;
@@ -109,11 +108,10 @@ public class WeatherView {
         }
     }
 
-    public void updateWeatherDisplay(ForecastData forecastData) {
-        if (!forecastData.getWeatherList().isEmpty()) {
+    public void updateWeatherDisplay(WeatherData weatherData) {
+        if (weatherData.getSys() != null) {
             //this is temporary solution so the code still works, replace it with proper implementation
-            WeatherData weatherData = forecastData.getWeatherList().get(0);
-            setWeatherOutputInformer("Weather in " + forecastData.getName() + " (" + forecastData.getCountry() + "): " + weatherData.getWeather().get(0).getMain() + "\n");
+            setWeatherOutputInformer("Weather in " + weatherData.getName() + " (" + weatherData.getSys().getCountry() + "): " + weatherData.getWeather().get(0).getMain() + "\n");
 
             setPressureValue(weatherData.getMain().getPressure() + " hPa");
             setHumidityValue(weatherData.getMain().getHumidity() + "%");

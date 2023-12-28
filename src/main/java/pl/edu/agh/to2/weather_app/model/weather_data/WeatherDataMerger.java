@@ -1,15 +1,11 @@
 package pl.edu.agh.to2.weather_app.model.weather_data;
 
-import pl.edu.agh.to2.weather_app.model.forecast_data.ForecastData;
 import pl.edu.agh.to2.weather_app.model.weather_data.json.*;
 
 public class WeatherDataMerger {
 
     //we need to rethink how the merger will work because I think most of the features might be no longer necessary
-    public ForecastData mergeWorseWeatherData(ForecastData dataA, ForecastData dataB) {
-        //this is OBVIOUSLY a temporary solution
-        return dataA;
-        /*
+    public WeatherData mergeWorseWeatherData(WeatherData dataA, WeatherData dataB) {
         if (dataA == null) return dataB;
         if (dataB == null) return dataA;
 
@@ -29,7 +25,7 @@ public class WeatherDataMerger {
         mergeTotalFall(dataA.getSnow(), dataB.getSnow(), result, false);
         mergeWeatherIcons(dataA, dataB, result);
 
-        return result;*/
+        return result;
     }
 
     private static void mergeNamesAndCountries(WeatherData dataA, WeatherData dataB, WeatherData result) {

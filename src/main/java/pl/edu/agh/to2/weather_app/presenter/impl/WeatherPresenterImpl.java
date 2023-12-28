@@ -3,7 +3,6 @@ package pl.edu.agh.to2.weather_app.presenter.impl;
 import com.google.inject.Inject;
 import javafx.application.Platform;
 import pl.edu.agh.to2.weather_app.api.DataProvider;
-import pl.edu.agh.to2.weather_app.model.forecast_data.ForecastData;
 import pl.edu.agh.to2.weather_app.model.weather_data.WeatherData;
 import pl.edu.agh.to2.weather_app.model.IWeatherModel;
 import pl.edu.agh.to2.weather_app.model.weather_data.WeatherDataMerger;
@@ -47,8 +46,8 @@ public class WeatherPresenterImpl implements IWeatherPresenter {
 
     @Override
     public void getWeatherByCities(String cityA, String cityB) {
-        CompletableFuture<ForecastData> weatherDataA = model.getWeatherDataByCity(cityA);
-        CompletableFuture<ForecastData> weatherDataB = model.getWeatherDataByCity(cityB);
+        CompletableFuture<WeatherData> weatherDataA = model.getWeatherDataByCity(cityA);
+        CompletableFuture<WeatherData> weatherDataB = model.getWeatherDataByCity(cityB);
 
         weatherDataA.thenCombine(weatherDataB, weatherMerger::mergeWorseWeatherData).thenAccept(worstWeatherData -> Platform.runLater(() -> updateWeatherDisplay(worstWeatherData)))
                 .exceptionally(e -> {
@@ -67,8 +66,8 @@ public class WeatherPresenterImpl implements IWeatherPresenter {
 
     @Override
     public void getWeatherByCoordinates(String latA, String lonA, String latB, String lonB) {
-        CompletableFuture<ForecastData> weatherDataA = model.getWeatherDataByCoordinates(latA, lonA);
-        CompletableFuture<ForecastData> weatherDataB = model.getWeatherDataByCoordinates(latB, lonB);
+        CompletableFuture<WeatherData> weatherDataA = model.getWeatherDataByCoordinates(latA, lonA);
+        CompletableFuture<WeatherData> weatherDataB = model.getWeatherDataByCoordinates(latB, lonB);
 
         weatherDataA.thenCombine(weatherDataB, weatherMerger::mergeWorseWeatherData).thenAccept(worstWeatherData -> Platform.runLater(() -> updateWeatherDisplay(worstWeatherData)))
                 .exceptionally(e -> {
@@ -131,9 +130,8 @@ public class WeatherPresenterImpl implements IWeatherPresenter {
         }
     }
 
-    private void updateWeatherDisplay(ForecastData forecastData) {
-        WeatherData weatherData = forecastData.getWeatherList().get(0);
-        if (!forecastData.getWeatherList().isEmpty()) {
+    private void updateWeatherDisplay(WeatherData weatherData) {
+        if (weatherData.getSys() != null) {
             String city = weatherData.getName() == null || Objects.equals(weatherData.getName(), "") ? "Unknown" : weatherData.getName();
             String country = weatherData.getSys().getCountry() == null ? "Unknown" : weatherData.getSys().getCountry();
             weatherData.setName(city);
@@ -147,7 +145,7 @@ public class WeatherPresenterImpl implements IWeatherPresenter {
         }
         updateIconUrl(weatherData);
         addConditionalIcons(weatherData);
-        view.updateWeatherDisplay(forecastData);
+        view.updateWeatherDisplay(weatherData);
     }
 
     private float round(double value, int places) {
