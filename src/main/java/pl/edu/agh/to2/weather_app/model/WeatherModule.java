@@ -2,7 +2,7 @@ package pl.edu.agh.to2.weather_app.model;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
-import pl.edu.agh.to2.weather_app.logger.ConsoleSerializer;
+import pl.edu.agh.to2.weather_app.logger.FileSerializer;
 import pl.edu.agh.to2.weather_app.logger.IMessageSerializer;
 import pl.edu.agh.to2.weather_app.model.impl.WeatherModelImpl;
 import pl.edu.agh.to2.weather_app.model.response_converter.GsonConverter;
@@ -15,7 +15,7 @@ public class WeatherModule extends AbstractModule {
     }
 
     @Provides
-    public IMessageSerializer provideSerializer(ConsoleSerializer serializer){
+    public IMessageSerializer provideSerializer(FileSerializer serializer){
         return serializer;
     }
 
