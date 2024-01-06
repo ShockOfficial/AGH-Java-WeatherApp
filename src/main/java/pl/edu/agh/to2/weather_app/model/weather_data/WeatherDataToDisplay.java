@@ -9,7 +9,6 @@ public class WeatherDataToDisplay {
         this.country = weatherData.getSys().getCountry();
         this.weatherParameter = weatherData.getWeather().get(0).getMain();
         this.temperature = weatherData.getMain().getTemp();
-        this.feelsLike = weatherData.getMain().getFeelsLike();
         this.pressure = weatherData.getMain().getPressure();
         this.humidity = weatherData.getMain().getHumidity();
         this.windSpeed = weatherData.getWind().getSpeed();
@@ -21,7 +20,6 @@ public class WeatherDataToDisplay {
     private String country;
     private String weatherParameter;
     private float temperature;
-    private float feelsLike;
     private int pressure;
     private int humidity;
     private float windSpeed;
@@ -59,14 +57,6 @@ public class WeatherDataToDisplay {
 
     public void setTemperature(float temperature) {
         this.temperature = temperature;
-    }
-
-    public float getFeelsLike() {
-        return feelsLike;
-    }
-
-    public void setFeelsLike(float feelsLike) {
-        this.feelsLike = feelsLike;
     }
 
     public int getPressure() {

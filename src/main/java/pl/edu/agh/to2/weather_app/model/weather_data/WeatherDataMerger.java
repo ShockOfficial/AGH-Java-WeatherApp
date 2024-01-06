@@ -2,9 +2,9 @@ package pl.edu.agh.to2.weather_app.model.weather_data;
 
 import pl.edu.agh.to2.weather_app.model.weather_data.json.*;
 
-public class WeatherDataMerger {
+import java.util.List;
 
-    //we need to rethink how the merger will work because I think most of the features might be no longer necessary
+public class WeatherDataMerger {
     public WeatherData mergeWorseWeatherData(WeatherData dataA, WeatherData dataB) {
         if (dataA == null) return dataB;
         if (dataB == null) return dataA;
@@ -106,4 +106,88 @@ public class WeatherDataMerger {
             result.setAirPollutionData(dataB.getAirPollutionData());
         }
     }
+
+    public WeatherDataToDisplay mergeWorseWeatherData(List<WeatherDataToDisplay> dataToDisplay) {
+        WeatherDataToDisplay result = dataToDisplay.remove(0);
+        result.setCityName(result.getCityName() != null ? result.getCityName() : "Unknown");
+        result.setCountry(result.getCountry() != null ? result.getCountry() : "Unknown");
+        result.setWeatherParameter(result.getWeatherParameter() != null ? result.getWeatherParameter() : "Unknown");
+        result.setAirQuality(result.getAirQuality() != null ? result.getAirQuality() : "Unknown");
+        if (result.getIcon() != null) {
+            result.addIconToList(result.getIcon());
+        }
+        dataToDisplay.forEach(data -> mergeWorseWeatherData(result, data));
+        return result;
+    }
+
+    private static void mergeWorseWeatherData(WeatherDataToDisplay dataA, WeatherDataToDisplay dataB) {
+        mergeCityName(dataA, dataB);
+        mergeCountry(dataA, dataB);
+        mergeWeatherParameter(dataA, dataB);
+        mergeWeatherDetails(dataA, dataB);
+        mergeAirQuality(dataA, dataB);
+        mergeWeatherIcons(dataA, dataB);
+    }
+
+    private static void mergeCityName(WeatherDataToDisplay dataA, WeatherDataToDisplay dataB) {
+        if (dataA.getCityName().equals("Unknown")) {
+            if (dataB.getCityName() != null) {
+                dataA.setCityName(dataB.getCityName());
+            }
+        } else {
+            if (dataB.getCityName() != null) {
+                dataA.setCityName(dataA.getCityName() + " & " + dataB.getCityName());
+            }
+        }
+    }
+
+    private static void mergeCountry(WeatherDataToDisplay dataA, WeatherDataToDisplay dataB) {
+        if (dataA.getCountry().equals("Unknown")) {
+            if (dataB.getCountry() != null) {
+                dataA.setCountry(dataB.getCountry());
+            }
+        } else {
+            if (dataB.getCountry() != null) {
+                dataA.setCountry(dataA.getCountry() + " & " + dataB.getCountry());
+            }
+        }
+    }
+
+    private static void mergeWeatherParameter(WeatherDataToDisplay dataA, WeatherDataToDisplay dataB) {
+        if (dataA.getWeatherParameter().equals("Unknown")) {
+            if (dataB.getWeatherParameter() != null) {
+                dataA.setWeatherParameter(dataB.getWeatherParameter());
+            }
+        } else {
+            if (dataB.getWeatherParameter() != null) {
+                dataA.setWeatherParameter(dataA.getWeatherParameter() + " & " + dataB.getWeatherParameter());
+            }
+        }
+    }
+
+    private static void mergeWeatherDetails(WeatherDataToDisplay dataA, WeatherDataToDisplay dataB) {
+        dataA.setTemperature(Math.min(dataA.getTemperature(), dataB.getTemperature()));
+        dataA.setPressure(Math.max(dataA.getPressure(), dataB.getPressure()));
+        dataA.setHumidity(Math.max(dataA.getHumidity(), dataB.getHumidity()));
+        dataA.setWindSpeed(Math.max(dataA.getWindSpeed(), dataB.getWindSpeed()));
+    }
+
+    private static void mergeAirQuality(WeatherDataToDisplay dataA, WeatherDataToDisplay dataB) {
+        if (dataA.getAirQuality().equals("Unknown")) {
+            if (dataB.getAirQuality() != null) {
+                dataA.setAirQuality(dataB.getAirQuality());
+            }
+        } else {
+            if (dataB.getAirQuality() != null) {
+                dataA.setAirQuality(Integer.parseInt(dataA.getAirQuality()) >= Integer.parseInt(dataB.getAirQuality()) ? dataA.getAirQuality() : dataB.getAirQuality());
+            }
+        }
+    }
+
+    private static void mergeWeatherIcons(WeatherDataToDisplay dataA, WeatherDataToDisplay dataB) {
+        if (dataB.getIcon() != null) {
+            dataA.addIconToList(dataB.getIcon());
+        }
+    }
+
 }
