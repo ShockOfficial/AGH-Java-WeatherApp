@@ -13,11 +13,8 @@ import java.util.List;
 public class ForecastData {
 
     @SerializedName("list")
-    private List<WeatherData> weatherList = new ArrayList<>();;
+    private List<WeatherData> weatherList = new ArrayList<>();
     private CityDTO city;
-
-    //Geocoding data might be unnecessary to keep since the same data is return by API in city
-    //leaving this matter to discussion
     private AirPollutionData airPollution;
 
     public String getName(){
