@@ -103,13 +103,13 @@ public class WeatherView {
 
         if (aCityProvided) {
             if (bCityProvided) {
-                presenter.getWeatherByCities(aInputCity.getText(), bInputCity.getText());
+                presenter.getWeatherByCities(List.of(aInputCity.getText(), bInputCity.getText()));
             } else {
                 presenter.getWeatherByCity(aInputCity.getText());
             }
         } else if (aCoordsProvided) {
             if (bCoordsProvided) {
-                presenter.getWeatherByCoordinates(aLatitudeInput.getText(), aLongitudeInput.getText(), bLatitudeInput.getText(), bLongitudeInput.getText());
+                presenter.getWeatherByCoordinates(List.of(aLatitudeInput.getText(), bLatitudeInput.getText()), List.of(aLongitudeInput.getText(), bLongitudeInput.getText()));
             } else {
                 presenter.getWeatherByCoordinates(aLatitudeInput.getText(), aLongitudeInput.getText());
             }

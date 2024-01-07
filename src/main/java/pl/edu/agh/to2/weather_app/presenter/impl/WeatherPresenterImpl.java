@@ -62,10 +62,9 @@ public class WeatherPresenterImpl implements IWeatherPresenter {
     }
 
     @Override
-    public void getWeatherByCities(String cityA, String cityB) {
+    public void getWeatherByCities(List<String> cities) {
         List<CompletableFuture<WeatherData>> weatherDataList = new ArrayList<>();
-        weatherDataList.add(model.getWeatherDataByCity(cityA));
-        weatherDataList.add(model.getWeatherDataByCity(cityB));
+        cities.forEach(city -> weatherDataList.add(model.getWeatherDataByCity(city)));
         getWeather(weatherDataList);
     }
 
@@ -84,10 +83,11 @@ public class WeatherPresenterImpl implements IWeatherPresenter {
     }
 
     @Override
-    public void getWeatherByCoordinates(String latA, String lonA, String latB, String lonB) {
+    public void getWeatherByCoordinates(List<String> latList, List<String> lonList) {
         List<CompletableFuture<WeatherData>> weatherDataList = new ArrayList<>();
-        weatherDataList.add(model.getWeatherDataByCoordinates(latA, lonA));
-        weatherDataList.add(model.getWeatherDataByCoordinates(latB, lonB));
+        for (int i = 0; i < latList.size(); i++) {
+            weatherDataList.add(model.getWeatherDataByCoordinates(latList.get(i), lonList.get(i)));
+        }
         getWeather(weatherDataList);
     }
 
