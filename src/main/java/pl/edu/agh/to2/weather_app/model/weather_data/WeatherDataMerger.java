@@ -1,6 +1,7 @@
 package pl.edu.agh.to2.weather_app.model.weather_data;
 
 import pl.edu.agh.to2.weather_app.model.weather_data.json.*;
+import pl.edu.agh.to2.weather_app.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -111,13 +112,6 @@ public class WeatherDataMerger {
     public WeatherDataToDisplay mergeWorseWeatherData(List<WeatherDataToDisplay> dataToDisplay) {
         ArrayList<WeatherDataToDisplay> dataToDisplayCopy = new ArrayList<>(dataToDisplay);
         WeatherDataToDisplay result = dataToDisplayCopy.remove(0);
-        result.setCityName(result.getCityName() != null ? result.getCityName() : "Unknown");
-        result.setCountry(result.getCountry() != null ? result.getCountry() : "Unknown");
-        result.setWeatherParameter(result.getWeatherParameter() != null ? result.getWeatherParameter() : "Unknown");
-        result.setAirQuality(result.getAirQuality() != null ? result.getAirQuality() : "Unknown");
-        if (result.getIcon() != null) {
-            result.addIconToList(result.getIcon());
-        }
         dataToDisplayCopy.forEach(data -> mergeWorseWeatherData(result, data));
         return result;
     }
@@ -132,7 +126,7 @@ public class WeatherDataMerger {
     }
 
     private static void mergeCityName(WeatherDataToDisplay dataA, WeatherDataToDisplay dataB) {
-        if (dataA.getCityName().equals("Unknown")) {
+        if (dataA.getCityName().equals(Constants.VALUE_WHEN_NO_DATA)) {
             if (dataB.getCityName() != null) {
                 dataA.setCityName(dataB.getCityName());
             }
@@ -144,7 +138,7 @@ public class WeatherDataMerger {
     }
 
     private static void mergeCountry(WeatherDataToDisplay dataA, WeatherDataToDisplay dataB) {
-        if (dataA.getCountry().equals("Unknown")) {
+        if (dataA.getCountry().equals(Constants.VALUE_WHEN_NO_DATA)) {
             if (dataB.getCountry() != null) {
                 dataA.setCountry(dataB.getCountry());
             }
@@ -156,7 +150,7 @@ public class WeatherDataMerger {
     }
 
     private static void mergeWeatherParameter(WeatherDataToDisplay dataA, WeatherDataToDisplay dataB) {
-        if (dataA.getWeatherParameter().equals("Unknown")) {
+        if (dataA.getWeatherParameter().equals(Constants.VALUE_WHEN_NO_DATA)) {
             if (dataB.getWeatherParameter() != null) {
                 dataA.setWeatherParameter(dataB.getWeatherParameter());
             }
@@ -177,7 +171,7 @@ public class WeatherDataMerger {
     }
 
     private static void mergeAirQuality(WeatherDataToDisplay dataA, WeatherDataToDisplay dataB) {
-        if (dataA.getAirQuality().equals("Unknown")) {
+        if (dataA.getAirQuality().equals(Constants.VALUE_WHEN_NO_DATA)) {
             if (dataB.getAirQuality() != null) {
                 dataA.setAirQuality(dataB.getAirQuality());
             }

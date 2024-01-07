@@ -1,21 +1,26 @@
 package pl.edu.agh.to2.weather_app.model.weather_data;
 
+import pl.edu.agh.to2.weather_app.utils.Constants;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class WeatherDataToDisplay {
     public WeatherDataToDisplay(WeatherData weatherData) {
-        this.cityName = weatherData.getName();
-        this.country = weatherData.getSys().getCountry();
-        this.weatherParameter = weatherData.getWeather().get(0).getMain();
+        this.cityName = weatherData.getName() != null ? weatherData.getName() : Constants.VALUE_WHEN_NO_DATA;
+        this.country = weatherData.getSys().getCountry() != null ? weatherData.getSys().getCountry() : Constants.VALUE_WHEN_NO_DATA;
+        this.weatherParameter = weatherData.getWeather().get(0).getMain() != null ? weatherData.getWeather().get(0).getMain() : Constants.VALUE_WHEN_NO_DATA;
         this.temperature = weatherData.getMain().getTemp();
         this.pressure = weatherData.getMain().getPressure();
         this.humidity = weatherData.getMain().getHumidity();
         this.windSpeed = weatherData.getWind().getSpeed();
-        this.airQuality = weatherData.getAirPollutionData().getPollutionListElement().getMainInfo().getAqi();
+        this.airQuality = weatherData.getAirPollutionData().getPollutionListElement().getMainInfo().getAqi() != null ? weatherData.getAirPollutionData().getPollutionListElement().getMainInfo().getAqi() : "Unknown";
         this.icon = weatherData.getWeather().get(0).getIcon();
         this.rain = weatherData.getRain() != null ? weatherData.getRain().getOneH() : 0;
         this.snow = weatherData.getSnow() != null ? weatherData.getSnow().getOneH() : 0;
+        if (this.icon != null) {
+            addIconToList(this.icon);
+        }
     }
 
     private String cityName;

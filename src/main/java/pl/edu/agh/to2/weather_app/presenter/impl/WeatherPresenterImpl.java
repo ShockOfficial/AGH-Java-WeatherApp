@@ -51,7 +51,7 @@ public class WeatherPresenterImpl implements IWeatherPresenter {
     public void getWeatherByCity(String city) {
         model.getWeatherDataByCity(city).thenAccept(weatherData -> {
             if (weatherData.getSys() != null) {
-                Platform.runLater(() -> updateWeatherDisplay(weatherMerger.mergeWorseWeatherData(List.of(new WeatherDataToDisplay(weatherData)))));
+                Platform.runLater(() -> updateWeatherDisplay(new WeatherDataToDisplay(weatherData)));
             } else {
                 Platform.runLater(() -> view.showError(DEFAULT_ERROR_MSG));
             }
@@ -72,7 +72,7 @@ public class WeatherPresenterImpl implements IWeatherPresenter {
     public void getWeatherByCoordinates(String lat, String lon) {
         model.getWeatherDataByCoordinates(lat, lon).thenAccept(weatherData -> {
             if (weatherData.getSys() != null) {
-                Platform.runLater(() -> updateWeatherDisplay(weatherMerger.mergeWorseWeatherData(List.of(new WeatherDataToDisplay(weatherData)))));
+                Platform.runLater(() -> updateWeatherDisplay(new WeatherDataToDisplay(weatherData)));
             } else {
                 Platform.runLater(() -> view.showError(DEFAULT_ERROR_MSG));
             }
