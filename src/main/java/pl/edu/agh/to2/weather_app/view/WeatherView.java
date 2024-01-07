@@ -10,7 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import pl.edu.agh.to2.weather_app.model.weather_data.WeatherData;
+import pl.edu.agh.to2.weather_app.model.weather_data.WeatherDataToDisplay;
 import pl.edu.agh.to2.weather_app.presenter.IWeatherPresenter;
 import pl.edu.agh.to2.weather_app.utils.FXMLLoaderUtility;
 import pl.edu.agh.to2.weather_app.utils.converter.AirQualityConverter;
@@ -118,36 +118,30 @@ public class WeatherView {
         }
     }
 
-    public void updateWeatherDisplay(WeatherData weatherData) {
-        if (weatherData.getSys() != null) {
-            //this is temporary solution so the code still works, replace it with proper implementation
-            setWeatherOutputInformer("Weather in " + weatherData.getName() + " (" + weatherData.getSys().getCountry() + "): " + weatherData.getWeather().get(0).getMain() + "\n");
+    public void updateWeatherDisplay(WeatherDataToDisplay weatherData) {
+        setWeatherOutputInformer("Weather in " + weatherData.getCityName() + " (" + weatherData.getCountry() + "): " + weatherData.getWeatherParameter() + "\n");
+        setPressureValue(weatherData.getPressure() + " hPa");
+        setHumidityValue(weatherData.getHumidity() + "%");
+        setWindValue(weatherData.getWindSpeed() + " m/s");
+        setSensedTemperatureValue(weatherData.getTemperature() + "" + (char)186 + "C");
 
-            setPressureValue(weatherData.getMain().getPressure() + " hPa");
-            setHumidityValue(weatherData.getMain().getHumidity() + "%");
-            setWindValue(weatherData.getWind().getSpeed() + " m/s");
-            setSensedTemperatureValue(weatherData.getMain().getFeelsLike() + "" + (char) 186 + "C");
-
-            if (weatherData.getAirPollutionData() != null) {
-                setAirQuality(AirQualityConverter.getAirQualityString(weatherData.getAirPollutionData()));
-            } else {
-                setAirQuality("Unknown");
-            }
-
-            if (!isWeatherDisplaying()) {
-                setWeatherDisplaying(true);
-            }
-
-            // Set weather icons
-            List<String> icons = weatherData.getWeather().get(0).getIconList();
-
-            if (!icons.isEmpty()) {
-                updateIcons(icons);
-            } else {
-                hideIcons();
-            }
+        if (!weatherData.getAirQuality().equals("Unknown")) {
+            setAirQuality(AirQualityConverter.getAirQualityString(weatherData.getAirQuality()));
         } else {
-            showError("City not found");
+            setAirQuality("Unknown");
+        }
+
+        if (!isWeatherDisplaying()) {
+            setWeatherDisplaying(true);
+        }
+
+        // Set weather icons
+        List<String> icons = weatherData.getIconList();
+
+        if (!icons.isEmpty()) {
+            updateIcons(icons);
+        } else {
+            hideIcons();
         }
     }
 

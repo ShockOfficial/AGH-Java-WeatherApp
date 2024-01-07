@@ -1,6 +1,5 @@
 package pl.edu.agh.to2.weather_app.utils.converter;
 
-import pl.edu.agh.to2.weather_app.model.air_pollution_data.AirPollutionData;
 import java.util.Map;
 
 public class AirQualityConverter {
@@ -13,10 +12,7 @@ public class AirQualityConverter {
             "4", "Bad",
             "5", "Very bad");
 
-    public static String getAirQualityString(AirPollutionData data){
-        return pollutionMap.get(data.
-                getPollutionListElement().
-                getMainInfo().
-                getAqi());
+    public static String getAirQualityString(String data){
+        return pollutionMap.get(data);
     }
 }

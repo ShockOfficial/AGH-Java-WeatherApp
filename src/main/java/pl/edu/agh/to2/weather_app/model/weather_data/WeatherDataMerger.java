@@ -2,6 +2,7 @@ package pl.edu.agh.to2.weather_app.model.weather_data;
 
 import pl.edu.agh.to2.weather_app.model.weather_data.json.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WeatherDataMerger {
@@ -108,7 +109,8 @@ public class WeatherDataMerger {
     }
 
     public WeatherDataToDisplay mergeWorseWeatherData(List<WeatherDataToDisplay> dataToDisplay) {
-        WeatherDataToDisplay result = dataToDisplay.remove(0);
+        ArrayList<WeatherDataToDisplay> dataToDisplayCopy = new ArrayList<>(dataToDisplay);
+        WeatherDataToDisplay result = dataToDisplayCopy.remove(0);
         result.setCityName(result.getCityName() != null ? result.getCityName() : "Unknown");
         result.setCountry(result.getCountry() != null ? result.getCountry() : "Unknown");
         result.setWeatherParameter(result.getWeatherParameter() != null ? result.getWeatherParameter() : "Unknown");
@@ -116,7 +118,7 @@ public class WeatherDataMerger {
         if (result.getIcon() != null) {
             result.addIconToList(result.getIcon());
         }
-        dataToDisplay.forEach(data -> mergeWorseWeatherData(result, data));
+        dataToDisplayCopy.forEach(data -> mergeWorseWeatherData(result, data));
         return result;
     }
 
@@ -170,6 +172,8 @@ public class WeatherDataMerger {
         dataA.setPressure(Math.max(dataA.getPressure(), dataB.getPressure()));
         dataA.setHumidity(Math.max(dataA.getHumidity(), dataB.getHumidity()));
         dataA.setWindSpeed(Math.max(dataA.getWindSpeed(), dataB.getWindSpeed()));
+        dataA.setRain(Math.max(dataA.getRain(), dataB.getRain()));
+        dataA.setSnow(Math.max(dataA.getSnow(), dataB.getSnow()));
     }
 
     private static void mergeAirQuality(WeatherDataToDisplay dataA, WeatherDataToDisplay dataB) {

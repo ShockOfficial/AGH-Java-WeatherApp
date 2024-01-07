@@ -14,6 +14,8 @@ public class WeatherDataToDisplay {
         this.windSpeed = weatherData.getWind().getSpeed();
         this.airQuality = weatherData.getAirPollutionData().getPollutionListElement().getMainInfo().getAqi();
         this.icon = weatherData.getWeather().get(0).getIcon();
+        this.rain = weatherData.getRain() != null ? weatherData.getRain().getOneH() : 0;
+        this.snow = weatherData.getSnow() != null ? weatherData.getSnow().getOneH() : 0;
     }
 
     private String cityName;
@@ -26,6 +28,8 @@ public class WeatherDataToDisplay {
     private String airQuality;
     private String icon;
     private List<String> iconList;
+    private float rain;
+    private float snow;
 
     public String getCityName() {
         return cityName;
@@ -112,5 +116,21 @@ public class WeatherDataToDisplay {
             this.iconList = new ArrayList<>();
         }
         this.iconList.add(icon);
+    }
+
+    public float getRain() {
+        return rain;
+    }
+
+    public void setRain(float rain) {
+        this.rain = rain;
+    }
+
+    public float getSnow() {
+        return snow;
+    }
+
+    public void setSnow(float snow) {
+        this.snow = snow;
     }
 }
