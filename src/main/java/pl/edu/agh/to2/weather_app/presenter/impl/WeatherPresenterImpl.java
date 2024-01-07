@@ -8,17 +8,14 @@ import pl.edu.agh.to2.weather_app.model.IWeatherModel;
 import pl.edu.agh.to2.weather_app.model.weather_data.WeatherDataMerger;
 import pl.edu.agh.to2.weather_app.persistence.favourite.Favourite;
 import pl.edu.agh.to2.weather_app.persistence.favourite.FavouritesDao;
-import pl.edu.agh.to2.weather_app.persistence.favourite.FavouritesList;
+import pl.edu.agh.to2.weather_app.model.weather_data.WeatherDataToDisplay;
 import pl.edu.agh.to2.weather_app.presenter.IWeatherPresenter;
 import pl.edu.agh.to2.weather_app.utils.Constants;
-import pl.edu.agh.to2.weather_app.utils.TempCalculator;
 import pl.edu.agh.to2.weather_app.view.WeatherView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
 
 public class WeatherPresenterImpl implements IWeatherPresenter {
     private final IWeatherModel model;
@@ -51,82 +48,97 @@ public class WeatherPresenterImpl implements IWeatherPresenter {
 
     @Override
     public void getWeatherByCity(String city) {
-        model.getWeatherDataByCity(city).thenAccept(weatherData -> Platform.runLater(() -> updateWeatherDisplay(weatherData))).exceptionally(e -> {
+        model.getWeatherDataByCity(city).thenAccept(weatherData -> {
+            if (weatherData.getSys() != null) {
+                Platform.runLater(() -> updateWeatherDisplay(new WeatherDataToDisplay(weatherData)));
+            } else {
+                Platform.runLater(() -> view.showError(DEFAULT_ERROR_MSG));
+            }
+        }).exceptionally(e -> {
             Platform.runLater(() -> view.showError(DEFAULT_ERROR_MSG));
             return null;
         });
     }
 
     @Override
-    public void getWeatherByCities(String cityA, String cityB) {
-        CompletableFuture<WeatherData> weatherDataA = model.getWeatherDataByCity(cityA);
-        CompletableFuture<WeatherData> weatherDataB = model.getWeatherDataByCity(cityB);
-
-        weatherDataA.thenCombine(weatherDataB, weatherMerger::mergeWorseWeatherData).thenAccept(worstWeatherData -> Platform.runLater(() -> updateWeatherDisplay(worstWeatherData)))
-                .exceptionally(e -> {
-                    Platform.runLater(() -> view.showError(DEFAULT_ERROR_MSG));
-                    return null;
-                });
+    public void getWeatherByCities(List<String> cities) {
+        List<CompletableFuture<WeatherData>> weatherDataList = new ArrayList<>();
+        cities.forEach(city -> weatherDataList.add(model.getWeatherDataByCity(city)));
+        getWeather(weatherDataList);
     }
 
     @Override
     public void getWeatherByCoordinates(String lat, String lon) {
-        model.getWeatherDataByCoordinates(lat, lon).thenAccept(weatherData -> Platform.runLater(() -> updateWeatherDisplay(weatherData))).exceptionally(e -> {
+        model.getWeatherDataByCoordinates(lat, lon).thenAccept(weatherData -> {
+            if (weatherData.getSys() != null) {
+                Platform.runLater(() -> updateWeatherDisplay(new WeatherDataToDisplay(weatherData)));
+            } else {
+                Platform.runLater(() -> view.showError(DEFAULT_ERROR_MSG));
+            }
+        }).exceptionally(e -> {
             Platform.runLater(() -> view.showError(DEFAULT_ERROR_MSG));
             return null;
         });
     }
 
     @Override
-    public void getWeatherByCoordinates(String latA, String lonA, String latB, String lonB) {
-        CompletableFuture<WeatherData> weatherDataA = model.getWeatherDataByCoordinates(latA, lonA);
-        CompletableFuture<WeatherData> weatherDataB = model.getWeatherDataByCoordinates(latB, lonB);
-
-        weatherDataA.thenCombine(weatherDataB, weatherMerger::mergeWorseWeatherData).thenAccept(worstWeatherData -> Platform.runLater(() -> updateWeatherDisplay(worstWeatherData)))
-                .exceptionally(e -> {
-                    Platform.runLater(() -> view.showError(DEFAULT_ERROR_MSG));
-                    return null;
-                });
+    public void getWeatherByCoordinates(List<String> latList, List<String> lonList) {
+        List<CompletableFuture<WeatherData>> weatherDataList = new ArrayList<>();
+        for (int i = 0; i < latList.size(); i++) {
+            weatherDataList.add(model.getWeatherDataByCoordinates(latList.get(i), lonList.get(i)));
+        }
+        getWeather(weatherDataList);
     }
 
-    private void updateIconUrl(WeatherData weatherData) {
-        if (weatherData.getWeather() != null && !weatherData.getWeather().isEmpty()) {
-            List<String> iconCodeList = weatherData.getWeather().get(0).getIconList();
-            List<String> newIconList = new ArrayList<>();
-
-            if (iconCodeList == null) {
-                String iconUrl = provider.getIconUrl(weatherData.getWeather().get(0).getIcon());
-                newIconList.add(iconUrl);
-            } else {
-                for (String iconCode : iconCodeList) {
-                    String iconUrl = provider.getIconUrl(iconCode);
-                    newIconList.add(iconUrl);
+    private void getWeather(List<CompletableFuture<WeatherData>> weatherDataList) {
+        CompletableFuture.allOf(weatherDataList.toArray(CompletableFuture[]::new)).thenAccept(v -> {
+            List<WeatherDataToDisplay> weatherDataToDisplayList = new ArrayList<>();
+            for (CompletableFuture<WeatherData> weatherData : weatherDataList) {
+                WeatherData wt = weatherData.join();
+                if (wt.getSys() != null) {
+                    weatherDataToDisplayList.add(new WeatherDataToDisplay(weatherData.join()));
                 }
             }
+            if (weatherDataToDisplayList.isEmpty()) {
+                Platform.runLater(() -> view.showError(DEFAULT_ERROR_MSG));
+            } else {
+                Platform.runLater(() -> updateWeatherDisplay(weatherMerger.mergeWorseWeatherData(weatherDataToDisplayList)));
+            }
+        }).exceptionally(e -> {
+            Platform.runLater(() -> view.showError(DEFAULT_ERROR_MSG));
+            return null;
+        });
+    }
 
-            weatherData.getWeather().get(0).setIconList(newIconList);
+    private void updateIconUrl(WeatherDataToDisplay weatherData) {
+        if (weatherData.getIconList() != null) {
+            List<String> iconCodeList = weatherData.getIconList();
+            List<String> newIconList = new ArrayList<>();
+            for (String iconCode : iconCodeList) {
+                String iconUrl = provider.getIconUrl(iconCode);
+                newIconList.add(iconUrl);
+            }
+            weatherData.setIconList(newIconList);
         }
     }
 
-    private void addConditionalIcons(WeatherData weatherData) {
-        if (weatherData.getWeather() != null && !weatherData.getWeather().isEmpty()) {
-            List<String> newIconList = new ArrayList<>();
-            List<String> iconCodeList = weatherData.getWeather().get(0).getIconList();
+    private void addConditionalIcons(WeatherDataToDisplay weatherData) {
+        List<String> newIconList = new ArrayList<>();
+        List<String> iconCodeList = weatherData.getIconList();
 
-            if (iconCodeList != null) {
-                newIconList.addAll(iconCodeList);
-            }
-
-            if (shouldMaskIconBeAdded(weatherData)) {
-                newIconList.add(Constants.MASK_URL);
-            }
-
-            if (shouldUmbrellaIconBeAdded(weatherData)) {
-                newIconList.add(Constants.UMBRELLA_URL);
-            }
-
-            weatherData.getWeather().get(0).setIconList(newIconList);
+        if (iconCodeList != null) {
+            newIconList.addAll(iconCodeList);
         }
+
+        if (shouldMaskIconBeAdded(weatherData)) {
+            newIconList.add(Constants.MASK_URL);
+        }
+
+        if (shouldUmbrellaIconBeAdded(weatherData)) {
+            newIconList.add(Constants.UMBRELLA_URL);
+        }
+
+        weatherData.setIconList(newIconList);
     }
 
     // Update color of label displaying temperature, according to the temperature scale
@@ -143,19 +155,10 @@ public class WeatherPresenterImpl implements IWeatherPresenter {
         }
     }
 
-    private void updateWeatherDisplay(WeatherData weatherData) {
-        if (weatherData.getSys() != null) {
-            String city = weatherData.getName() == null || Objects.equals(weatherData.getName(), "") ? "Unknown" : weatherData.getName();
-            String country = weatherData.getSys().getCountry() == null ? "Unknown" : weatherData.getSys().getCountry();
-            weatherData.setName(city);
-            weatherData.getSys().setCountry(country);
-            weatherData.getWind().setSpeed(round(weatherData.getWind().getSpeed(), 2));
-            weatherData.getMain().setFeelsLike(round(getFeelsLike(weatherData), 2));
-            weatherData.getMain().setTemp(round(weatherData.getMain().getTemp(), 2));
-            weatherData.getMain().setTempMin(round(weatherData.getMain().getTempMin(), 2));
-            weatherData.getMain().setTempMax(round(weatherData.getMain().getTempMax(), 2));
-            updateTemperatureValueColor(weatherData.getMain().getFeelsLike());
-        }
+    private void updateWeatherDisplay(WeatherDataToDisplay weatherData) {
+        weatherData.setTemperature(round(weatherData.getTemperature(), 2));
+        weatherData.setWindSpeed(round(weatherData.getWindSpeed(), 2));
+        updateTemperatureValueColor(weatherData.getTemperature());
         updateIconUrl(weatherData);
         addConditionalIcons(weatherData);
         view.updateWeatherDisplay(weatherData);
@@ -166,26 +169,15 @@ public class WeatherPresenterImpl implements IWeatherPresenter {
         return (float) (Math.round(value * scale) / scale);
     }
 
-    private double getFeelsLike(WeatherData data) {
-        return TempCalculator.calculatePerceivedTemp(
-                data.getMain().getTemp(), data.getWind().getSpeed());
-    }
-
-    private boolean shouldMaskIconBeAdded(WeatherData weatherData) {
-        if (weatherData.getAirPollutionData() != null) {
-            return Float.parseFloat(weatherData.getAirPollutionData().getPollutionListElement().getMainInfo().getAqi()) >= 4;
+    private boolean shouldMaskIconBeAdded(WeatherDataToDisplay weatherData) {
+        if (!weatherData.getAirQuality().equals(Constants.VALUE_WHEN_NO_DATA)) {
+            return Float.parseFloat(weatherData.getAirQuality()) >= 4;
         }
         return false;
     }
 
-    private boolean shouldUmbrellaIconBeAdded(WeatherData weatherData) {
-        if (weatherData.getRain() != null) {
-            return weatherData.getRain().getOneH() > 0.0;
-        }
-        if (weatherData.getSnow() != null) {
-            return weatherData.getSnow().getOneH() > 0.0;
-        }
-        return false;
+    private boolean shouldUmbrellaIconBeAdded(WeatherDataToDisplay weatherData) {
+        return weatherData.getRain() > 0 || weatherData.getSnow() > 0;
     }
 
 
