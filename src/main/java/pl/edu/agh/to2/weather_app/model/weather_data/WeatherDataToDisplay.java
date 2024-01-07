@@ -1,6 +1,7 @@
 package pl.edu.agh.to2.weather_app.model.weather_data;
 
 import pl.edu.agh.to2.weather_app.utils.Constants;
+import pl.edu.agh.to2.weather_app.utils.TempCalculator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,7 @@ public class WeatherDataToDisplay {
         this.cityName = weatherData.getName() != null ? weatherData.getName() : Constants.VALUE_WHEN_NO_DATA;
         this.country = weatherData.getSys().getCountry() != null ? weatherData.getSys().getCountry() : Constants.VALUE_WHEN_NO_DATA;
         this.weatherParameter = weatherData.getWeather().get(0).getMain() != null ? weatherData.getWeather().get(0).getMain() : Constants.VALUE_WHEN_NO_DATA;
-        this.temperature = weatherData.getMain().getTemp();
+        this.temperature = (float) getFeelsLike(weatherData);
         this.pressure = weatherData.getMain().getPressure();
         this.humidity = weatherData.getMain().getHumidity();
         this.windSpeed = weatherData.getWind().getSpeed();
@@ -137,5 +138,9 @@ public class WeatherDataToDisplay {
 
     public void setSnow(float snow) {
         this.snow = snow;
+    }
+
+    private double getFeelsLike(WeatherData data){
+        return TempCalculator.calculatePerceivedTemp(data.getMain().getTemp(), data.getWind().getSpeed());
     }
 }

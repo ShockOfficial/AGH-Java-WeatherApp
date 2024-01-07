@@ -11,7 +11,6 @@ import pl.edu.agh.to2.weather_app.persistence.favourite.FavouritesDao;
 import pl.edu.agh.to2.weather_app.model.weather_data.WeatherDataToDisplay;
 import pl.edu.agh.to2.weather_app.presenter.IWeatherPresenter;
 import pl.edu.agh.to2.weather_app.utils.Constants;
-import pl.edu.agh.to2.weather_app.utils.TempCalculator;
 import pl.edu.agh.to2.weather_app.view.WeatherView;
 
 import java.util.ArrayList;
@@ -157,7 +156,7 @@ public class WeatherPresenterImpl implements IWeatherPresenter {
     }
 
     private void updateWeatherDisplay(WeatherDataToDisplay weatherData) {
-        weatherData.setTemperature(round(getFeelsLike(weatherData), 2));
+        weatherData.setTemperature(round(weatherData.getTemperature(), 2));
         weatherData.setWindSpeed(round(weatherData.getWindSpeed(), 2));
         updateTemperatureValueColor(weatherData.getTemperature());
         updateIconUrl(weatherData);
@@ -170,13 +169,8 @@ public class WeatherPresenterImpl implements IWeatherPresenter {
         return (float) (Math.round(value * scale) / scale);
     }
 
-    private double getFeelsLike(WeatherDataToDisplay data) {
-        return TempCalculator.calculatePerceivedTemp(
-                data.getTemperature(), data.getWindSpeed());
-    }
-
     private boolean shouldMaskIconBeAdded(WeatherDataToDisplay weatherData) {
-        if (!weatherData.getAirQuality().equals("Unknown")) {
+        if (!weatherData.getAirQuality().equals(Constants.VALUE_WHEN_NO_DATA)) {
             return Float.parseFloat(weatherData.getAirQuality()) >= 4;
         }
         return false;
