@@ -92,10 +92,10 @@ public class DataProvider {
     //The free version only allows forecast in increments of 3 hours
     public String getForecast(String lon, String lat) throws  IOException{
         Response response = makeApiCall(Map.of(LATITUDE_PARAM_NAME, lat,
-                        LONGITUDE_PARAM_NAME, lon,
-                        UNITS_PARAM_NAME, UNIT,
-                        TIMESTAMP_PARAM_NAME, TIMESTAMP),
-                FORECAST_URL);
+                                                LONGITUDE_PARAM_NAME, lon,
+                                                UNITS_PARAM_NAME, UNIT,
+                                                TIMESTAMP_PARAM_NAME, TIMESTAMP),
+                                        FORECAST_URL);
         return response.body().string();
     }
 
