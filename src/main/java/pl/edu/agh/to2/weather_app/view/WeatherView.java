@@ -110,6 +110,7 @@ public class WeatherView {
 
     public void updateWeatherDisplay(WeatherData weatherData) {
         if (weatherData.getSys() != null) {
+            //this is temporary solution so the code still works, replace it with proper implementation
             setWeatherOutputInformer("Weather in " + weatherData.getName() + " (" + weatherData.getSys().getCountry() + "): " + weatherData.getWeather().get(0).getMain() + "\n");
 
             setPressureValue(weatherData.getMain().getPressure() + " hPa");

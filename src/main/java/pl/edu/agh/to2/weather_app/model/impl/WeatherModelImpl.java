@@ -7,6 +7,7 @@ import pl.edu.agh.to2.weather_app.exceptions.GeocodingException;
 import pl.edu.agh.to2.weather_app.logger.Logger;
 import pl.edu.agh.to2.weather_app.model.IWeatherModel;
 import pl.edu.agh.to2.weather_app.model.air_pollution_data.AirPollutionData;
+import pl.edu.agh.to2.weather_app.model.forecast_data.ForecastData;
 import pl.edu.agh.to2.weather_app.model.response_converter.IResponseToModelConverter;
 import pl.edu.agh.to2.weather_app.model.geocoding_data.GeocodingData;
 import pl.edu.agh.to2.weather_app.model.weather_data.WeatherData;
@@ -41,7 +42,8 @@ public class WeatherModelImpl implements IWeatherModel {
                     throw new GeocodingException(city + " not found");
                 }
 
-                WeatherData weather = this.getWeather(geocoding.getLon(), geocoding.getLat());
+                ForecastData forecast = this.getForecast(geocoding.getLon(), geocoding.getLat());
+                WeatherData weather = forecast.getWeatherList().get(0);
                 AirPollutionData airPollution = this.getAirPollution(geocoding.getLon(), geocoding.getLat());
 
                 weather.setGeocodingData(geocoding);
@@ -60,7 +62,9 @@ public class WeatherModelImpl implements IWeatherModel {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 AirPollutionData airPollution = this.getAirPollution(lon, lat);
-                WeatherData weather = this.getWeather(lon, lat);
+                ForecastData forecast = this.getForecast(lon, lat);
+                WeatherData weather = forecast.getWeatherList().get(0);
+                forecast.setAirPollution(airPollution);
                 weather.setAirPollutionData(airPollution);
                 return weather;
             } catch (IOException e) {
@@ -87,5 +91,10 @@ public class WeatherModelImpl implements IWeatherModel {
     private AirPollutionData getAirPollution(String lon, String lat) throws IOException{
         String jsonResponse = provider.getAirPollution(lon, lat);
         return converter.convertAirPollution(jsonResponse);
+    }
+
+    private ForecastData getForecast(String lon, String lat) throws IOException{
+        String jsonResponse = provider.getForecast(lon, lat);
+        return converter.convertForecast(jsonResponse);
     }
 }

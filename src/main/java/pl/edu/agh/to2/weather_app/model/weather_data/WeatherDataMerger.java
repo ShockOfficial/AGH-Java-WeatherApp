@@ -3,6 +3,8 @@ package pl.edu.agh.to2.weather_app.model.weather_data;
 import pl.edu.agh.to2.weather_app.model.weather_data.json.*;
 
 public class WeatherDataMerger {
+
+    //we need to rethink how the merger will work because I think most of the features might be no longer necessary
     public WeatherData mergeWorseWeatherData(WeatherData dataA, WeatherData dataB) {
         if (dataA == null) return dataB;
         if (dataB == null) return dataA;

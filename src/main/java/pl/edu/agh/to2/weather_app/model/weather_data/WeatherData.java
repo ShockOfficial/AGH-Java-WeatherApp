@@ -12,7 +12,6 @@ import java.util.List;
 
 //Detailed description at https://openweathermap.org/current
 public class WeatherData {
-    //name of the city
     private GeocodingData geocodingData = new GeocodingData();
     private AirPollutionData airPollutionData;
     @SerializedName("coord")
@@ -20,6 +19,9 @@ public class WeatherData {
     //Group of weather parameters (Rain, Snow, Clouds etc.) and detailed i.e "heavy rain"
     private final List<WeatherDTO> weather = new ArrayList<>();
     //most important information temperature, feelsLike, pressure, humidity
+
+    @SerializedName("dt_txt")
+    private String time;
     private MainInfoDTO main;
     //general visibility
     private int visibility;
@@ -33,11 +35,9 @@ public class WeatherData {
     //Useful ones are sunrise and sunset times(in seconds)
     private SysDTO sys;
     //Internal parameters
-    private int id;
-    private int timezone;
-    private long dt;
-    private String base;
-    private int cod;
+
+
+
 
 //***************GETTERS AND SETTERS************************
     public CoordDTO getCoordinates() {
@@ -54,14 +54,6 @@ public class WeatherData {
 
     public void setWeather(WeatherDTO weather) {
         this.weather.add(weather);
-    }
-
-    public String getBase() {
-        return base;
-    }
-
-    public void setBase(String base) {
-        this.base = base;
     }
 
     public MainInfoDTO getMain() {
@@ -104,13 +96,6 @@ public class WeatherData {
         this.clouds = clouds;
     }
 
-    public long getDt() {
-        return dt;
-    }
-
-    public void setDt(long dt) {
-        this.dt = dt;
-    }
 
     public SysDTO getSys() {
         return sys;
@@ -120,21 +105,6 @@ public class WeatherData {
         this.sys = sys;
     }
 
-    public int getTimezone() {
-        return timezone;
-    }
-
-    public void setTimezone(int timezone) {
-        this.timezone = timezone;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getName() {
         return geocodingData.getName();
@@ -142,14 +112,6 @@ public class WeatherData {
 
     public void setName(String name) {
         this.geocodingData.setName(name);
-    }
-
-    public int getCod() {
-        return cod;
-    }
-
-    public void setCod(int cod) {
-        this.cod = cod;
     }
 
     public TotalFallDTO getSnow() {
@@ -176,6 +138,13 @@ public class WeatherData {
         this.airPollutionData = airPollutionData;
     }
 
+    public void setTime(String time){
+        this.time = time;
+    }
+
+    public String getTime(){
+        return this.time;
+    }
     @Override
     public String toString(){
         return ""+this.main.getFeelsLike();
