@@ -25,6 +25,12 @@ public class WeatherView {
     @FXML
     private TextField bInputCity;
     @FXML
+    private TextField cInputCity;
+    @FXML
+    private TextField dInputCity;
+    @FXML
+    private TextField eInputCity;
+    @FXML
     private TextField aLatitudeInput;
     @FXML
     private TextField aLongitudeInput;
@@ -32,6 +38,18 @@ public class WeatherView {
     private TextField bLatitudeInput;
     @FXML
     private TextField bLongitudeInput;
+    @FXML
+    private TextField cLatitudeInput;
+    @FXML
+    private TextField cLongitudeInput;
+    @FXML
+    private TextField dLatitudeInput;
+    @FXML
+    private TextField dLongitudeInput;
+    @FXML
+    private TextField eLatitudeInput;
+    @FXML
+    private TextField eLongitudeInput;
     @FXML
     public Label weatherError;
     @FXML
@@ -49,15 +67,29 @@ public class WeatherView {
     @FXML
     private Label airQuality;
     @FXML
-    private ImageView weatherIconLeft;
+    private ImageView icon1;
     @FXML
-    private ImageView weatherIconRight;
+    private ImageView icon2;
     @FXML
-    private ImageView informationIcon1;
+    private ImageView icon3;
     @FXML
-    private ImageView informationIcon2;
+    private ImageView icon4;
     @FXML
-    private TextField forecastTimeInput;
+    private ImageView icon5;
+    @FXML
+    private ImageView icon6;
+    @FXML
+    private ImageView icon7;
+    @FXML
+    private TextField aForecastTimeInput;
+    @FXML
+    private TextField bForecastTimeInput;
+    @FXML
+    private TextField cForecastTimeInput;
+    @FXML
+    private TextField dForecastTimeInput;
+    @FXML
+    private TextField eForecastTimeInput;
     private IWeatherPresenter presenter;
 
 
@@ -66,28 +98,76 @@ public class WeatherView {
         setupInputListeners();
     }
 
-    private void updateFieldsState() {
-        boolean cityFieldsFilled = !aInputCity.getText().isEmpty() || !bInputCity.getText().isEmpty();
-        boolean coordFieldsFilled = !aLatitudeInput.getText().isEmpty() || !aLongitudeInput.getText().isEmpty()
-                || !bLatitudeInput.getText().isEmpty() || !bLongitudeInput.getText().isEmpty();
+    private void updateAFieldsState() {
+        boolean cityFieldFilled = !aInputCity.getText().isEmpty();
+        boolean coordFieldsFilled = !aLatitudeInput.getText().isEmpty() || !aLongitudeInput.getText().isEmpty();
 
-        aLatitudeInput.setDisable(cityFieldsFilled);
-        aLongitudeInput.setDisable(cityFieldsFilled);
-        bLatitudeInput.setDisable(cityFieldsFilled);
-        bLongitudeInput.setDisable(cityFieldsFilled);
+        aLatitudeInput.setDisable(cityFieldFilled);
+        aLongitudeInput.setDisable(cityFieldFilled);
 
         aInputCity.setDisable(coordFieldsFilled);
+    }
+
+    private void updateBFieldsState() {
+        boolean cityFieldFilled = !bInputCity.getText().isEmpty();
+        boolean coordFieldsFilled = !bLatitudeInput.getText().isEmpty() || !bLongitudeInput.getText().isEmpty();
+
+        bLatitudeInput.setDisable(cityFieldFilled);
+        bLongitudeInput.setDisable(cityFieldFilled);
+
         bInputCity.setDisable(coordFieldsFilled);
     }
 
-    private void setupInputListeners() {
-        aInputCity.textProperty().addListener((observable, oldValue, newValue) -> updateFieldsState());
-        bInputCity.textProperty().addListener((observable, oldValue, newValue) -> updateFieldsState());
+    private void updateCFieldsState() {
+        boolean cityFieldFilled = !cInputCity.getText().isEmpty();
+        boolean coordFieldsFilled = !cLatitudeInput.getText().isEmpty() || !cLongitudeInput.getText().isEmpty();
 
-        aLatitudeInput.textProperty().addListener((observable, oldValue, newValue) -> updateFieldsState());
-        aLongitudeInput.textProperty().addListener((observable, oldValue, newValue) -> updateFieldsState());
-        bLatitudeInput.textProperty().addListener((observable, oldValue, newValue) -> updateFieldsState());
-        bLongitudeInput.textProperty().addListener((observable, oldValue, newValue) -> updateFieldsState());
+        cLatitudeInput.setDisable(cityFieldFilled);
+        cLongitudeInput.setDisable(cityFieldFilled);
+
+        cInputCity.setDisable(coordFieldsFilled);
+    }
+
+    private void updateDFieldsState() {
+        boolean cityFieldFilled = !dInputCity.getText().isEmpty();
+        boolean coordFieldsFilled = !dLatitudeInput.getText().isEmpty() || !dLongitudeInput.getText().isEmpty();
+
+        dLatitudeInput.setDisable(cityFieldFilled);
+        dLongitudeInput.setDisable(cityFieldFilled);
+
+        dInputCity.setDisable(coordFieldsFilled);
+    }
+
+    private void updateEFieldsState() {
+        boolean cityFieldFilled = !eInputCity.getText().isEmpty();
+        boolean coordFieldsFilled = !eLatitudeInput.getText().isEmpty() || !eLongitudeInput.getText().isEmpty();
+
+        eLatitudeInput.setDisable(cityFieldFilled);
+        eLongitudeInput.setDisable(cityFieldFilled);
+
+        eInputCity.setDisable(coordFieldsFilled);
+    }
+
+    private void setupInputListeners() {
+        aInputCity.textProperty().addListener((observable, oldValue, newValue) -> updateAFieldsState());
+        aLatitudeInput.textProperty().addListener((observable, oldValue, newValue) -> updateAFieldsState());
+        aLongitudeInput.textProperty().addListener((observable, oldValue, newValue) -> updateAFieldsState());
+
+        bInputCity.textProperty().addListener((observable, oldValue, newValue) -> updateBFieldsState());
+        bLatitudeInput.textProperty().addListener((observable, oldValue, newValue) -> updateBFieldsState());
+        bLongitudeInput.textProperty().addListener((observable, oldValue, newValue) -> updateBFieldsState());
+
+        cInputCity.textProperty().addListener((observable, oldValue, newValue) -> updateCFieldsState());
+        cLatitudeInput.textProperty().addListener((observable, oldValue, newValue) -> updateCFieldsState());
+        cLongitudeInput.textProperty().addListener((observable, oldValue, newValue) -> updateCFieldsState());
+
+        dInputCity.textProperty().addListener((observable, oldValue, newValue) -> updateDFieldsState());
+        dLatitudeInput.textProperty().addListener((observable, oldValue, newValue) -> updateDFieldsState());
+        dLongitudeInput.textProperty().addListener((observable, oldValue, newValue) -> updateDFieldsState());
+
+        eInputCity.textProperty().addListener((observable, oldValue, newValue) -> updateEFieldsState());
+        eLatitudeInput.textProperty().addListener((observable, oldValue, newValue) -> updateEFieldsState());
+        eLongitudeInput.textProperty().addListener((observable, oldValue, newValue) -> updateEFieldsState());
     }
 
     public void setPresenter(IWeatherPresenter presenter) {
@@ -96,26 +176,7 @@ public class WeatherView {
 
     @FXML
     public void handleGetWeatherAction() {
-        boolean aCityProvided = !aInputCity.getText().isEmpty();
-        boolean bCityProvided = !bInputCity.getText().isEmpty();
-        boolean aCoordsProvided = !aLatitudeInput.getText().isEmpty() && !aLongitudeInput.getText().isEmpty();
-        boolean bCoordsProvided = !bLatitudeInput.getText().isEmpty() && !bLongitudeInput.getText().isEmpty();
-
-        if (aCityProvided) {
-            if (bCityProvided) {
-                presenter.getWeatherByCities(List.of(aInputCity.getText(), bInputCity.getText()));
-            } else {
-                presenter.getWeatherByCity(aInputCity.getText());
-            }
-        } else if (aCoordsProvided) {
-            if (bCoordsProvided) {
-                presenter.getWeatherByCoordinates(List.of(aLatitudeInput.getText(), bLatitudeInput.getText()), List.of(aLongitudeInput.getText(), bLongitudeInput.getText()));
-            } else {
-                presenter.getWeatherByCoordinates(aLatitudeInput.getText(), aLongitudeInput.getText());
-            }
-        } else {
-            showError("Please provide city name or coordinates");
-        }
+        presenter.handleGetForecastAction();
     }
 
     public void updateWeatherDisplay(WeatherDataToDisplay weatherData) {
@@ -146,7 +207,7 @@ public class WeatherView {
     }
 
     private void updateIcons(List<String> icons) {
-        List<ImageView> iconsImageViews = List.of(weatherIconLeft, weatherIconRight, informationIcon1, informationIcon2);
+        List<ImageView> iconsImageViews = List.of(icon1, icon2, icon3, icon4, icon5, icon6, icon7);
         int counter = 0;
         for (String icon : icons) {
             Image image = new Image(icon);
@@ -163,14 +224,20 @@ public class WeatherView {
     }
 
     private void hideIcons() {
-        weatherIconLeft.setImage(null);
-        weatherIconLeft.setVisible(false);
-        weatherIconRight.setImage(null);
-        weatherIconRight.setVisible(false);
-        informationIcon1.setImage(null);
-        informationIcon1.setVisible(false);
-        informationIcon2.setImage(null);
-        informationIcon2.setVisible(false);
+        icon1.setImage(null);
+        icon1.setVisible(false);
+        icon2.setImage(null);
+        icon2.setVisible(false);
+        icon3.setImage(null);
+        icon3.setVisible(false);
+        icon4.setImage(null);
+        icon4.setVisible(false);
+        icon5.setImage(null);
+        icon5.setVisible(false);
+        icon6.setImage(null);
+        icon6.setVisible(false);
+        icon7.setImage(null);
+        icon7.setVisible(false);
     }
 
     public void setWeatherError(String weatherError) {
@@ -223,8 +290,104 @@ public class WeatherView {
         setWeatherDisplaying(false);
     }
 
+    public String getACityInput() {
+        return aInputCity.getText();
+    }
+
+    public String getBCityInput() {
+        return bInputCity.getText();
+    }
+
+    public String getCCityInput() {
+        return cInputCity.getText();
+    }
+
+    public String getDCityInput() {
+        return dInputCity.getText();
+    }
+
+    public String getECityInput() {
+        return eInputCity.getText();
+    }
+
+    public String getALatitudeInput() {
+        return aLatitudeInput.getText();
+    }
+
+    public String getALongitudeInput() {
+        return aLongitudeInput.getText();
+    }
+
+    public String getBLatitudeInput() {
+        return bLatitudeInput.getText();
+    }
+
+    public String getBLongitudeInput() {
+        return bLongitudeInput.getText();
+    }
+
+    public String getCLatitudeInput() {
+        return cLatitudeInput.getText();
+    }
+
+    public String getCLongitudeInput() {
+        return cLongitudeInput.getText();
+    }
+
+    public String getDLatitudeInput() {
+        return dLatitudeInput.getText();
+    }
+
+    public String getDLongitudeInput() {
+        return dLongitudeInput.getText();
+    }
+
+    public String getELatitudeInput() {
+        return eLatitudeInput.getText();
+    }
+
+    public String getELongitudeInput() {
+        return eLongitudeInput.getText();
+    }
+
+    public String getATimeInput() {
+        return aForecastTimeInput.getText();
+    }
+
+    public String getBTimeInput() {
+        return bForecastTimeInput.getText();
+    }
+
+    public String getCTimeInput() {
+        return cForecastTimeInput.getText();
+    }
+
+    public String getDTimeInput() {
+        return dForecastTimeInput.getText();
+    }
+
+    public String getETimeInput() {
+        return eForecastTimeInput.getText();
+    }
+
     public void setACityInput(String city) {
         aInputCity.setText(city);
+    }
+
+    public void setBCityInput(String city) {
+        bInputCity.setText(city);
+    }
+
+    public void setCCityInput(String city) {
+        cInputCity.setText(city);
+    }
+
+    public void setDCityInput(String city) {
+        dInputCity.setText(city);
+    }
+
+    public void setECityInput(String city) {
+        eInputCity.setText(city);
     }
 
     public void setALatitudeInput(String lat) {
@@ -235,14 +398,117 @@ public class WeatherView {
         aLongitudeInput.setText(lon);
     }
 
-    public void setTimeInput(String time) {
-        forecastTimeInput.setText(time);
+    public void setBLatitudeInput(String lat) {
+        bLatitudeInput.setText(lat);
+    }
+
+    public void setBLongitudeInput(String lon) {
+        bLongitudeInput.setText(lon);
+    }
+
+    public void setCLatitudeInput(String lat) {
+        cLatitudeInput.setText(lat);
+    }
+
+    public void setCLongitudeInput(String lon) {
+        cLongitudeInput.setText(lon);
+    }
+
+    public void setDLatitudeInput(String lat) {
+        dLatitudeInput.setText(lat);
+    }
+
+    public void setDLongitudeInput(String lon) {
+        dLongitudeInput.setText(lon);
+    }
+
+    public void setELatitudeInput(String lat) {
+        eLatitudeInput.setText(lat);
+    }
+
+    public void setELongitudeInput(String lon) {
+        eLongitudeInput.setText(lon);
+    }
+
+    public void setATimeInput(String time) {
+        aForecastTimeInput.setText(time);
+    }
+
+    public void setBTimeInput(String time) {
+        bForecastTimeInput.setText(time);
+    }
+
+    public void setCTimeInput(String time) {
+        cForecastTimeInput.setText(time);
+    }
+
+    public void setDTimeInput(String time) {
+        dForecastTimeInput.setText(time);
+    }
+
+    public void setETimeInput(String time) {
+        eForecastTimeInput.setText(time);
+    }
+
+    private void clearAInputs() {
+        aInputCity.setText("");
+        aLatitudeInput.setText("");
+        aLongitudeInput.setText("");
+        aForecastTimeInput.setText("");
+    }
+
+    private void clearBInputs() {
+        bInputCity.setText("");
+        bLatitudeInput.setText("");
+        bLongitudeInput.setText("");
+        bForecastTimeInput.setText("");
+    }
+
+    private void clearCInputs() {
+        cInputCity.setText("");
+        cLatitudeInput.setText("");
+        cLongitudeInput.setText("");
+        cForecastTimeInput.setText("");
+    }
+
+    private void clearDInputs() {
+        dInputCity.setText("");
+        dLatitudeInput.setText("");
+        dLongitudeInput.setText("");
+        dForecastTimeInput.setText("");
+    }
+
+    private void clearEInputs() {
+        eInputCity.setText("");
+        eLatitudeInput.setText("");
+        eLongitudeInput.setText("");
+        eForecastTimeInput.setText("");
+    }
+
+    public boolean aInputsClear() {
+        return aInputCity.getText().isEmpty() && aLatitudeInput.getText().isEmpty() && aLongitudeInput.getText().isEmpty() && aForecastTimeInput.getText().isEmpty();
+    }
+
+    public boolean bInputsClear() {
+        return bInputCity.getText().isEmpty() && bLatitudeInput.getText().isEmpty() && bLongitudeInput.getText().isEmpty() && bForecastTimeInput.getText().isEmpty();
+    }
+
+    public boolean cInputsClear() {
+        return cInputCity.getText().isEmpty() && cLatitudeInput.getText().isEmpty() && cLongitudeInput.getText().isEmpty() && cForecastTimeInput.getText().isEmpty();
+    }
+
+    public boolean dInputsClear() {
+        return dInputCity.getText().isEmpty() && dLatitudeInput.getText().isEmpty() && dLongitudeInput.getText().isEmpty() && dForecastTimeInput.getText().isEmpty();
+    }
+
+    public boolean eInputsClear() {
+        return eInputCity.getText().isEmpty() && eLatitudeInput.getText().isEmpty() && eLongitudeInput.getText().isEmpty() && eForecastTimeInput.getText().isEmpty();
     }
 
     @FXML
     private void handleAddToFavourites() {
         String city = aInputCity.getText();
-        String time = forecastTimeInput.getText();
+        String time = aForecastTimeInput.getText();
         String lat = aLatitudeInput.getText();
         String lon = aLongitudeInput.getText();
 
@@ -276,6 +542,15 @@ public class WeatherView {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void handleClear() {
+        clearAInputs();
+        clearBInputs();
+        clearCInputs();
+        clearDInputs();
+        clearEInputs();
     }
 
 }
