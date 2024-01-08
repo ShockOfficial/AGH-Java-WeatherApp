@@ -13,8 +13,8 @@ import java.io.IOException;
 import java.net.URL;
 
 public class FXMLLoaderUtility {
-    private static WeatherPresenterImpl weatherPresenter;
-    private static FavouritesPresenterImpl favouritesPresenter;
+    private static final WeatherPresenterImpl weatherPresenter;
+    private static final FavouritesPresenterImpl favouritesPresenter;
 
     static {
         Injector injector = Guice.createInjector(new WeatherModule());
@@ -35,7 +35,6 @@ public class FXMLLoaderUtility {
 
         WeatherView viewController = loader.getController();
         weatherPresenter.setView(viewController);
-        weatherPresenter.setFavouritesPresenter(favouritesPresenter);
         viewController.setPresenter(weatherPresenter);
 
         return root;

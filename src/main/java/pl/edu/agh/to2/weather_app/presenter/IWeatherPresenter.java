@@ -10,6 +10,5 @@ public interface IWeatherPresenter {
     void getWeatherByCoordinates(List<String> lat, List<String> lon);
     void getForecast(List<String> cities, List<String> citiesTimes, List<String> latList, List<String> lonList, List<String> coordsTimes);
     void handleGetForecastAction();
-    void setFavouritesPresenter(FavouritesPresenterImpl favouritesPresenter);
-    void addFavourite(String name, String city,String lon, String lat ,String time);
+    void onShowFavouritesAction();
 }

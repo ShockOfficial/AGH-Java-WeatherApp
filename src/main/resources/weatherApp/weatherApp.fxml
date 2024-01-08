@@ -74,7 +74,6 @@
             <Insets bottom="10.0" top="20.0" />
         </VBox.margin>
         <Button onAction="#handleGetWeatherAction" styleClass="button" text="Get Weather" />
-        <Button fx:id="addToFavouritesButton" onAction="#handleAddToFavourites" text="Add to favourite" />
         <Button fx:id="showFavouritesButton" onAction="#handleShowFavourites" text="Show favourite" />
       <Button fx:id="clearButton" onAction="#handleClear" text="Clear" />
     </HBox>
