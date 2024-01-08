@@ -103,40 +103,37 @@ public class WeatherPresenterImpl implements IWeatherPresenter {
     }
 
     public void handleGetForecastAction() {
-        boolean aCityProvided = !view.getACityInput().isEmpty();
-        boolean bCityProvided = !view.getBCityInput().isEmpty();
-        boolean cCityProvided = !view.getCCityInput().isEmpty();
-        boolean dCityProvided = !view.getDCityInput().isEmpty();
-        boolean eCityProvided = !view.getECityInput().isEmpty();
-        boolean aCoordsProvided = !view.getALatitudeInput().isEmpty() && !view.getALongitudeInput().isEmpty();
-        boolean bCoordsProvided = !view.getBLatitudeInput().isEmpty() && !view.getBLongitudeInput().isEmpty();
-        boolean cCoordsProvided = !view.getCLatitudeInput().isEmpty() && !view.getCLongitudeInput().isEmpty();
-        boolean dCoordsProvided = !view.getDLatitudeInput().isEmpty() && !view.getDLongitudeInput().isEmpty();
-        boolean eCoordsProvided = !view.getELatitudeInput().isEmpty() && !view.getELongitudeInput().isEmpty();
-
         List<String> citiesToGetForecast = new LinkedList<>();
         List<String> citiesTimes = new LinkedList<>();
-
         List<String> latitudesToGetForecast = new LinkedList<>();
         List<String> longitudesToGetForecast = new LinkedList<>();
         List<String> coordsTimes = new LinkedList<>();
 
-        addToListsIfDataProvided(aCityProvided, aCoordsProvided, citiesToGetForecast, citiesTimes, latitudesToGetForecast, longitudesToGetForecast, coordsTimes, view.getACityInput(), view.getALatitudeInput(), view.getALongitudeInput(), view.getATimeInput());
-        addToListsIfDataProvided(bCityProvided, bCoordsProvided, citiesToGetForecast, citiesTimes, latitudesToGetForecast, longitudesToGetForecast, coordsTimes, view.getBCityInput(), view.getBLatitudeInput(), view.getBLongitudeInput(), view.getBTimeInput());
-        addToListsIfDataProvided(cCityProvided, cCoordsProvided, citiesToGetForecast, citiesTimes, latitudesToGetForecast, longitudesToGetForecast, coordsTimes, view.getCCityInput(), view.getCLatitudeInput(), view.getCLongitudeInput(), view.getCTimeInput());
-        addToListsIfDataProvided(dCityProvided, dCoordsProvided, citiesToGetForecast, citiesTimes, latitudesToGetForecast, longitudesToGetForecast, coordsTimes, view.getDCityInput(), view.getDLatitudeInput(), view.getDLongitudeInput(), view.getDTimeInput());
-        addToListsIfDataProvided(eCityProvided, eCoordsProvided, citiesToGetForecast, citiesTimes, latitudesToGetForecast, longitudesToGetForecast, coordsTimes, view.getECityInput(), view.getELatitudeInput(), view.getELongitudeInput(), view.getETimeInput());
+        List<String> aInputs = new LinkedList<>(List.of(view.getACityInput(), view.getALatitudeInput(), view.getALongitudeInput(), view.getATimeInput()));
+        List<String> bInputs = new LinkedList<>(List.of(view.getBCityInput(), view.getBLatitudeInput(), view.getBLongitudeInput(), view.getBTimeInput()));
+        List<String> cInputs = new LinkedList<>(List.of(view.getCCityInput(), view.getCLatitudeInput(), view.getCLongitudeInput(), view.getCTimeInput()));
+        List<String> dInputs = new LinkedList<>(List.of(view.getDCityInput(), view.getDLatitudeInput(), view.getDLongitudeInput(), view.getDTimeInput()));
+        List<String> eInputs = new LinkedList<>(List.of(view.getECityInput(), view.getELatitudeInput(), view.getELongitudeInput(), view.getETimeInput()));
+
+        addToListsIfDataProvided(aInputs, citiesToGetForecast, citiesTimes, latitudesToGetForecast, longitudesToGetForecast, coordsTimes);
+        addToListsIfDataProvided(bInputs, citiesToGetForecast, citiesTimes, latitudesToGetForecast, longitudesToGetForecast, coordsTimes);
+        addToListsIfDataProvided(cInputs, citiesToGetForecast, citiesTimes, latitudesToGetForecast, longitudesToGetForecast, coordsTimes);
+        addToListsIfDataProvided(dInputs, citiesToGetForecast, citiesTimes, latitudesToGetForecast, longitudesToGetForecast, coordsTimes);
+        addToListsIfDataProvided(eInputs, citiesToGetForecast, citiesTimes, latitudesToGetForecast, longitudesToGetForecast, coordsTimes);
+
         getForecast(citiesToGetForecast, citiesTimes, latitudesToGetForecast, longitudesToGetForecast, coordsTimes);
     }
 
-    private void addToListsIfDataProvided(boolean cityProvided, boolean coordsProvided, List<String> citiesToGetForecast, List<String> citiesTimes, List<String> latitudesToGetForecast, List<String> longitudesToGetForecast, List<String> coordsTimes, String inputCity, String latitudeInput, String longitudeInput, String forecastTimeInput) {
+    private void addToListsIfDataProvided(List<String> inputs, List<String> citiesToGetForecast, List<String> citiesTimes, List<String> latitudesToGetForecast, List<String> longitudesToGetForecast, List<String> coordsTimes) {
+        boolean cityProvided = !inputs.get(0).isEmpty();
+        boolean coordsProvided = !inputs.get(1).isEmpty() && !inputs.get(2).isEmpty();
         if (cityProvided) {
-            citiesToGetForecast.add(inputCity);
-            citiesTimes.add(forecastTimeInput);
+            citiesToGetForecast.add(inputs.get(0));
+            citiesTimes.add(inputs.get(3));
         } else if (coordsProvided) {
-            latitudesToGetForecast.add(latitudeInput);
-            longitudesToGetForecast.add(longitudeInput);
-            coordsTimes.add(forecastTimeInput);
+            latitudesToGetForecast.add(inputs.get(1));
+            longitudesToGetForecast.add(inputs.get(2));
+            coordsTimes.add(inputs.get(3));
         }
     }
 
@@ -246,15 +243,6 @@ public class WeatherPresenterImpl implements IWeatherPresenter {
         }
     }
 
-    private void clearInputs() {
-        Platform.runLater(() -> {
-            view.setACityInput("");
-            view.setALongitudeInput("");
-            view.setALatitudeInput("");
-            view.setATimeInput("");
-        });
-    }
-
     private void setAInputs(Favourite favourite) {
         if (favourite.getCity() != null && !favourite.getCity().isEmpty()) {
             view.setACityInput(favourite.getCity());
@@ -322,15 +310,15 @@ public class WeatherPresenterImpl implements IWeatherPresenter {
 
     public void fillWeatherAppInputs(Favourite favourite) {
         Platform.runLater(() -> {
-            if (this.view.aInputsClear()) {
+            if (this.view.areAInputsClear()) {
                 setAInputs(favourite);
-            } else if (this.view.bInputsClear()) {
+            } else if (this.view.areBInputsClear()) {
                 setBInputs(favourite);
-            } else if (this.view.cInputsClear()) {
+            } else if (this.view.areCInputsClear()) {
                 setCInputs(favourite);
-            } else if (this.view.dInputsClear()) {
+            } else if (this.view.areDInputsClear()) {
                 setDInputs(favourite);
-            } else if (this.view.eInputsClear()) {
+            } else if (this.view.areEInputsClear()) {
                 setEInputs(favourite);
             } else {
                 this.view.showError("All inputs are filled");

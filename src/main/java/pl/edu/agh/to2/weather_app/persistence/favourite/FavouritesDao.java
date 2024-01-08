@@ -1,7 +1,6 @@
 package pl.edu.agh.to2.weather_app.persistence.favourite;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.inject.Inject;
 import pl.edu.agh.to2.weather_app.exceptions.DataSerializationException;
@@ -13,7 +12,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.List;
 import java.util.Optional;
 
 public class FavouritesDao implements Dao<Favourite> {

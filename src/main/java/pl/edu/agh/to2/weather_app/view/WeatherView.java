@@ -170,15 +170,6 @@ public class WeatherView {
         eLongitudeInput.textProperty().addListener((observable, oldValue, newValue) -> updateEFieldsState());
     }
 
-    public void setPresenter(IWeatherPresenter presenter) {
-        this.presenter = presenter;
-    }
-
-    @FXML
-    public void handleGetWeatherAction() {
-        presenter.handleGetForecastAction();
-    }
-
     public void updateWeatherDisplay(WeatherDataToDisplay weatherData) {
         setWeatherOutputInformer("Weather in " + weatherData.getCityName() + " (" + weatherData.getCountry() + "): " + weatherData.getWeatherParameter() + "\n");
         setPressureValue(weatherData.getPressure() + " hPa");
@@ -240,14 +231,6 @@ public class WeatherView {
         icon7.setVisible(false);
     }
 
-    public void setWeatherError(String weatherError) {
-        this.weatherError.setText(weatherError);
-    }
-
-    public void setWeatherOutputInformer(String weatherOutput) {
-        this.weatherOutputInformer.setText(weatherOutput);
-    }
-
     public boolean isWeatherDisplaying() {
         return weatherInfo.isVisible();
     }
@@ -260,34 +243,117 @@ public class WeatherView {
         }
     }
 
-    public void setHumidityValue(String humidityValue) {
-        this.humidityValue.setText(humidityValue);
-    }
-
-    public void setPressureValue(String pressureValue) {
-        this.pressureValue.setText(pressureValue);
-    }
-
-    public void setWindValue(String windValue) {
-        this.windValue.setText(windValue);
-    }
-
-    public void setSensedTemperatureValue(String sensedTemperatureValue) {
-        this.sensedTemperatureValue.setText(sensedTemperatureValue);
-    }
-
-    public void setAirQuality(String airQuality) {
-        this.airQuality.setText(airQuality);
-    }
-
-    public void setTemperatureValueClass(String temperatureValueClass) {
-        this.sensedTemperatureValue.getStyleClass().removeIf(c -> c.startsWith("temperature"));
-        this.sensedTemperatureValue.getStyleClass().add(temperatureValueClass);
-    }
-
     public void showError(String error) {
         setWeatherError(error);
         setWeatherDisplaying(false);
+    }
+
+    private void clearAInputs() {
+        aInputCity.setText("");
+        aLatitudeInput.setText("");
+        aLongitudeInput.setText("");
+        aForecastTimeInput.setText("");
+    }
+
+    private void clearBInputs() {
+        bInputCity.setText("");
+        bLatitudeInput.setText("");
+        bLongitudeInput.setText("");
+        bForecastTimeInput.setText("");
+    }
+
+    private void clearCInputs() {
+        cInputCity.setText("");
+        cLatitudeInput.setText("");
+        cLongitudeInput.setText("");
+        cForecastTimeInput.setText("");
+    }
+
+    private void clearDInputs() {
+        dInputCity.setText("");
+        dLatitudeInput.setText("");
+        dLongitudeInput.setText("");
+        dForecastTimeInput.setText("");
+    }
+
+    private void clearEInputs() {
+        eInputCity.setText("");
+        eLatitudeInput.setText("");
+        eLongitudeInput.setText("");
+        eForecastTimeInput.setText("");
+    }
+
+    public boolean areAInputsClear() {
+        return aInputCity.getText().isEmpty() && aLatitudeInput.getText().isEmpty() && aLongitudeInput.getText().isEmpty() && aForecastTimeInput.getText().isEmpty();
+    }
+
+    public boolean areBInputsClear() {
+        return bInputCity.getText().isEmpty() && bLatitudeInput.getText().isEmpty() && bLongitudeInput.getText().isEmpty() && bForecastTimeInput.getText().isEmpty();
+    }
+
+    public boolean areCInputsClear() {
+        return cInputCity.getText().isEmpty() && cLatitudeInput.getText().isEmpty() && cLongitudeInput.getText().isEmpty() && cForecastTimeInput.getText().isEmpty();
+    }
+
+    public boolean areDInputsClear() {
+        return dInputCity.getText().isEmpty() && dLatitudeInput.getText().isEmpty() && dLongitudeInput.getText().isEmpty() && dForecastTimeInput.getText().isEmpty();
+    }
+
+    public boolean areEInputsClear() {
+        return eInputCity.getText().isEmpty() && eLatitudeInput.getText().isEmpty() && eLongitudeInput.getText().isEmpty() && eForecastTimeInput.getText().isEmpty();
+    }
+
+    @FXML
+    public void handleGetWeatherAction() {
+        presenter.handleGetForecastAction();
+    }
+
+    @FXML
+    private void handleAddToFavourites() {
+        String city = aInputCity.getText();
+        String time = aForecastTimeInput.getText();
+        String lat = aLatitudeInput.getText();
+        String lon = aLongitudeInput.getText();
+
+        if (city.isEmpty() && time.isEmpty()  ) {
+            showError("Please provide city name and time or coordinates and time");
+            return;
+        }
+
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Your Favourite Place");
+        dialog.setHeaderText("Enter favourite place name");
+        dialog.setContentText("Name:");
+
+        Optional<String> result = dialog.showAndWait();
+        result.ifPresent(customName -> {
+            if (!customName.isEmpty()) {
+                presenter.addFavourite(customName, city, lon, lat, time);
+            } else {
+                showError("Please provide custom name");
+            }
+        });
+    }
+
+    @FXML
+    private void handleShowFavourites() {
+        try {
+            Parent favouritesView = FXMLLoaderUtility.loadFavouritesView();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(favouritesView));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleClear() {
+        clearAInputs();
+        clearBInputs();
+        clearCInputs();
+        clearDInputs();
+        clearEInputs();
     }
 
     public String getACityInput() {
@@ -370,6 +436,43 @@ public class WeatherView {
         return eForecastTimeInput.getText();
     }
 
+    public void setPresenter(IWeatherPresenter presenter) {
+        this.presenter = presenter;
+    }
+
+    public void setWeatherError(String weatherError) {
+        this.weatherError.setText(weatherError);
+    }
+
+    public void setWeatherOutputInformer(String weatherOutput) {
+        this.weatherOutputInformer.setText(weatherOutput);
+    }
+
+    public void setHumidityValue(String humidityValue) {
+        this.humidityValue.setText(humidityValue);
+    }
+
+    public void setPressureValue(String pressureValue) {
+        this.pressureValue.setText(pressureValue);
+    }
+
+    public void setWindValue(String windValue) {
+        this.windValue.setText(windValue);
+    }
+
+    public void setSensedTemperatureValue(String sensedTemperatureValue) {
+        this.sensedTemperatureValue.setText(sensedTemperatureValue);
+    }
+
+    public void setAirQuality(String airQuality) {
+        this.airQuality.setText(airQuality);
+    }
+
+    public void setTemperatureValueClass(String temperatureValueClass) {
+        this.sensedTemperatureValue.getStyleClass().removeIf(c -> c.startsWith("temperature"));
+        this.sensedTemperatureValue.getStyleClass().add(temperatureValueClass);
+    }
+
     public void setACityInput(String city) {
         aInputCity.setText(city);
     }
@@ -449,108 +552,4 @@ public class WeatherView {
     public void setETimeInput(String time) {
         eForecastTimeInput.setText(time);
     }
-
-    private void clearAInputs() {
-        aInputCity.setText("");
-        aLatitudeInput.setText("");
-        aLongitudeInput.setText("");
-        aForecastTimeInput.setText("");
-    }
-
-    private void clearBInputs() {
-        bInputCity.setText("");
-        bLatitudeInput.setText("");
-        bLongitudeInput.setText("");
-        bForecastTimeInput.setText("");
-    }
-
-    private void clearCInputs() {
-        cInputCity.setText("");
-        cLatitudeInput.setText("");
-        cLongitudeInput.setText("");
-        cForecastTimeInput.setText("");
-    }
-
-    private void clearDInputs() {
-        dInputCity.setText("");
-        dLatitudeInput.setText("");
-        dLongitudeInput.setText("");
-        dForecastTimeInput.setText("");
-    }
-
-    private void clearEInputs() {
-        eInputCity.setText("");
-        eLatitudeInput.setText("");
-        eLongitudeInput.setText("");
-        eForecastTimeInput.setText("");
-    }
-
-    public boolean aInputsClear() {
-        return aInputCity.getText().isEmpty() && aLatitudeInput.getText().isEmpty() && aLongitudeInput.getText().isEmpty() && aForecastTimeInput.getText().isEmpty();
-    }
-
-    public boolean bInputsClear() {
-        return bInputCity.getText().isEmpty() && bLatitudeInput.getText().isEmpty() && bLongitudeInput.getText().isEmpty() && bForecastTimeInput.getText().isEmpty();
-    }
-
-    public boolean cInputsClear() {
-        return cInputCity.getText().isEmpty() && cLatitudeInput.getText().isEmpty() && cLongitudeInput.getText().isEmpty() && cForecastTimeInput.getText().isEmpty();
-    }
-
-    public boolean dInputsClear() {
-        return dInputCity.getText().isEmpty() && dLatitudeInput.getText().isEmpty() && dLongitudeInput.getText().isEmpty() && dForecastTimeInput.getText().isEmpty();
-    }
-
-    public boolean eInputsClear() {
-        return eInputCity.getText().isEmpty() && eLatitudeInput.getText().isEmpty() && eLongitudeInput.getText().isEmpty() && eForecastTimeInput.getText().isEmpty();
-    }
-
-    @FXML
-    private void handleAddToFavourites() {
-        String city = aInputCity.getText();
-        String time = aForecastTimeInput.getText();
-        String lat = aLatitudeInput.getText();
-        String lon = aLongitudeInput.getText();
-
-        if (city.isEmpty() && time.isEmpty()  ) {
-            showError("Please provide city name and time or coordinates and time");
-            return;
-        }
-
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Your Favourite Place");
-        dialog.setHeaderText("Enter favourite place name");
-        dialog.setContentText("Name:");
-
-        Optional<String> result = dialog.showAndWait();
-        result.ifPresent(customName -> {
-            if (!customName.isEmpty()) {
-                presenter.addFavourite(customName, city, lon, lat, time);
-            } else {
-                showError("Please provide custom name");
-            }
-        });
-    }
-
-    @FXML
-    private void handleShowFavourites() {
-        try {
-            Parent favouritesView = FXMLLoaderUtility.loadFavouritesView();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(favouritesView));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void handleClear() {
-        clearAInputs();
-        clearBInputs();
-        clearCInputs();
-        clearDInputs();
-        clearEInputs();
-    }
-
 }
