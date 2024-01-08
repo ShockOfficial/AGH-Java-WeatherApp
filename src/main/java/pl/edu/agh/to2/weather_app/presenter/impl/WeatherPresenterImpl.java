@@ -189,7 +189,7 @@ public class WeatherPresenterImpl implements IWeatherPresenter {
     }
 
     // Update color of label displaying temperature, according to the temperature scale
-    // (cold (-inf;0), medium <0;10), warm <10;20), hot <20;inf))
+    // (cold (-inf;0), medium <0;10), warm <10;20), hot <20;30), very hot <30;+inf)
     private void updateTemperatureValueColor(float temperature) {
         if (temperature < 0) {
             view.setTemperatureValueClass("temperature-cold");
@@ -197,8 +197,10 @@ public class WeatherPresenterImpl implements IWeatherPresenter {
             view.setTemperatureValueClass("temperature-medium");
         } else if (temperature < 20) {
             view.setTemperatureValueClass("temperature-warm");
-        } else {
+        } else if (temperature < 30) {
             view.setTemperatureValueClass("temperature-hot");
+        } else {
+            view.setTemperatureValueClass("temperature-very-hot");
         }
     }
 
