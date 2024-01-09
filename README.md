@@ -520,9 +520,44 @@ Dodane/zmodyfikowane klasy:
 
 Poniższy diagram przedstawia zależności między klasami w naszym projekcie.
 
-![Tutaj jest zdjęcie diagramu](./Screens/weather_appDiagram.png)
+![Tutaj jest zdjęcie diagramu](./Screens/weather_app_M3_diagram.png)
 
+Mimo że liczba zależności znacznie się zwiększyła, to nadal zachowaliśmy podział na przyjęty na początku zgodny ze wzorcem MVP.
 
 ### Przykład działania
 
 Poniżej przedstawiamy przykładowe działanie aplikacji. Pokażemy każdy z możliwych wariantów.
+
+#### Stan początkowy aplikacji
+
+<p align="center">
+  <img src="./Screens/weather_app_M3.png" alt="Tutaj jest zdjęcie aplikacji" width="600">
+
+Jak widać od teraz mamy dużo więcej okienek, w których możemy wprowadzić dane. Dodatkowo możemy wybrać godzinę, o której chcemy sprawdzić pogodę.
+
+#### Dwa miasta
+
+<p align="center">
+  <img src="./Screens/weather_app_M3_two_cities.png" alt="Tutaj jest zdjęcie aplikacji" width="600">
+
+Możemy zauważyć, że dane jak poprzednio są mergowane za pomocą WeatherDataMerger. Dodatkowo możemy wybrać godzinę, o której chcemy sprawdzić pogodę.
+
+#### Więcej miast
+
+<p align="center">
+  <img src="./Screens/weather_app_M3_more_cities.png" alt="Tutaj jest zdjęcie aplikacji" width="600">
+
+Od teraz możemy sprawdzać pogodę w 5 miejscach jednocześnie.
+
+#### Ulubione miejsca
+
+<p align="center">
+  <img src="./Screens/weather_app_M3_favourites.png" alt="Tutaj jest zdjęcie aplikacji" width="600">
+
+Możemy także dodawać ulubione miejsca, aby łatwo sprawdzić pogodę w swoich ulubionych miejscach.
+
+### Podsumowanie
+
+W tym Milestone'ie udało nam się rozszerzyć możliwości aplikacji. Od teraz aplikacja jest zdecydowanie bardziej funkcjonalna i pozwala na o wiele więcej.
+Możemy sprawdzać pogodę w wielu miejscach jednocześnie, a także możemy dodawać ulubione miejsca, aby łatwo sprawdzić pogodę w swoich ulubionych miejscach.
+Dzięki zmianom z aplikacji korzysta się o wiele przyjemniej.
