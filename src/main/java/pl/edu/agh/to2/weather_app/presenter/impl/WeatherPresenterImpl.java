@@ -14,6 +14,7 @@ import pl.edu.agh.to2.weather_app.utils.Constants;
 import pl.edu.agh.to2.weather_app.view.WeatherView;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -90,6 +91,52 @@ public class WeatherPresenterImpl implements IWeatherPresenter {
         getWeather(weatherDataList);
     }
 
+    public void getForecast(List<String> cities, List<String> citiesTimes, List<String> latList, List<String> lonList, List<String> coordsTimes) {
+        List<CompletableFuture<WeatherData>> weatherDataList = new ArrayList<>();
+        for (int i = 0; i < latList.size(); i++) {
+            weatherDataList.add(model.getForecastDataByCoordinates(latList.get(i), lonList.get(i), coordsTimes.get(i)));
+        }
+        for (int i = 0; i < cities.size(); i++) {
+            weatherDataList.add(model.getForecastDataByCity(cities.get(i), citiesTimes.get(i)));
+        }
+        getWeather(weatherDataList);
+    }
+
+    public void handleGetForecastAction() {
+        List<String> citiesToGetForecast = new LinkedList<>();
+        List<String> citiesTimes = new LinkedList<>();
+        List<String> latitudesToGetForecast = new LinkedList<>();
+        List<String> longitudesToGetForecast = new LinkedList<>();
+        List<String> coordsTimes = new LinkedList<>();
+
+        List<String> aInputs = new LinkedList<>(List.of(view.getACityInput(), view.getALatitudeInput(), view.getALongitudeInput(), view.getATimeInput()));
+        List<String> bInputs = new LinkedList<>(List.of(view.getBCityInput(), view.getBLatitudeInput(), view.getBLongitudeInput(), view.getBTimeInput()));
+        List<String> cInputs = new LinkedList<>(List.of(view.getCCityInput(), view.getCLatitudeInput(), view.getCLongitudeInput(), view.getCTimeInput()));
+        List<String> dInputs = new LinkedList<>(List.of(view.getDCityInput(), view.getDLatitudeInput(), view.getDLongitudeInput(), view.getDTimeInput()));
+        List<String> eInputs = new LinkedList<>(List.of(view.getECityInput(), view.getELatitudeInput(), view.getELongitudeInput(), view.getETimeInput()));
+
+        addToListsIfDataProvided(aInputs, citiesToGetForecast, citiesTimes, latitudesToGetForecast, longitudesToGetForecast, coordsTimes);
+        addToListsIfDataProvided(bInputs, citiesToGetForecast, citiesTimes, latitudesToGetForecast, longitudesToGetForecast, coordsTimes);
+        addToListsIfDataProvided(cInputs, citiesToGetForecast, citiesTimes, latitudesToGetForecast, longitudesToGetForecast, coordsTimes);
+        addToListsIfDataProvided(dInputs, citiesToGetForecast, citiesTimes, latitudesToGetForecast, longitudesToGetForecast, coordsTimes);
+        addToListsIfDataProvided(eInputs, citiesToGetForecast, citiesTimes, latitudesToGetForecast, longitudesToGetForecast, coordsTimes);
+
+        getForecast(citiesToGetForecast, citiesTimes, latitudesToGetForecast, longitudesToGetForecast, coordsTimes);
+    }
+
+    private void addToListsIfDataProvided(List<String> inputs, List<String> citiesToGetForecast, List<String> citiesTimes, List<String> latitudesToGetForecast, List<String> longitudesToGetForecast, List<String> coordsTimes) {
+        boolean cityProvided = !inputs.get(0).isEmpty();
+        boolean coordsProvided = !inputs.get(1).isEmpty() && !inputs.get(2).isEmpty();
+        if (cityProvided) {
+            citiesToGetForecast.add(inputs.get(0));
+            citiesTimes.add(inputs.get(3));
+        } else if (coordsProvided) {
+            latitudesToGetForecast.add(inputs.get(1));
+            longitudesToGetForecast.add(inputs.get(2));
+            coordsTimes.add(inputs.get(3));
+        }
+    }
+
     private void getWeather(List<CompletableFuture<WeatherData>> weatherDataList) {
         CompletableFuture.allOf(weatherDataList.toArray(CompletableFuture[]::new)).thenAccept(v -> {
             List<WeatherDataToDisplay> weatherDataToDisplayList = new ArrayList<>();
@@ -142,7 +189,7 @@ public class WeatherPresenterImpl implements IWeatherPresenter {
     }
 
     // Update color of label displaying temperature, according to the temperature scale
-    // (cold (-inf;0), medium <0;10), warm <10;20), hot <20;inf))
+    // (cold (-inf;0), medium <0;10), warm <10;20), hot <20;30), very hot <30;+inf)
     private void updateTemperatureValueColor(float temperature) {
         if (temperature < 0) {
             view.setTemperatureValueClass("temperature-cold");
@@ -150,8 +197,10 @@ public class WeatherPresenterImpl implements IWeatherPresenter {
             view.setTemperatureValueClass("temperature-medium");
         } else if (temperature < 20) {
             view.setTemperatureValueClass("temperature-warm");
-        } else {
+        } else if (temperature < 30) {
             view.setTemperatureValueClass("temperature-hot");
+        } else {
+            view.setTemperatureValueClass("temperature-very-hot");
         }
     }
 
@@ -196,30 +245,89 @@ public class WeatherPresenterImpl implements IWeatherPresenter {
         }
     }
 
-    private void clearInputs() {
-        Platform.runLater(() -> {
-            view.setACityInput("");
-            view.setALongitudeInput("");
-            view.setALatitudeInput("");
-            view.setTimeInput("");
-        });
+    private void setAInputs(Favourite favourite) {
+        if (favourite.getCity() != null && !favourite.getCity().isEmpty()) {
+            view.setACityInput(favourite.getCity());
+        }
+        if (favourite.getLon() != null) {
+            view.setALongitudeInput(favourite.getLon().toString());
+        }
+        if (favourite.getLat() != null) {
+            view.setALatitudeInput(favourite.getLat().toString());
+        }
+        view.setATimeInput(favourite.getTime());
+    }
+
+    private void setBInputs(Favourite favourite) {
+        if (favourite.getCity() != null && !favourite.getCity().isEmpty()) {
+            view.setBCityInput(favourite.getCity());
+        }
+        if (favourite.getLon() != null) {
+            view.setBLongitudeInput(favourite.getLon().toString());
+        }
+        if (favourite.getLat() != null) {
+            view.setBLatitudeInput(favourite.getLat().toString());
+        }
+        view.setBTimeInput(favourite.getTime());
+    }
+
+    private void setCInputs(Favourite favourite) {
+        if (favourite.getCity() != null && !favourite.getCity().isEmpty()) {
+            view.setCCityInput(favourite.getCity());
+        }
+        if (favourite.getLon() != null) {
+            view.setCLongitudeInput(favourite.getLon().toString());
+        }
+        if (favourite.getLat() != null) {
+            view.setCLatitudeInput(favourite.getLat().toString());
+        }
+        view.setCTimeInput(favourite.getTime());
+    }
+
+    private void setDInputs(Favourite favourite) {
+        if (favourite.getCity() != null && !favourite.getCity().isEmpty()) {
+            view.setDCityInput(favourite.getCity());
+        }
+        if (favourite.getLon() != null) {
+            view.setDLongitudeInput(favourite.getLon().toString());
+        }
+        if (favourite.getLat() != null) {
+            view.setDLatitudeInput(favourite.getLat().toString());
+        }
+        view.setDTimeInput(favourite.getTime());
+    }
+
+    private void setEInputs(Favourite favourite) {
+        if (favourite.getCity() != null && !favourite.getCity().isEmpty()) {
+            view.setECityInput(favourite.getCity());
+        }
+        if (favourite.getLon() != null) {
+            view.setELongitudeInput(favourite.getLon().toString());
+        }
+        if (favourite.getLat() != null) {
+            view.setELatitudeInput(favourite.getLat().toString());
+        }
+        view.setETimeInput(favourite.getTime());
     }
 
     public void fillWeatherAppInputs(Favourite favourite) {
-        clearInputs();
         Platform.runLater(() -> {
-            if (favourite.getCity() != null && !favourite.getCity().isEmpty()) {
-                view.setACityInput(favourite.getCity());
+            if (this.view.areAInputsClear()) {
+                setAInputs(favourite);
+            } else if (this.view.areBInputsClear()) {
+                setBInputs(favourite);
+            } else if (this.view.areCInputsClear()) {
+                setCInputs(favourite);
+            } else if (this.view.areDInputsClear()) {
+                setDInputs(favourite);
+            } else if (this.view.areEInputsClear()) {
+                setEInputs(favourite);
+            } else {
+                this.view.showError("All inputs are filled");
             }
-            if (favourite.getLon() != null) {
-                view.setALongitudeInput(favourite.getLon().toString());
-            }
-            if (favourite.getLat() != null) {
-                view.setALatitudeInput(favourite.getLat().toString());
-            }
-            view.setTimeInput(favourite.getTime());
         });
     }
+
     public void setView(WeatherView view) {
         this.view = view;
     }

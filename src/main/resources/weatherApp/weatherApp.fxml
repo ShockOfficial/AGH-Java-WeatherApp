@@ -4,16 +4,17 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.geometry.Pos?>
-
 <?import javafx.scene.layout.HBox?>
+
 <VBox alignment="CENTER" minHeight="600.0" minWidth="650.0" prefHeight="650.0" prefWidth="720.0" spacing="5"
       stylesheets="@./style.css"
       xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.agh.to2.weather_app.view.WeatherView">
@@ -21,27 +22,43 @@
         <GridPane.margin>
             <Insets top="10.0" />
         </GridPane.margin>
-        <Label text="Enter cities names" wrapText="true" styleClass="header"  GridPane.rowIndex="0"  GridPane.columnSpan="2">
+        <Label styleClass="header" text="Enter cities names" wrapText="true" GridPane.columnSpan="2" GridPane.rowIndex="0">
             <font>
                 <Font name="System Bold" size="24.0" />
             </font>
         </Label>
-        <TextField fx:id="aInputCity" promptText="A City"  GridPane.columnIndex="0"  GridPane.rowIndex="1"    />
-        <TextField fx:id="bInputCity" promptText="B City (Optional)" GridPane.columnIndex="1" GridPane.rowIndex="1"   />
+        <TextField fx:id="aInputCity" promptText="A City" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <TextField fx:id="bInputCity" promptText="B City" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <TextField fx:id="cInputCity" layoutX="156.0" layoutY="55.0" promptText="C City" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      <TextField fx:id="dInputCity" layoutX="302.0" layoutY="55.0" promptText="D City" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+      <TextField fx:id="eInputCity" layoutX="448.0" layoutY="55.0" promptText="E City" GridPane.columnIndex="4" GridPane.rowIndex="1" />
 
-        <Label text="or enter cities coords..." wrapText="true" styleClass="header"  GridPane.rowIndex="2"  GridPane.columnSpan="2">
+        <Label styleClass="header" text="or enter cities coords..." wrapText="true" GridPane.columnSpan="2" GridPane.rowIndex="2">
             <font>
                 <Font name="System Bold" size="24.0" />
             </font>
         </Label>
         <TextField fx:id="aLatitudeInput" promptText="A Latitude" GridPane.rowIndex="3" />
-        <TextField fx:id="aLongitudeInput" promptText="A Longitude" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-        <TextField fx:id="bLatitudeInput" promptText="B Latitude (Optional)" GridPane.rowIndex="4" />
-        <TextField fx:id="bLongitudeInput" promptText="B Longitude (Optional)" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-        <TextField fx:id="forecastTimeInput" promptText="Forecast time (hh:mm)" GridPane.rowIndex="5" GridPane.columnIndex="0" GridPane.columnSpan="2" />
+        <TextField fx:id="bLatitudeInput" promptText="B Latitude" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <TextField fx:id="cLatitudeInput" layoutX="156.0" layoutY="135.0" promptText="C Latitude" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <TextField fx:id="dLatitudeInput" layoutX="302.0" layoutY="135.0" promptText="D Latitude" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+      <TextField fx:id="eLatitudeInput" layoutX="448.0" layoutY="135.0" promptText="E Latitude" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+        <TextField fx:id="aLongitudeInput" promptText="A Longitude" GridPane.rowIndex="4" />
+        <TextField fx:id="bLongitudeInput" promptText="B Longitude" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <TextField fx:id="cLongitudeInput" layoutX="156.0" layoutY="170.0" promptText="C Longitude" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+      <TextField fx:id="dLongitudeInput" layoutX="302.0" layoutY="170.0" promptText="D Longitude" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+      <TextField fx:id="eLongitudeInput" layoutX="448.0" layoutY="170.0" promptText="E Longitude" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+        <TextField fx:id="aForecastTimeInput" promptText="Forecast time (hh:mm)" GridPane.rowIndex="5" />
+      <TextField fx:id="bForecastTimeInput" layoutX="10.0" layoutY="205.0" promptText="Forecast time (hh:mm)" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <TextField fx:id="cForecastTimeInput" layoutX="156.0" layoutY="205.0" promptText="Forecast time (hh:mm)" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+      <TextField fx:id="dForecastTimeInput" layoutX="302.0" layoutY="205.0" promptText="Forecast time (hh:mm)" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+      <TextField fx:id="eForecastTimeInput" layoutX="448.0" layoutY="205.0" promptText="Forecast time (hh:mm)" GridPane.columnIndex="4" GridPane.rowIndex="5" />
         <columnConstraints>
             <ColumnConstraints percentWidth="45" />
             <ColumnConstraints percentWidth="45" />
+         <ColumnConstraints minWidth="10.0" percentWidth="45.0" prefWidth="100.0" />
+         <ColumnConstraints minWidth="10.0" percentWidth="45.0" prefWidth="100.0" />
+         <ColumnConstraints minWidth="10.0" percentWidth="45.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
             <RowConstraints />
@@ -54,30 +71,31 @@
     </GridPane>
     <HBox alignment="CENTER" spacing="10">
         <VBox.margin>
-            <Insets top="20.0" bottom="10.0" />
+            <Insets bottom="10.0" top="20.0" />
         </VBox.margin>
-        <Button onAction="#handleGetWeatherAction" text="Get Weather" styleClass="button" />
-        <Button fx:id="addToFavouritesButton" text="Add to favourite" onAction="#handleAddToFavourites" />
-        <Button fx:id="showFavouritesButton" text="Show favourite" onAction="#handleShowFavourites" />
+        <Button onAction="#handleGetWeatherAction" styleClass="button" text="Get Weather" />
+        <Button fx:id="addToFavouritesButton" onAction="#handleAddToFavourites" text="Add to favourite" />
+        <Button fx:id="showFavouritesButton" onAction="#handleShowFavourites" text="Show favourite" />
+      <Button fx:id="clearButton" onAction="#handleClear" text="Clear" />
     </HBox>
 
 
-    <Label fx:id="weatherError" text="City not found" visible="false" wrapText="true" styleClass="error-message">
+    <Label fx:id="weatherError" styleClass="error-message" text="City not found" visible="false" wrapText="true">
         <StackPane.alignment>
             <Pos fx:constant="CENTER" />
         </StackPane.alignment>
     </Label>
-    <VBox fx:id="weatherInfo" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" visible="false" >
+    <VBox fx:id="weatherInfo" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" visible="false">
         <HBox alignment="CENTER" spacing="10">
-            <ImageView fx:id="weatherIconLeft" preserveRatio="true"  cache="true"/>
-            <ImageView fx:id="weatherIconRight" preserveRatio="true"  cache="true" />
-            <ImageView fx:id="informationIcon1" preserveRatio="true"  cache="true"/>
-            <ImageView fx:id="informationIcon2" preserveRatio="true"  cache="true" />
+            <ImageView fx:id="icon1" cache="true" preserveRatio="true" />
+            <ImageView fx:id="icon2" cache="true" preserveRatio="true" />
+            <ImageView fx:id="icon3" cache="true" preserveRatio="true" />
+            <ImageView fx:id="icon4" cache="true" preserveRatio="true" />
+            <ImageView fx:id="icon5" cache="true" preserveRatio="true" />
+            <ImageView fx:id="icon6" cache="true" preserveRatio="true" />
+            <ImageView fx:id="icon7" cache="true" preserveRatio="true" />
         </HBox>
-        <VBox.margin>
-            <Insets top="-30.0" />
-        </VBox.margin>
-        <Label fx:id="weatherOutputInformer" text="Weather for City" textAlignment="CENTER" wrapText="true"  styleClass="weather-header" alignment="CENTER">
+        <Label fx:id="weatherOutputInformer" alignment="CENTER" styleClass="weather-header" text="Weather for City" textAlignment="CENTER" wrapText="true">
             <font>
                 <Font name="System Bold" size="12.0" />
             </font>
@@ -87,52 +105,58 @@
         </Label>
         <GridPane alignment="CENTER" hgap="10.0" vgap="10.0">
             <columnConstraints>
-                <ColumnConstraints halignment="CENTER"/>
-                <ColumnConstraints halignment="CENTER" minWidth="50.0"/>
-                <ColumnConstraints/>
+                <ColumnConstraints halignment="CENTER" />
+                <ColumnConstraints halignment="CENTER" minWidth="50.0" />
+                <ColumnConstraints />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints vgrow="SOMETIMES"/>
-                <RowConstraints vgrow="SOMETIMES"/>
-                <RowConstraints vgrow="SOMETIMES"/>
-                <RowConstraints vgrow="SOMETIMES"/>
-                <RowConstraints vgrow="SOMETIMES"/>
-                <RowConstraints vgrow="SOMETIMES"/>
-                <RowConstraints vgrow="SOMETIMES"/>
+                <RowConstraints vgrow="SOMETIMES" />
+                <RowConstraints vgrow="SOMETIMES" />
+                <RowConstraints vgrow="SOMETIMES" />
+                <RowConstraints vgrow="SOMETIMES" />
+                <RowConstraints vgrow="SOMETIMES" />
+                <RowConstraints vgrow="SOMETIMES" />
+                <RowConstraints vgrow="SOMETIMES" />
             </rowConstraints>
             <VBox.margin>
-                <Insets/>
+                <Insets />
             </VBox.margin>
             <Label text="Temperature:" GridPane.rowIndex="1">
                 <GridPane.margin>
-                    <Insets/>
+                    <Insets />
                 </GridPane.margin>
             </Label>
             <Label text="Pressure:" GridPane.rowIndex="2">
                 <GridPane.margin>
-                    <Insets/>
+                    <Insets />
                 </GridPane.margin>
             </Label>
             <Label text="Humidity:" GridPane.rowIndex="3">
                 <GridPane.margin>
-                    <Insets/>
+                    <Insets />
                 </GridPane.margin>
             </Label>
             <Label text="Wind speed:" GridPane.rowIndex="4">
                 <GridPane.margin>
-                    <Insets/>
+                    <Insets />
                 </GridPane.margin>
             </Label>
             <Label text="Air quality:" GridPane.rowIndex="5">
                 <GridPane.margin>
-                    <Insets/>
+                    <Insets />
                 </GridPane.margin>
             </Label>
-            <Label fx:id="sensedTemperatureValue" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-            <Label fx:id="pressureValue" contentDisplay="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-            <Label fx:id="humidityValue" contentDisplay="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-            <Label fx:id="windValue" contentDisplay="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-            <Label fx:id="airQuality" contentDisplay="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+            <Label fx:id="sensedTemperatureValue" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="pressureValue" contentDisplay="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="humidityValue" contentDisplay="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label fx:id="windValue" contentDisplay="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label fx:id="airQuality" contentDisplay="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="5" />
         </GridPane>
+        <VBox.margin>
+            <Insets top="-30.0" />
+        </VBox.margin>
     </VBox>
+   <padding>
+      <Insets left="20.0" right="20.0" />
+   </padding>
 </VBox>

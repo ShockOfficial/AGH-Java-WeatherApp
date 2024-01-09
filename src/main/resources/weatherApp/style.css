@@ -96,3 +96,7 @@
 .temperature-hot {
     -fx-text-fill: linear-gradient(to right, #ff6633, #ff0000);
 }
+
+.temperature-very-hot {
+    -fx-text-fill: #ff0000;
+}

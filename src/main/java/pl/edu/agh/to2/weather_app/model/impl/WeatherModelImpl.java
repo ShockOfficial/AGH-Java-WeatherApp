@@ -11,7 +11,11 @@ import pl.edu.agh.to2.weather_app.model.forecast_data.ForecastData;
 import pl.edu.agh.to2.weather_app.model.response_converter.IResponseToModelConverter;
 import pl.edu.agh.to2.weather_app.model.geocoding_data.GeocodingData;
 import pl.edu.agh.to2.weather_app.model.weather_data.WeatherData;
+import pl.edu.agh.to2.weather_app.utils.Constants;
+
 import java.io.IOException;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.concurrent.CompletableFuture;
 
 public class WeatherModelImpl implements IWeatherModel {
@@ -27,7 +31,6 @@ public class WeatherModelImpl implements IWeatherModel {
     }
 
     public WeatherModelImpl(IResponseToModelConverter converter, DataProvider provider) {
-
         this.converter = converter;
         this.provider = provider;
     }
@@ -41,18 +44,15 @@ public class WeatherModelImpl implements IWeatherModel {
                     logger.log("Geocoding API error: " + city + " not found");
                     throw new GeocodingException(city + " not found");
                 }
-
                 ForecastData forecast = this.getForecast(geocoding.getLon(), geocoding.getLat());
                 WeatherData weather = forecast.getWeatherList().get(0);
                 AirPollutionData airPollution = this.getAirPollution(geocoding.getLon(), geocoding.getLat());
-
                 weather.setGeocodingData(geocoding);
                 weather.setAirPollutionData(airPollution);
-
                 return weather;
             } catch (IOException e) {
                 logger.log("Failed to fetch data from API for " + city);
-                throw new DataFetchException("Error fetching weather data");
+                throw new DataFetchException(Constants.DATA_FETCH_ERROR_MESSAGE);
             }
         });
     }
@@ -69,7 +69,46 @@ public class WeatherModelImpl implements IWeatherModel {
                 return weather;
             } catch (IOException e) {
                 logger.log(String.format("Failed to fetch data from API for %s, %s", lon, lat));
-                throw new DataFetchException("Error fetching weather data");
+                throw new DataFetchException(Constants.DATA_FETCH_ERROR_MESSAGE);
+            }
+        });
+    }
+
+    @Override
+    public CompletableFuture<WeatherData> getForecastDataByCity(String city, String time) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                GeocodingData geocoding = this.getCoords(city);
+                if (geocoding == null) {
+                    logger.log("Geocoding API error: " + city + " not found");
+                    throw new GeocodingException(city + " not found");
+                }
+                ForecastData forecast = this.getForecast(geocoding.getLon(), geocoding.getLat());
+                WeatherData weather = getForecastAccordingToTime(forecast, time);
+                AirPollutionData airPollution = this.getAirPollution(geocoding.getLon(), geocoding.getLat());
+                weather.setGeocodingData(geocoding);
+                weather.setAirPollutionData(airPollution);
+                return weather;
+            } catch (IOException e) {
+                logger.log("Failed to fetch data from API for " + city);
+                throw new DataFetchException(Constants.DATA_FETCH_ERROR_MESSAGE);
+            }
+        });
+    }
+
+    @Override
+    public  CompletableFuture<WeatherData> getForecastDataByCoordinates(String lon, String lat, String time) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                AirPollutionData airPollution = this.getAirPollution(lon, lat);
+                ForecastData forecast = this.getForecast(lon, lat);
+                WeatherData weather = getForecastAccordingToTime(forecast, time);
+                forecast.setAirPollution(airPollution);
+                weather.setAirPollutionData(airPollution);
+                return weather;
+            } catch (IOException e) {
+                logger.log(String.format("Failed to fetch data from API for %s, %s", lon, lat));
+                throw new DataFetchException(Constants.DATA_FETCH_ERROR_MESSAGE);
             }
         });
     }
@@ -84,8 +123,7 @@ public class WeatherModelImpl implements IWeatherModel {
         if (jsonResponse == null) {
             return null;
         }
-        return converter.convertCoords(jsonResponse.
-                substring(1, jsonResponse.length()-1));
+        return converter.convertCoords(jsonResponse.substring(1, jsonResponse.length() - 1));
     }
 
     private AirPollutionData getAirPollution(String lon, String lat) throws IOException{
@@ -96,5 +134,25 @@ public class WeatherModelImpl implements IWeatherModel {
     private ForecastData getForecast(String lon, String lat) throws IOException{
         String jsonResponse = provider.getForecast(lon, lat);
         return converter.convertForecast(jsonResponse);
+    }
+
+    private WeatherData getForecastAccordingToTime(ForecastData forecastData, String time) {
+        time += ":00";
+        LocalTime userTime = LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm:ss"));
+        for (WeatherData weatherData : forecastData.getWeatherList()) {
+            LocalTime forecastTime = LocalTime.parse(weatherData.getTime().split(" ")[1], DateTimeFormatter.ofPattern("HH:mm:ss"));
+            if (differenceOneAndHalfHour(userTime, forecastTime)) {
+                return weatherData;
+            }
+        }
+        return null;
+    }
+
+    private boolean differenceOneAndHalfHour(LocalTime userTime, LocalTime forecastTime) {
+        if (userTime.isBefore(forecastTime)) {
+            return userTime.plusHours(1).plusMinutes(31).isAfter(forecastTime);
+        } else {
+            return forecastTime.plusHours(1).plusMinutes(31).isAfter(userTime);
+        }
     }
 }
