@@ -394,3 +394,135 @@ W tym Milestone'ie udało nam się rozszerzyć możliwości aplikacji. Poprawili
 wprowadzić nowe funkcjonalności takie jak wyświetlanie ikonek pogody czy maseczek.
 Aplikacja stała się bardziej przydatna dla użytkowników, gdyż mogą sprawdzać pogodę w dwóch miejscach, co pozwala zaoszczędzić sporo czasu.
 Dzięki zmianom z aplikacji korzysta się o wiele przyjemniej.
+
+
+## Milestone 3
+
+W tym Milestone'ie naszym celem było rozszerzenie możliwości aplikacji. Od teraz chcemy, aby użytkownik mógł sprawdzić pogodę w 5 miejscach jednocześnie.
+Do tego dodaliśmy możliwość zapisywania ulubionych miejsc, a także możemy teraz sprawdzać pogodę o danej porze dnia.
+
+### Pomysł
+
+Naszym głównym zamysłem było to, aby zbytnio nie komplikować i nie zmieniać struktury projektu. Dlatego też postanowiliśmy rozszerzyć nasz model o nowe klasy i funkcjonalności.
+
+#### Dlaczego dodaliśmy możliwość zapisywania ulubionych miejsc?
+
+Dodaliśmy możliwość zapisywania ulubionych miejsc, aby użytkownik mógł łatwo sprawdzić pogodę w swoich ulubionych miejscach. Dzięki temu nie musi wpisywać nazwy miasta czy koordynatów, a jedynie wybrać z listy.
+
+#### Dlaczego dodaliśmy możliwość sprawdzania pogody o danej porze dnia?
+
+Dodaliśmy możliwość sprawdzania pogody o danej porze dnia, aby użytkownik mógł sprawdzić pogodę w danym miejscu o danej porze dnia. Dzięki temu może sprawdzić, czy w danym miejscu będzie padać o danej godzinie i odpowiednio się do tego przygotować.
+
+#### Jak działa nasza baza danych?
+
+Nasza baza danych oparta jest na jsonie, gdyż jest ona bardzo mała. Dzięki temu możemy łatwo zapisywać i odczytywać dane z bazy danych. Dodatkowo możemy łatwo dodawać nowe miejsca do bazy danych.
+Json wydawał się bardzo dobrym wyborem ze względu na prostotę i łatwość obsługi oraz dlatego, że nasza baza prawdopodobnie nie rozrośnie się zbyt bardzo.
+
+#### Dlaczego dodaliśmy możliwość sprawdzania pogody w 5 miejscach jednocześnie?
+
+Dodaliśmy możliwość sprawdzania pogody w 5 miejscach jednocześnie, aby użytkownik mógł łatwo sprawdzić pogodę w wielu miejscach. Dzięki temu może sprawdzić pogodę w wielu miejscach bez konieczności wpisywania nazwy miasta czy koordynatów.
+
+### Opis działania
+
+Aplikacja działa analogicznie jak w poprzednim Milestone'ie. Po uruchomieniu aplikacji, użytkownikowi wyświetla się okno, w którym może wprowadzić nazwę miasta lub jego koordynaty. Jednak od teraz możemy sprawdzać pogodę w 5 miejscach jednocześnie, podając nazwy miejscowości lub koordynaty miejsc.
+
+### Zależności
+
+Nie zmieniliśmy zależności w stosunku do poprzedniego Milestone'a. Zatem nadal używamy następujących zależności:
+```
+dependencies {
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.1'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.1'
+    implementation("com.squareup.okhttp3:okhttp:4.11.0")
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation group: 'com.google.inject', name: 'guice', version: '5.0.1'
+    testImplementation 'org.mockito:mockito-core:3.12.4'
+    testImplementation "org.testfx:testfx-core:4.0.17"
+    testImplementation group: 'org.hamcrest', name: 'hamcrest', version: '2.1'
+    testImplementation "org.testfx:testfx-junit5:4.0.17"
+}
+  
+ ```
+
+### Struktura projektu
+
+W tym Milestone'ie nie zmieniliśmy struktury projektu znacznie, zatem nadal mamy kluczowy podział stworzony w oparciu o MVP.
+
+### Opisy pakietów i klas
+
+Z racji tego, że w tym Milestone'ie kontynuujemy pracę nad tym samym projektem, nie będziemy opisywać ponownie wszystkich pakietów i klas, lecz tylko te, które uległy zmianie i zostały dodane.
+
+#### Pakiet api
+
+Został rozszerzony o możliwość pobierania prognozy pogody na 5 dni.
+
+Dodane/zmodyfikowane klasy:
+1. **DataProvider**: wykonuje zapytania do api pogodowego i zwraca dane dotyczące pogody. Od teraz także pobiera dane o zanieczyszczeniu powietrza oraz pomaga w uzyskiwaniu ikon. Dodatkowo została ona zrefaktoryzowana, aby była bardziej czytelna.
+
+#### Pakier exceptions
+
+Został rozszerzony o nowe wyjątki.
+
+Dodane/zmodyfikowane klasy:
+1. **DataSerializationException**: klasa odpowiedzialna za obsługę wyjątków związanych z serializacją danych
+2. **FailedToLogException**: klasa odpowiedzialna za obsługę wyjątków związanych z logowaniem danych
+3. **FavouriteListReloadException**: klasa odpowiedzialna za obsługę wyjątków związanych z odczytem ulubionych miejsc
+4. **ItemAlreadyExistsException**: klasa odpowiedzialna za obsługę wyjątków związanych z dodawaniem ulubionych miejsc
+5. **TimeNotFoundException**: klasa odpowiedzialna za obsługę wyjątków związanych z pobieraniem prognozy pogody
+
+#### Pakiet logger
+
+Został rozszerzony o klasę odpowiedzialną za logowanie danych do pliku.
+
+Dodane/zmodyfikowane klasy:
+1. **FileSerializer**: klasa odpowiedzialna za logowanie informacji do pliku
+
+#### Pakiet model
+
+Został rozszerzony o możliwość pobierania prognozy pogody na 5 dni.
+
+Dodane/zmodyfikowane klasy:
+1. **forecast_data/ForecastData**: klasa zawierająca informacje o prognozie pogody przygotowana z myślą o API OpenWeatherMap.
+2. **forecast_data/CityDTO**: klasa zawierająca informacje o mieście (np. nazwa, koordynaty)
+
+#### Pakiet persistence
+
+Został dodany pakiet odpowiedzialny za obsługę bazy danych.
+
+Dodane/zmodyfikowane klasy:
+1. **Dao**: interfejs zawierający metody pozwalające na zapisywanie i odczytywanie danych z bazy danych
+2. **favourite/Favourite**: klasa zawierająca informacje o ulubionym miejscu
+3. **favourite/FavouriteDao**: klasa implementująca interfejs Dao, zawiera metody pozwalające na zapisywanie i odczytywanie ulubionych miejsc
+4. **favourite/FavouriteList**: klasa zawierająca listę ulubionych miejsc
+
+#### Pakiet presenter
+
+Został rozszerzony o możliwość pobierania prognozy pogody na 5 dni.
+
+Dodane/zmodyfikowane klasy:
+1. **impl/FavouritePresenterImpl**: obsługuje prezentację danych w widoku FavouriteView, jednocześnie komunikując się z modelem FavouriteModel
+2. **IFavouritePresenter**: interfejs zawierający metody pozwalające na komunikację między widokiem a modelem
+3. **impl/WeatherPresenterImpl**: obsługuje prezentację danych w widoku WeatherView, jednocześnie komunikując się z modelem WeatherModel, teraz także przetwarzamy dane o prognozie pogody
+
+#### Pakiet utils
+
+Nie uległ zmianie w stosunku do poprzedniego Milestone'a.
+
+#### Pakiet view
+
+Został rozszerzony o możliwość wyboru 5 miejsc oraz o możliwość wyboru godziny. Dodatkowo został dodany widok FavouriteView.
+
+Dodane/zmodyfikowane klasy:
+1. **FavouriteView**: zajmuje się wyświetlaniem widoku aplikacji, komunikuje się z modelem poprzez prezentera, pozwalając na dodawanie i usuwanie ulubionych miejsc
+2. **WeatherView**: zajmuje się wyświetlaniem widoku aplikacji, komunikuje się z modelem poprzez prezentera. Teraz możemy wprowadzać pięć miejsc, a także wyświetlać ikonki pogody. Dodatkowo wyświetla temperaturę w kolorach ustalonych w prezenterze.
+
+### Diagram zależności
+
+Poniższy diagram przedstawia zależności między klasami w naszym projekcie.
+
+![Tutaj jest zdjęcie diagramu](./Screens/weather_appDiagram.png)
+
+
+### Przykład działania
+
+Poniżej przedstawiamy przykładowe działanie aplikacji. Pokażemy każdy z możliwych wariantów.
