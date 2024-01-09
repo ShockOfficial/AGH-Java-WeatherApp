@@ -19,7 +19,6 @@ public class WeatherDataMerger {
         mergeWeatherParameter(dataA, dataB);
         mergeWeatherDetails(dataA, dataB);
         mergeAirQuality(dataA, dataB);
-        mergeWeatherIcons(dataA, dataB);
     }
 
     private static void mergeCityName(WeatherDataToDisplay dataA, WeatherDataToDisplay dataB) {
@@ -78,11 +77,4 @@ public class WeatherDataMerger {
             }
         }
     }
-
-    private static void mergeWeatherIcons(WeatherDataToDisplay dataA, WeatherDataToDisplay dataB) {
-        if (dataB.getIcon() != null) {
-            dataA.addIconToList(dataB.getIcon());
-        }
-    }
-
 }

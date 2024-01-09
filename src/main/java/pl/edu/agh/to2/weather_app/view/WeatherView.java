@@ -63,16 +63,6 @@ public class WeatherView {
     @FXML
     private ImageView icon2;
     @FXML
-    private ImageView icon3;
-    @FXML
-    private ImageView icon4;
-    @FXML
-    private ImageView icon5;
-    @FXML
-    private ImageView icon6;
-    @FXML
-    private ImageView icon7;
-    @FXML
     private TextField aForecastTimeInput;
     @FXML
     private TextField bForecastTimeInput;
@@ -163,7 +153,7 @@ public class WeatherView {
     }
 
     public void updateWeatherDisplay(WeatherDataToDisplay weatherData) {
-        setWeatherOutputInformer("Weather in " + weatherData.getCityName() + " (" + weatherData.getCountry() + "): " + weatherData.getWeatherParameter() + "\n");
+        setWeatherOutputInformer("Forecast for " + weatherData.getCityName() + "\n");
         setPressureValue(weatherData.getPressure() + " hPa");
         setHumidityValue(weatherData.getHumidity() + "%");
         setWindValue(weatherData.getWindSpeed() + " m/s");
@@ -190,7 +180,7 @@ public class WeatherView {
     }
 
     private void updateIcons(List<String> icons) {
-        List<ImageView> iconsImageViews = List.of(icon1, icon2, icon3, icon4, icon5, icon6, icon7);
+        List<ImageView> iconsImageViews = List.of(icon1, icon2);
         int counter = 0;
         for (String icon : icons) {
             Image image = new Image(icon);
@@ -211,16 +201,6 @@ public class WeatherView {
         icon1.setVisible(false);
         icon2.setImage(null);
         icon2.setVisible(false);
-        icon3.setImage(null);
-        icon3.setVisible(false);
-        icon4.setImage(null);
-        icon4.setVisible(false);
-        icon5.setImage(null);
-        icon5.setVisible(false);
-        icon6.setImage(null);
-        icon6.setVisible(false);
-        icon7.setImage(null);
-        icon7.setVisible(false);
     }
 
     public boolean isWeatherDisplaying() {

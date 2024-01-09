@@ -19,9 +19,7 @@ public class WeatherDataToDisplay {
         this.icon = weatherData.getWeather().get(0).getIcon();
         this.rain = weatherData.getRain() != null ? weatherData.getRain().getOneH() : 0;
         this.snow = weatherData.getSnow() != null ? weatherData.getSnow().getOneH() : 0;
-        if (this.icon != null) {
-            addIconToList(this.icon);
-        }
+        this.iconList = new ArrayList<>();
     }
 
     private String cityName;
@@ -118,9 +116,6 @@ public class WeatherDataToDisplay {
     }
 
     public void addIconToList(String icon) {
-        if (this.iconList == null) {
-            this.iconList = new ArrayList<>();
-        }
         this.iconList.add(icon);
     }
 

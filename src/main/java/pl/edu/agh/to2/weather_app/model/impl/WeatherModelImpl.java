@@ -105,6 +105,7 @@ public class WeatherModelImpl implements IWeatherModel {
                 WeatherData weather = getForecastAccordingToTime(forecast, time);
                 forecast.setAirPollution(airPollution);
                 weather.setAirPollutionData(airPollution);
+                weather.setName(forecast.getName());
                 return weather;
             } catch (IOException e) {
                 logger.log(String.format("Failed to fetch data from API for %s, %s", lon, lat));
