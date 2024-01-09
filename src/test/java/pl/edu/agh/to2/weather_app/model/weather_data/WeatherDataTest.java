@@ -36,18 +36,6 @@ class WeatherDataTest {
         assertTrue(weatherData.getWeather().contains(weatherDTO));
     }
 
-    @Test
-    void testSetAndGetBase() {
-        // given
-        WeatherData weatherData = new WeatherData();
-        String base = "testBase";
-
-        // when
-        weatherData.setBase(base);
-
-        // then
-        assertEquals(base, weatherData.getBase());
-    }
 
     @Test
     void testSetAndGetMain() {
@@ -121,18 +109,7 @@ class WeatherDataTest {
         assertEquals(cloudsDTO, weatherData.getClouds());
     }
 
-    @Test
-    void testSetAndGetDt() {
-        // given
-        WeatherData weatherData = new WeatherData();
-        long dt = 1637966400L;
 
-        // when
-        weatherData.setDt(dt);
-
-        // then
-        assertEquals(dt, weatherData.getDt());
-    }
 
     @Test
     void testSetAndGetSys() {
@@ -152,31 +129,6 @@ class WeatherDataTest {
         assertEquals(sysDTO, weatherData.getSys());
     }
 
-    @Test
-    void testSetAndGetTimezone() {
-        // given
-        WeatherData weatherData = new WeatherData();
-        int timezone = 7200;
-
-        // when
-        weatherData.setTimezone(timezone);
-
-        // then
-        assertEquals(timezone, weatherData.getTimezone());
-    }
-
-    @Test
-    void testSetAndGetId() {
-        // given
-        WeatherData weatherData = new WeatherData();
-        int id = 123;
-
-        // when
-        weatherData.setId(id);
-
-        // then
-        assertEquals(id, weatherData.getId());
-    }
 
     @Test
     void testSetAndGetName() {
@@ -189,19 +141,6 @@ class WeatherDataTest {
 
         // then
         assertEquals(name, weatherData.getName());
-    }
-
-    @Test
-    void testSetAndGetCod() {
-        // given
-        WeatherData weatherData = new WeatherData();
-        int cod = 200;
-
-        // when
-        weatherData.setCod(cod);
-
-        // then
-        assertEquals(cod, weatherData.getCod());
     }
 
     @Test
@@ -232,6 +171,19 @@ class WeatherDataTest {
         // then
         assertEquals(geocodingData, weatherData.getGeocodingData());
         assertEquals("Krakow", weatherData.getGeocodingData().getName());
+    }
+
+    @Test
+    void testSetAndGetTime(){
+        // given
+        WeatherData weatherData = new WeatherData();
+        String time = "2024-01-07 12:00:00";
+
+        // when
+        weatherData.setTime(time);
+
+        // then
+        assertEquals(time, weatherData.getTime());
     }
 
 }
