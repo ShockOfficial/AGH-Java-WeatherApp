@@ -1,23 +1,15 @@
 package pl.edu.agh.to2.weather_app.view;
 
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import pl.edu.agh.to2.weather_app.model.weather_data.WeatherDataToDisplay;
 import pl.edu.agh.to2.weather_app.presenter.IWeatherPresenter;
-import pl.edu.agh.to2.weather_app.utils.FXMLLoaderUtility;
 import pl.edu.agh.to2.weather_app.utils.converter.AirQualityConverter;
-
-import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 public class WeatherView {
     @FXML
@@ -309,44 +301,9 @@ public class WeatherView {
     }
 
     @FXML
-    private void handleAddToFavourites() {
-        String city = aInputCity.getText();
-        String time = aForecastTimeInput.getText();
-        String lat = aLatitudeInput.getText();
-        String lon = aLongitudeInput.getText();
-
-        if (city.isEmpty() && time.isEmpty()  ) {
-            showError("Please provide city name and time or coordinates and time");
-            return;
-        }
-
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Your Favourite Place");
-        dialog.setHeaderText("Enter favourite place name");
-        dialog.setContentText("Name:");
-
-        Optional<String> result = dialog.showAndWait();
-        result.ifPresent(customName -> {
-            if (!customName.isEmpty()) {
-                presenter.addFavourite(customName, city, lon, lat, time);
-            } else {
-                showError("Please provide custom name");
-            }
-        });
-    }
-
-    @FXML
     private void handleShowFavourites() {
-        try {
-            Parent favouritesView = FXMLLoaderUtility.loadFavouritesView();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(favouritesView));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        presenter.onShowFavouritesAction();
     }
-
     @FXML
     private void handleClear() {
         clearAInputs();

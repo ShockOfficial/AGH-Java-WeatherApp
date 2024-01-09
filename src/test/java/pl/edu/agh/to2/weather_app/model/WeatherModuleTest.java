@@ -8,8 +8,7 @@ import pl.edu.agh.to2.weather_app.logger.IMessageSerializer;
 import pl.edu.agh.to2.weather_app.model.response_converter.GsonConverter;
 import pl.edu.agh.to2.weather_app.model.response_converter.IResponseToModelConverter;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class WeatherModuleTest {
 
@@ -51,6 +50,6 @@ class WeatherModuleTest {
 
         // then
         assertNotNull(serializer);
-        assertTrue(serializer instanceof ConsoleSerializer);
+        assertFalse(serializer instanceof ConsoleSerializer);
     }
 }

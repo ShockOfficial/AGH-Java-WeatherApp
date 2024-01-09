@@ -10,9 +10,15 @@ import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.matcher.control.LabeledMatchers;
 import org.testfx.util.WaitForAsyncUtils;
+import pl.edu.agh.to2.weather_app.model.air_pollution_data.AirPollutionData;
+import pl.edu.agh.to2.weather_app.model.air_pollution_data.json.AirListElementDTO;
+import pl.edu.agh.to2.weather_app.model.air_pollution_data.json.AirMainInfoDTO;
 import pl.edu.agh.to2.weather_app.model.weather_data.WeatherData;
+import pl.edu.agh.to2.weather_app.model.weather_data.WeatherDataToDisplay;
 import pl.edu.agh.to2.weather_app.model.weather_data.json.*;
 import pl.edu.agh.to2.weather_app.presenter.IWeatherPresenter;
+import pl.edu.agh.to2.weather_app.presenter.impl.FavouritesPresenterImpl;
+
 
 import java.util.List;
 
@@ -39,6 +45,7 @@ class WeatherViewTest extends ApplicationTest {
         FxRobot robot = new FxRobot();
         robot.clickOn("#aLatitudeInput").write("1");
         robot.clickOn("#aLongitudeInput").write("1");
+        robot.clickOn("#aForecastTimeInput").write("12:00");
         robot.clickOn(".button");
 
         //then
@@ -46,7 +53,7 @@ class WeatherViewTest extends ApplicationTest {
             WaitForAsyncUtils.waitForFxEvents();
             verifyThat("#pressureValue", LabeledMatchers.hasText("1 hPa"));
             verifyThat("#windValue", LabeledMatchers.hasText("1.0 m/s"));
-            verifyThat("#sensedTemperatureValue", LabeledMatchers.hasText("1.0ºC"));
+            verifyThat("#humidityValue", LabeledMatchers.hasText("1%"));
 
         });
     }
@@ -56,6 +63,7 @@ class WeatherViewTest extends ApplicationTest {
         //when
         FxRobot robot = new FxRobot();
         robot.clickOn("#aInputCity").write("test");
+        robot.clickOn("#aForecastTimeInput").write("12:00");
         robot.clickOn(".button");
 
         //then
@@ -63,7 +71,7 @@ class WeatherViewTest extends ApplicationTest {
             WaitForAsyncUtils.waitForFxEvents();
             verifyThat("#pressureValue", LabeledMatchers.hasText("1 hPa"));
             verifyThat("#windValue", LabeledMatchers.hasText("1.0 m/s"));
-            verifyThat("#sensedTemperatureValue", LabeledMatchers.hasText("1.0ºC"));
+            verifyThat("#humidityValue", LabeledMatchers.hasText("1%"));
         });
     }
 
@@ -73,14 +81,42 @@ class WeatherViewTest extends ApplicationTest {
         FxRobot robot = new FxRobot();
         robot.clickOn("#aLatitudeInput").write("1");
         robot.clickOn("#aLongitudeInput").write("1");
+        robot.clickOn("#aForecastTimeInput").write("12:00");
         robot.clickOn(".button");
         robot.clickOn("#bLatitudeInput").write("2");
         robot.clickOn("#bLongitudeInput").write("2");
+        robot.clickOn("#bForecastTimeInput").write("12:00");
         robot.clickOn(".button");
         //then
         verifyThat("#pressureValue", LabeledMatchers.hasText("1 hPa"));
         verifyThat("#windValue", LabeledMatchers.hasText("1.0 m/s"));
-        verifyThat("#sensedTemperatureValue", LabeledMatchers.hasText("1.0ºC"));
+        verifyThat("#humidityValue", LabeledMatchers.hasText("1%"));
+    }
+
+    @Test
+    void displayWeatherFromCoordsForFivePlaces() {
+        //when
+        FxRobot robot = new FxRobot();
+        robot.clickOn("#aLatitudeInput").write("1");
+        robot.clickOn("#aLongitudeInput").write("1");
+        robot.clickOn("#bLatitudeInput").write("2");
+        robot.clickOn("#bLongitudeInput").write("2");
+        robot.clickOn("#cLatitudeInput").write("3");
+        robot.clickOn("#cLongitudeInput").write("3");
+        robot.clickOn("#dLatitudeInput").write("4");
+        robot.clickOn("#dLongitudeInput").write("4");
+        robot.clickOn("#eLatitudeInput").write("5");
+        robot.clickOn("#eLongitudeInput").write("5");
+        robot.clickOn("#aForecastTimeInput").write("12:00");
+        robot.clickOn("#bForecastTimeInput").write("12:42");
+        robot.clickOn("#cForecastTimeInput").write("12:12");
+        robot.clickOn("#dForecastTimeInput").write("12:12");
+        robot.clickOn("#eForecastTimeInput").write("12:32");
+        robot.clickOn(".button");
+        //then
+        verifyThat("#pressureValue", LabeledMatchers.hasText("1 hPa"));
+        verifyThat("#windValue", LabeledMatchers.hasText("1.0 m/s"));
+        verifyThat("#humidityValue", LabeledMatchers.hasText("1%"));
     }
 
     private record MockPresenter(WeatherView view) implements IWeatherPresenter {
@@ -96,15 +132,34 @@ class WeatherViewTest extends ApplicationTest {
         }
 
         @Override
-        public void getWeatherByCities(String cityA, String cityB) {
+        public void getWeatherByCities(List<String> cities) {
+            Platform.runLater(this::insertMockData);
         }
 
         @Override
-        public void getWeatherByCoordinates(String latA, String lonA, String latB, String lonB) {
+        public void getWeatherByCoordinates(List<String> lat, List<String> lon) {
+            Platform.runLater(this::insertMockData);
         }
 
+        @Override
+        public void getForecast(List<String> cities, List<String> citiesTimes, List<String> latList, List<String> lonList, List<String> coordsTimes) {
+            Platform.runLater(this::insertMockData);
+        }
+
+        @Override
+        public void handleGetForecastAction() {
+            Platform.runLater(this::insertMockData);
+        }
+
+        @Override
+        public void onShowFavouritesAction() {
+
+        }
+
+
         private void insertMockData() {
-            view.updateWeatherDisplay(getExampleWeatherData());
+            WeatherData weatherData = getExampleWeatherData();
+            view.updateWeatherDisplay(new WeatherDataToDisplay(weatherData));
         }
     }
 
@@ -122,12 +177,19 @@ class WeatherViewTest extends ApplicationTest {
         weatherData.setWind(new WindDTO());
         weatherData.getWind().setSpeed(1);
         weatherData.getMain().setFeelsLike(1);
+        AirPollutionData airPollutionData = new AirPollutionData();
+        AirListElementDTO airListElementDTO = new AirListElementDTO();
+        AirMainInfoDTO airMainInfoDTO = new AirMainInfoDTO();
+        airListElementDTO.setMainInfo(airMainInfoDTO);
+        airPollutionData.setPollutionList(List.of(airListElementDTO));
+        weatherData.setAirPollutionData(airPollutionData);
         SysDTO sys = new SysDTO();
         sys.setCountry("Perfect Country");
         weatherData.setSys(sys);
         WeatherDTO weather = new WeatherDTO();
         weather.setMain("Perfect weather");
         weather.setIconList(List.of(URL, URL));
+        weather.setIcon(URL);
         weatherData.setWeather(weather);
         return weatherData;
     }

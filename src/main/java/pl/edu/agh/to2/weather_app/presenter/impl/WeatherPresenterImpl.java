@@ -2,17 +2,22 @@ package pl.edu.agh.to2.weather_app.presenter.impl;
 
 import com.google.inject.Inject;
 import javafx.application.Platform;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import pl.edu.agh.to2.weather_app.api.DataProvider;
+import pl.edu.agh.to2.weather_app.logger.Logger;
 import pl.edu.agh.to2.weather_app.model.weather_data.WeatherData;
 import pl.edu.agh.to2.weather_app.model.IWeatherModel;
 import pl.edu.agh.to2.weather_app.model.weather_data.WeatherDataMerger;
 import pl.edu.agh.to2.weather_app.persistence.favourite.Favourite;
-import pl.edu.agh.to2.weather_app.persistence.favourite.FavouritesDao;
 import pl.edu.agh.to2.weather_app.model.weather_data.WeatherDataToDisplay;
 import pl.edu.agh.to2.weather_app.presenter.IWeatherPresenter;
 import pl.edu.agh.to2.weather_app.utils.Constants;
+import pl.edu.agh.to2.weather_app.utils.FXMLLoaderUtility;
 import pl.edu.agh.to2.weather_app.view.WeatherView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,27 +29,22 @@ public class WeatherPresenterImpl implements IWeatherPresenter {
     private static final String DEFAULT_ERROR_MSG = "Error fetching weather data";
     private final WeatherDataMerger weatherMerger;
     private final DataProvider provider;
-    private FavouritesPresenterImpl favouritesPresenter;
-    private final FavouritesDao favouritesDao;
+
+    private final Logger logger = Logger.getInstance();
+
 
     @Inject
-    public WeatherPresenterImpl(IWeatherModel model, WeatherDataMerger merger, DataProvider prov, FavouritesDao dao) {
+    public WeatherPresenterImpl(IWeatherModel model, WeatherDataMerger merger, DataProvider prov) {
         this.model = model;
         this.weatherMerger = merger;
         this.provider = prov;
-        this.favouritesDao = dao;
     }
 
-    public WeatherPresenterImpl(IWeatherModel model, WeatherView view, WeatherDataMerger merger, DataProvider prov, FavouritesDao dao) {
+    public WeatherPresenterImpl(IWeatherModel model, WeatherView view, WeatherDataMerger merger, DataProvider prov) {
         this.model = model;
         this.view = view;
         this.weatherMerger = merger;
         this.provider = prov;
-        this.favouritesDao = dao;
-    }
-
-    public void setFavouritesPresenter(FavouritesPresenterImpl favouritesPresenter) {
-        this.favouritesPresenter = favouritesPresenter;
     }
 
     @Override
@@ -229,22 +229,6 @@ public class WeatherPresenterImpl implements IWeatherPresenter {
         return weatherData.getRain() > 0 || weatherData.getSnow() > 0;
     }
 
-
-    @Override
-    public void addFavourite(String name, String city, String lon, String lat, String time) {
-        Favourite favourite;
-        if (lon.isEmpty() || lat.isEmpty()) {
-            favourite = new Favourite(name, city, time);
-        } else {
-            favourite = new Favourite(name, Float.parseFloat(lon), Float.parseFloat(lat), time);
-        }
-        favouritesDao.save(favourite);
-
-        if (favouritesPresenter != null) {
-            favouritesPresenter.updateView();
-        }
-    }
-
     private void setAInputs(Favourite favourite) {
         if (favourite.getCity() != null && !favourite.getCity().isEmpty()) {
             view.setACityInput(favourite.getCity());
@@ -326,6 +310,18 @@ public class WeatherPresenterImpl implements IWeatherPresenter {
                 this.view.showError("All inputs are filled");
             }
         });
+    }
+
+    @Override
+    public void onShowFavouritesAction() {
+        try {
+            Parent favouritesView = FXMLLoaderUtility.loadFavouritesView();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(favouritesView));
+            stage.show();
+        } catch (IOException e) {
+            logger.log("Error loading favourites view");
+        }
     }
 
     public void setView(WeatherView view) {

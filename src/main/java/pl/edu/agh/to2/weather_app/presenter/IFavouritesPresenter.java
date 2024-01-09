@@ -8,4 +8,8 @@ public interface IFavouritesPresenter {
     void setWeatherPresenter(WeatherPresenterImpl weatherPresenter);
     void favouriteSelectedByText(String selectedFavouriteText);
 
+    void addToFavourites(String name, String city, String lon, String lat, String time);
+
+    void removeFromFavourites(String favouriteText);
+
 }
