@@ -1,60 +1,46 @@
 package pl.edu.agh.to2.weather_app.utils.converter;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-
-import pl.edu.agh.to2.weather_app.model.air_pollution_data.AirPollutionData;
-import pl.edu.agh.to2.weather_app.model.air_pollution_data.json.AirListElementDTO;
-import pl.edu.agh.to2.weather_app.model.air_pollution_data.json.AirMainInfoDTO;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.mockito.Mockito.when;
 
-class AirQualityConverterTest {
+public class AirQualityConverterTest {
 
-    @Mock
-    private AirPollutionData mockAirPollutionData;
+    @Test
+    void getAirQualityString_ValidInput_ReturnsCorrectString() {
+        // Arrange
+        String input = "1";
+        String expectedOutput = "Very good";
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
+        // Act
+        String result = AirQualityConverter.getAirQualityString(input);
+
+        // Assert
+        assertEquals(expectedOutput, result);
     }
 
     @Test
-    void testGetAirQualityString() {
-        // given
-        AirMainInfoDTO mainInfo = new AirMainInfoDTO();
-        mainInfo.setAqi("3");
+    void getAirQualityString_UnknownInput_ReturnsNull() {
+        // Arrange
+        String input = "Unknown";
 
-        AirListElementDTO listElement = new AirListElementDTO();
-        listElement.setMainInfo(mainInfo);
+        // Act
+        String result = AirQualityConverter.getAirQualityString(input);
 
-        when(mockAirPollutionData.getPollutionListElement()).thenReturn(listElement);
-
-        // when
-        String result = AirQualityConverter.getAirQualityString(mockAirPollutionData);
-
-        // then
-        assertEquals("Average", result);
+        // Assert
+        assertEquals(null, result);
     }
 
     @Test
-    void testGetAirQualityString_InvalidAqi() {
-        // given
-        AirMainInfoDTO mainInfo = new AirMainInfoDTO();
-        mainInfo.setAqi("6"); // Invalid AQI
+    void getAirQualityString_InvalidInput_ReturnsNull() {
+        // Arrange
+        String input = "6"; // Invalid input
 
-        AirListElementDTO listElement = new AirListElementDTO();
-        listElement.setMainInfo(mainInfo);
-        when(mockAirPollutionData.getPollutionListElement()).thenReturn(listElement);
+        // Act
+        String result = AirQualityConverter.getAirQualityString(input);
 
-        // when
-        String result = AirQualityConverter.getAirQualityString(mockAirPollutionData);
-
-        // then
-        assertNull(result);
+        // Assert
+        assertEquals(null, result);
     }
+
+    // Add more test cases as needed
 }
