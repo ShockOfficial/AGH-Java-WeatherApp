@@ -1,5 +1,8 @@
 package pl.edu.agh.to2.weather_app.model.impl;
 
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import okhttp3.OkHttpClient;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -25,6 +28,8 @@ class WeatherModelImplTest {
     @InjectMocks
     OkHttpClient client = new OkHttpClient();
     private static class MockConverter implements IResponseToModelConverter {
+        private final Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
+
         @Override
         public WeatherData convertWeather(String jsonResponse) {
             return new WeatherData();
@@ -42,7 +47,7 @@ class WeatherModelImplTest {
 
         @Override
         public ForecastData convertForecast(String response) {
-            return new ForecastData();
+            return gson.fromJson(response, ForecastData.class);
         }
     }
 
@@ -77,12 +82,8 @@ class WeatherModelImplTest {
     @Test
     void testGetWeatherDataByCoordinates() throws IOException {
         // given
-        IResponseToModelConverter mockConverter = mock(MockConverter.class);
-        when(mockConverter.convertWeather(any())).thenReturn(new WeatherData());
-
-        MockDataProvider mockDataProvider = mock(MockDataProvider.class);
-        when(mockDataProvider.getForecast(any(), any())).thenReturn(MockDataProvider.MOCK_FORECAST_DATA);
-
+        IResponseToModelConverter mockConverter = new MockConverter();
+        DataProvider mockDataProvider = new MockDataProvider(client);
         Logger mockLogger = mock(Logger.class);
 
         WeatherModelImpl weatherModel = new WeatherModelImpl(mockConverter, mockLogger, mockDataProvider);
