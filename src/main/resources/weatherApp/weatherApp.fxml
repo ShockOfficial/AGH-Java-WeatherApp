@@ -73,7 +73,7 @@
         <VBox.margin>
             <Insets bottom="10.0" top="20.0" />
         </VBox.margin>
-        <Button onAction="#handleGetWeatherAction" styleClass="button" text="Get Weather" />
+        <Button onAction="#handleGetWeatherAction" styleClass="button" text="Get forecast" />
         <Button fx:id="showFavouritesButton" onAction="#handleShowFavourites" text="Show favourite" />
       <Button fx:id="clearButton" onAction="#handleClear" text="Clear" />
     </HBox>
@@ -88,11 +88,6 @@
         <HBox alignment="CENTER" spacing="10">
             <ImageView fx:id="icon1" cache="true" preserveRatio="true" />
             <ImageView fx:id="icon2" cache="true" preserveRatio="true" />
-            <ImageView fx:id="icon3" cache="true" preserveRatio="true" />
-            <ImageView fx:id="icon4" cache="true" preserveRatio="true" />
-            <ImageView fx:id="icon5" cache="true" preserveRatio="true" />
-            <ImageView fx:id="icon6" cache="true" preserveRatio="true" />
-            <ImageView fx:id="icon7" cache="true" preserveRatio="true" />
         </HBox>
         <Label fx:id="weatherOutputInformer" alignment="CENTER" styleClass="weather-header" text="Weather for City" textAlignment="CENTER" wrapText="true">
             <font>

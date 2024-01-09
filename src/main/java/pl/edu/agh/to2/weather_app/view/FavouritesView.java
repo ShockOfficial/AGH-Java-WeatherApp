@@ -27,31 +27,27 @@ public class FavouritesView {
     private ListView<String> favouritesList;
     @FXML
     private Button removeFromFavouritesButton;
+
+    @FXML
+    private Button fillInputsButton;
+
     private IFavouritesPresenter presenter;
 
     @FXML
     private void initialize() {
         removeFromFavouritesButton.setDisable(true);
+        fillInputsButton.setDisable(true);
         favouritesList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> removeFromFavouritesButton.setDisable(newValue == null));
+        favouritesList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> fillInputsButton.setDisable(newValue == null));
     }
 
 
     public void setPresenter(IFavouritesPresenter presenter) {
         this.presenter = presenter;
-        setupFavouritesListClickHandler();
     }
 
     public void updateFavouritesList(List<String> favourites) {
         favouritesList.getItems().setAll(favourites);
-    }
-
-    private void setupFavouritesListClickHandler() {
-        favouritesList.setOnMouseClicked(event -> {
-            String selectedFavouriteText = favouritesList.getSelectionModel().getSelectedItem();
-            if (selectedFavouriteText != null && presenter != null) {
-                presenter.favouriteSelectedByText(selectedFavouriteText);
-            }
-        });
     }
 
     public void setError(String weatherError) {
@@ -75,8 +71,8 @@ public class FavouritesView {
         String time = forecastTimeInput.getText();
 
 
-        if ((city.isEmpty() && (lat.isEmpty() || lon.isEmpty())) || time.isEmpty()) {
-            showError("Please provide city name and time or coordinates and time");
+        if ((city.isEmpty() && (lat.isEmpty() || lon.isEmpty())) || !isTimeProperFormat(time)) {
+            showError("Please provide city name and time or coordinates and time in proper format");
             return;
         }
 
@@ -89,7 +85,6 @@ public class FavouritesView {
         result.ifPresent(customName -> {
             if (!customName.isEmpty()) {
                 presenter.addToFavourites(customName, city, lon, lat, time);
-                hideError();
             } else {
                 showError("Please provide custom name");
             }
@@ -114,10 +109,23 @@ public class FavouritesView {
 
     @FXML
     private void handleRemoveFromFavourites() {
+        hideError();
         String selectedFavouriteText = favouritesList.getSelectionModel().getSelectedItem();
         if (selectedFavouriteText != null && presenter != null) {
             presenter.removeFromFavourites(selectedFavouriteText);
         }
     }
 
+    @FXML
+    private void handleFillInputs() {
+        hideError();
+        String selectedFavouriteText = favouritesList.getSelectionModel().getSelectedItem();
+        if (selectedFavouriteText != null && presenter != null) {
+            presenter.favouriteSelectedByText(selectedFavouriteText);
+        }
+    }
+
+    private boolean isTimeProperFormat(String time) {
+        return time.matches("\\d\\d:\\d\\d");
+    }
 }

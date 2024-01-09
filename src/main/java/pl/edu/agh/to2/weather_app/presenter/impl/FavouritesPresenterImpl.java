@@ -52,7 +52,6 @@ public class FavouritesPresenterImpl implements IFavouritesPresenter {
     }
 
     public void favouriteSelectedByText(String favouriteText) {
-
         Favourite selectedFavourite = favouritesDao.getList().getList().stream()
                 .filter(f -> f.toString().equals(favouriteText))
                 .findFirst()
@@ -62,13 +61,20 @@ public class FavouritesPresenterImpl implements IFavouritesPresenter {
             weatherPresenter.fillWeatherAppInputs(selectedFavourite);
         }
     }
+
     @Override
     public void addToFavourites(String name, String city, String lon, String lat, String time) {
         Favourite favourite;
         if (lon.isEmpty() || lat.isEmpty()) {
             favourite = new Favourite(name, city, time);
         } else {
-            favourite = new Favourite(name, Float.parseFloat(lon), Float.parseFloat(lat), time);
+            try {
+                favourite = new Favourite(name, Float.parseFloat(lon), Float.parseFloat(lat), time);
+                view.hideError();
+            } catch (NumberFormatException e) {
+                view.showError("Wrong coordinates format");
+                return;
+            }
         }
         favouritesDao.save(favourite);
         clearInputs();

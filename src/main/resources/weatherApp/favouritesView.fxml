@@ -30,6 +30,8 @@
         <HBox alignment="CENTER" spacing="5">
             <Button fx:id="addToFavouritesButton" onAction="#handleAddToFavourites" text="Add to favourite">
             </Button>
+            <Button fx:id="fillInputsButton" onAction="#handleFillInputs"
+                    text="Fill inputs"/>
             <Button fx:id="removeFromFavouritesButton" onAction="#handleRemoveFromFavourites"
                     text="Remove from favourite"/>
         </HBox>
