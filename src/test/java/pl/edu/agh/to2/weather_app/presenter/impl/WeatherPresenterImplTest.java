@@ -40,7 +40,6 @@ class WeatherPresenterImplTest {
         IWeatherModel mockModel = mock(IWeatherModel.class);
         WeatherView mockView = mock(WeatherView.class);
         WeatherDataMerger mockMerger = mock(WeatherDataMerger.class);
-        FavouritesDao mockFavouritesDao = mock(FavouritesDao.class);
         DataProvider mockDataProvider = mock(DataProvider.class);
         WeatherPresenterImpl presenter = new WeatherPresenterImpl(mockModel, mockView, mockMerger, mockDataProvider);
         String city = "TestCity";

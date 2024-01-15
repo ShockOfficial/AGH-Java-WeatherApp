@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Function;
 
 public class WeatherPresenterImpl implements IWeatherPresenter {
     private final IWeatherModel model;
@@ -103,23 +104,24 @@ public class WeatherPresenterImpl implements IWeatherPresenter {
     }
 
     public void handleGetForecastAction() {
-        List<String> citiesToGetForecast = new LinkedList<>();
-        List<String> citiesTimes = new LinkedList<>();
-        List<String> latitudesToGetForecast = new LinkedList<>();
-        List<String> longitudesToGetForecast = new LinkedList<>();
-        List<String> coordsTimes = new LinkedList<>();
+        List<String> citiesToGetForecast = new ArrayList<>();
+        List<String> citiesTimes = new ArrayList<>();
+        List<String> latitudesToGetForecast = new ArrayList<>();
+        List<String> longitudesToGetForecast = new ArrayList<>();
+        List<String> coordsTimes = new ArrayList<>();
 
-        List<String> aInputs = new LinkedList<>(List.of(view.getACityInput(), view.getALatitudeInput(), view.getALongitudeInput(), view.getATimeInput()));
-        List<String> bInputs = new LinkedList<>(List.of(view.getBCityInput(), view.getBLatitudeInput(), view.getBLongitudeInput(), view.getBTimeInput()));
-        List<String> cInputs = new LinkedList<>(List.of(view.getCCityInput(), view.getCLatitudeInput(), view.getCLongitudeInput(), view.getCTimeInput()));
-        List<String> dInputs = new LinkedList<>(List.of(view.getDCityInput(), view.getDLatitudeInput(), view.getDLongitudeInput(), view.getDTimeInput()));
-        List<String> eInputs = new LinkedList<>(List.of(view.getECityInput(), view.getELatitudeInput(), view.getELongitudeInput(), view.getETimeInput()));
+        List<Function<WeatherView, List<String>>> inputGetters = List.of(
+                v -> List.of(v.getACityInput(), v.getALatitudeInput(), v.getALongitudeInput(), v.getATimeInput()),
+                v -> List.of(v.getBCityInput(), v.getBLatitudeInput(), v.getBLongitudeInput(), v.getBTimeInput()),
+                v -> List.of(v.getCCityInput(), v.getCLatitudeInput(), v.getCLongitudeInput(), v.getCTimeInput()),
+                v -> List.of(v.getDCityInput(), v.getDLatitudeInput(), v.getDLongitudeInput(), v.getDTimeInput()),
+                v -> List.of(v.getECityInput(), v.getELatitudeInput(), v.getELongitudeInput(), v.getETimeInput())
+        );
 
-        addToListsIfDataProvided(aInputs, citiesToGetForecast, citiesTimes, latitudesToGetForecast, longitudesToGetForecast, coordsTimes);
-        addToListsIfDataProvided(bInputs, citiesToGetForecast, citiesTimes, latitudesToGetForecast, longitudesToGetForecast, coordsTimes);
-        addToListsIfDataProvided(cInputs, citiesToGetForecast, citiesTimes, latitudesToGetForecast, longitudesToGetForecast, coordsTimes);
-        addToListsIfDataProvided(dInputs, citiesToGetForecast, citiesTimes, latitudesToGetForecast, longitudesToGetForecast, coordsTimes);
-        addToListsIfDataProvided(eInputs, citiesToGetForecast, citiesTimes, latitudesToGetForecast, longitudesToGetForecast, coordsTimes);
+        for (Function<WeatherView, List<String>> inputGetter : inputGetters) {
+            List<String> inputs = inputGetter.apply(view);
+            addToListsIfDataProvided(inputs, citiesToGetForecast, citiesTimes, latitudesToGetForecast, longitudesToGetForecast, coordsTimes);
+        }
 
         getForecast(citiesToGetForecast, citiesTimes, latitudesToGetForecast, longitudesToGetForecast, coordsTimes);
     }

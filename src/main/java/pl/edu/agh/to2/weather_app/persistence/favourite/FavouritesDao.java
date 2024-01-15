@@ -27,9 +27,9 @@ public class FavouritesDao implements Dao<Favourite> {
         this.list = this.gson.fromJson(reader, FavouritesList.class);
     }
 
-    public void reloadList() {
-        try {
-            JsonReader reader = new JsonReader(new FileReader(PERSISTENCE_PATH));
+    public void reloadList() throws IOException {
+        try (FileReader fileReader = new FileReader(PERSISTENCE_PATH);
+             JsonReader reader = new JsonReader(fileReader)) {
             this.list = this.gson.fromJson(reader, FavouritesList.class);
         } catch (FileNotFoundException e) {
             throw new FavouriteListReloadException("Could not reload favourites list");
@@ -69,7 +69,11 @@ public class FavouritesDao implements Dao<Favourite> {
     }
 
     public FavouritesList getList() {
-        reloadList();
+        try {
+            reloadList();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return this.list;
     }
 

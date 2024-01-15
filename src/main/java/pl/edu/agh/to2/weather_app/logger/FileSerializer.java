@@ -6,17 +6,15 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class FileSerializer implements IMessageSerializer{
-    private final static String path = "src/persistence/logs.txt";
+public class FileSerializer implements IMessageSerializer {
+    private static final String DB_PATH = "src/persistence/logs.txt";
 
     @Override
-    public void serializeMessage(String message) throws FailedToLogException{
-        File file = new File(path);
-        try{
-            FileWriter fr = new FileWriter(file, true);
+    public void serializeMessage(String message) throws FailedToLogException {
+        File file = new File(DB_PATH);
+        try (FileWriter fr = new FileWriter(file, false)) {
             fr.write(message);
-            fr.close();
-        } catch( IOException e){
+        } catch (IOException e) {
             throw new FailedToLogException("Failed to save a log to a file");
         }
     }
