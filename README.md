@@ -528,7 +528,7 @@ Mimo że liczba zależności znacznie się zwiększyła, to nadal zachowaliśmy 
 
 Poniżej przedstawiamy przykładowe działanie aplikacji. Pokażemy każdy z możliwych wariantów.
 
-#### Stan początkowy aplikacji
+#### Wyszukanie dla jednego miasta
 
 <p align="center">
   <img src="./Screens/weather_app_M3.png" alt="Tutaj jest zdjęcie aplikacji" width="600">
@@ -549,12 +549,44 @@ Możemy zauważyć, że dane jak poprzednio są mergowane za pomocą WeatherData
 
 Od teraz możemy sprawdzać pogodę w 5 miejscach jednocześnie.
 
+#### Wyszukanie dla koordynatów
+
+<p align="center">
+  <img src="./Screens/weather_app_M3_coord.png" alt="Tutaj jest zdjęcie aplikacji" width="600">
+
+Możemy także sprawdzać pogodę po koordynatach geograficznych. Działa to analogicznie jak w przypadku nazwy miasta.
+
 #### Ulubione miejsca
 
 <p align="center">
   <img src="./Screens/weather_app_M3_favourites.png" alt="Tutaj jest zdjęcie aplikacji" width="600">
 
 Możemy także dodawać ulubione miejsca, aby łatwo sprawdzić pogodę w swoich ulubionych miejscach.
+
+### Co z perspektywy czasu moglibyśmy zrobić lepiej?
+
+Z perspektywy czasu, mogliśmy pomyśleć nad wykorzystaniem innego wzorca projektowego np. MVVC.
+Mogliśmy także, lepiej rozplanowywać czas, aby nie zostawiać wszystkiego na ostatnią chwilę.
+Warto także wspomnieć, że mogliśmy od razu przygotowywać się pod niektóre zmiany, które pojawiły się w kolejnych Milestone'ach.
+
+### Jakie problemy napotkaliśmy?
+
+Największym problemem, z którym się spotkaliśmy, było dodanie możliwości wyboru 5 miejsc. Wymagało to zmiany wielu klas, a także dodania nowych. Dodatkowo musieliśmy zmodyfikować widok, aby wyświetlał dane w odpowiedni sposób.
+Problematyczne było również pisanie testów, gdyż nie wszystko dało się przetestować. Musieliśmy użyć mockito, ale czasem problem wynikał z prywatności metod.
+Wiele kłopotów sprawiło nam także dodanie możliwości wyboru godziny, gdyż musieliśmy zmodyfikować widok, a także dodać klasy, które pomogły nam w pobieraniu prognozy pogody.
+
+### Które części były najprzyjemniejsze do pisania?
+
+Bardzo przyjemnie dodawało się elementy, które mogliśmy już zobaczyć w naszej aplikacji, np. ikonki albo całą prognozę pogody.
+Również pisanie testów było całkiem ciekawe i rozwijające, jednak jak wyżej wspomnieliśmy, nie wszystko dało się przetestować.
+Myślimy, że także dodawanie ulubionych miejsc było całkiem przyjemne, gdyż mogliśmy zobaczyć, że nasza aplikacja jest coraz bardziej funkcjonalna.
+
+### Czy przerwa świąteczna miała wpływ na pracę nad projektem?
+
+Przerwa zdecydowanie miała wpływ na pracę nad projektem. Z jednej strony mogliśmy odpocząć od projektu, jednak po czasie nie wszystko w kodzie jest takie oczywiste, jak było.
+Jak to studenci mają w zwyczaju, zostawiliśmy wszystko na ostatnią chwilę, co nie było najlepszym pomysłem. Warto było wcześniej zacząć pracę nad projektem, przynajmniej ten dzień wcześniej.
+Jednak koniec konców udało nam się zrealizować wszystkie założenia, które sobie postawiliśmy.
+
 
 ### Podsumowanie
 
