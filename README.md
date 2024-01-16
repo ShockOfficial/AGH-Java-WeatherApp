@@ -587,6 +587,13 @@ Przerwa zdecydowanie miała wpływ na pracę nad projektem. Z jednej strony mogl
 Jak to studenci mają w zwyczaju, zostawiliśmy wszystko na ostatnią chwilę, co nie było najlepszym pomysłem. Warto było wcześniej zacząć pracę nad projektem, przynajmniej ten dzień wcześniej.
 Jednak koniec konców udało nam się zrealizować wszystkie założenia, które sobie postawiliśmy.
 
+### Czego się nauczyliśmy?
+
+Na pewno nauczyliśmy się, że warto wcześniej zacząć pracę nad projektem, aby nie zostawiać wszystkiego na ostatnią chwilę.
+Myślimy, że także nauczyliśmy się, że warto pisać testy, gdyż ułatwiają one pracę nad projektem. Przy okazji testów, nauczyliśmy się także korzystać z mockito, co było bardzo przydatne.
+Co więcej, nauczyliśmy się pisać testy dla widoków. Wydawało nam się to początkowo niepotrzebne, jednak z perspektywy czasu jest to bardzo ważne.
+Myślimy, że także nauczyliśmy się, że warto pisać kod w taki sposób, aby był łatwy w rozbudowie. Dzięki temu mogliśmy łatwo dodawać nowe funkcjonalności.
+Dowiedzieliśmy się także, że nie warto tworzyć klas statycznych oraz tworzyć elementów zależnych od stanu aplikacji.
 
 ### Podsumowanie
 
