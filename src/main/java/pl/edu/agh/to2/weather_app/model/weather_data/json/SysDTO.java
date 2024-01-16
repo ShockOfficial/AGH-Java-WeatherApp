@@ -6,6 +6,7 @@ public class SysDTO {
     private String country;
     private long sunrise;
     private long sunset;
+    private String pod;
 
     public int getType() {
         return type;

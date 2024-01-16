@@ -24,4 +24,16 @@ class FXMLLoaderUtilityTest extends ApplicationTest {
         // then
         assertNotNull(root);
     }
+
+    @Test
+    void testLoadFavouritesView() throws IOException {
+        // given
+        IWeatherModel mockWeatherModel = mock(IWeatherModel.class);
+
+        // when
+        Parent root = FXMLLoaderUtility.loadFavouritesView();
+
+        // then
+        assertNotNull(root);
+    }
 }

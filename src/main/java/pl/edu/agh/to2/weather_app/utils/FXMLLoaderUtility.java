@@ -5,12 +5,23 @@ import com.google.inject.Injector;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import pl.edu.agh.to2.weather_app.model.WeatherModule;
+import pl.edu.agh.to2.weather_app.presenter.impl.FavouritesPresenterImpl;
 import pl.edu.agh.to2.weather_app.presenter.impl.WeatherPresenterImpl;
+import pl.edu.agh.to2.weather_app.view.FavouritesView;
 import pl.edu.agh.to2.weather_app.view.WeatherView;
 import java.io.IOException;
 import java.net.URL;
 
 public class FXMLLoaderUtility {
+    private static final WeatherPresenterImpl weatherPresenter;
+    private static final FavouritesPresenterImpl favouritesPresenter;
+
+    static {
+        Injector injector = Guice.createInjector(new WeatherModule());
+        weatherPresenter = injector.getInstance(WeatherPresenterImpl.class);
+        favouritesPresenter = injector.getInstance(FavouritesPresenterImpl.class);
+        favouritesPresenter.setWeatherPresenter(weatherPresenter);
+    }
     private FXMLLoaderUtility(){}
 
     public static Parent loadMainView() throws IOException {
@@ -22,15 +33,27 @@ public class FXMLLoaderUtility {
         FXMLLoader loader = new FXMLLoader(fxmlResource);
         Parent root = loader.load();
 
-
-        Injector injector = Guice.createInjector(new WeatherModule());
-        WeatherPresenterImpl presenter = injector.getInstance(WeatherPresenterImpl.class);
-
         WeatherView viewController = loader.getController();
-
-        presenter.setView(viewController);
-        viewController.setPresenter(presenter);
+        weatherPresenter.setView(viewController);
+        viewController.setPresenter(weatherPresenter);
 
         return root;
+    }
+
+    public static Parent loadFavouritesView() throws IOException {
+        URL fxmlResource = FXMLLoaderUtility.class.getResource("/weatherApp/favouritesView.fxml");
+        if (fxmlResource == null) {
+            throw new IOException("FXML file for favourites not found");
+        }
+
+        FXMLLoader loader = new FXMLLoader(fxmlResource);
+        loader.load();
+
+        FavouritesView viewController = loader.getController();
+        favouritesPresenter.setWeatherPresenter(weatherPresenter);
+        favouritesPresenter.setView(viewController);
+        viewController.setPresenter(favouritesPresenter);
+
+        return loader.getRoot();
     }
 }
